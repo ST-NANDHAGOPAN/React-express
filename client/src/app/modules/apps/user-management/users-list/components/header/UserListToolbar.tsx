@@ -3,9 +3,10 @@ import {useListView} from '../../core/ListViewProvider'
 import {UsersListFilter} from './UsersListFilter'
 
 const UsersListToolbar = () => {
-  const {setItemIdForUpdate} = useListView()
+  const {setItemIdForUpdate ,setIsEdit} = useListView()
   const openAddUserModal = () => {
     setItemIdForUpdate(null)
+    setIsEdit(false)
   }
 
   return (

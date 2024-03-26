@@ -59,7 +59,9 @@ export type QueryResponseContextProps<T> = {
 export const initialQueryResponse = {refetch: () => {}, isLoading: false, query: ''}
 
 export type ListViewContextProps = {
+  isedit : boolean
   selected: Array<ID>
+  setIsEdit :Dispatch<SetStateAction<boolean>>
   onSelect: (selectedId: ID) => void
   onSelectAll: () => void
   clearSelected: () => void
@@ -78,6 +80,8 @@ export const initialListView: ListViewContextProps = {
   onSelectAll: () => {},
   clearSelected: () => {},
   setItemIdForUpdate: () => {},
+  setIsEdit :() => {},
   isAllSelected: false,
   disabled: false,
+  isedit : false ,
 }

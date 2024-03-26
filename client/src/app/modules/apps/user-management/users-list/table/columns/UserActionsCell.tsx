@@ -11,7 +11,7 @@ type Props = {
 }
 
 const UserActionsCell: FC<Props> = ({ id }) => {
-  const { setItemIdForUpdate } = useListView()
+  const { setItemIdForUpdate ,setIsEdit } = useListView()
   const { query } = useQueryResponse()
   const queryClient = useQueryClient()
 
@@ -21,6 +21,7 @@ const UserActionsCell: FC<Props> = ({ id }) => {
 
   const openEditModal = () => {
     setItemIdForUpdate(id)
+    setIsEdit(true)
   }
 
   const deleteItem = useMutation(() => deleteUser(id), {
