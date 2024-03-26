@@ -25,12 +25,6 @@ const SidebarMenuMain = () => {
         fontIcon='bi-layers'
       />
       <SidebarMenuItem
-        to='/event-management/event'
-        icon='abstract-2'
-        title='Event management'
-        fontIcon='bi-layers'
-      />
-      <SidebarMenuItem
         to='/seat-management/seat'
         icon='abstract-3'
         title='Seat management'
@@ -39,13 +33,13 @@ const SidebarMenuMain = () => {
       <SidebarMenuItem
         to='/fabric-management/fabric'
         icon='abstract-18'
-        title='Fabricjs'
+        title='Fabric JS'
         fontIcon='bi-layers'
       />
       <SidebarMenuItem
         to='/konva-management/konva'
         icon='abstract-35'
-        title='konvajs'
+        title='konva JS'
         fontIcon='bi-layers'
       />
     </>

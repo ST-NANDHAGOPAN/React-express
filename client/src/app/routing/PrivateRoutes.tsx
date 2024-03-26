@@ -8,7 +8,6 @@ import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 
 const PrivateRoutes = () => {
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
-  const EventsPage = lazy(() => import('../modules/apps/event-management/EventsPage'))
   const SeatPage = lazy(() => import('../modules/apps/seat-management/SeatPage'))
   const FabricPage = lazy(() => import('../modules/apps/fabricjs/FabricPage'))
   const KonvaPage = lazy(() => import('../modules/apps/konvajs/KonvaPage'))
@@ -19,14 +18,6 @@ const PrivateRoutes = () => {
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         <Route path='dashboard' element={<DashboardWrapper />} />
         {/* Lazy Loading */}
-        <Route
-          path='/event-management/*'
-          element={
-            <SuspensedView>
-              <EventsPage />
-            </SuspensedView>
-          }
-        />
         <Route
           path='/user-management/*'
           element={

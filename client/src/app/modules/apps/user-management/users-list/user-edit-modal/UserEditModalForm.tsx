@@ -1,7 +1,7 @@
 import {FC, useState} from 'react'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
-import {isNotEmpty, toAbsoluteUrl} from '../../../../../../_metronic/helpers'
+import {isNotEmpty} from '../../../../../../_metronic/helpers'
 import {initialUser, User} from '../core/_models'
 import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
@@ -51,11 +51,9 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
     validationSchema: editUserSchema,
     onSubmit: async (values, {setSubmitting}) => {
       setSubmitting(true)
-      console.log("values",values ,isNotEmpty(values.id));
       
       try {
-        if (isNotEmpty(values.id)) {
-
+        if (isNotEmpty(values._id)) {
           await updateUser(values)
         } else {
           await createUser(values)

@@ -8,7 +8,9 @@ export function MenuInner() {
       <MenuInnerWithSub title='Apps' to='/apps' menuPlacement='bottom-start' menuTrigger='click'>
         {/* PAGES */}
         <MenuItem icon='abstract-28' to='/user-management/users' title='User management' />
-        <MenuItem icon='abstract-29' to='/event-management/event' title='Event management' />
+        <MenuItem icon='abstract-3' to='/seat-management/seat' title='Seat management' />
+        <MenuItem icon='abstract-18' to='/fabric-management/fabric' title='Fabric JS' />
+        <MenuItem icon='abstract-35' to='/konva-management/konva' title='Konva JS' />
       </MenuInnerWithSub>
       <MenuInnerWithSub
         isMega={true}
