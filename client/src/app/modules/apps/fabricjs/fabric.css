@@ -1,0 +1,27 @@
+.canvas-container {
+  border: 3px solid Green;
+}
+
+.canvas-container.dotted-border {
+  border: 3px dotted Green;
+}
+.sample-canvas{
+ height: 500px;
+}
+.polygon-options-container {
+  position: relative;
+}
+
+.polygon-options-modal {
+  position: absolute;
+  top: 0;
+  left: 30px;
+}
+
+.polygon-options-modal button {
+  margin-right: 5px;
+}
+
+.polygon-options-modal button:last-child {
+  margin-right: 0;
+}
