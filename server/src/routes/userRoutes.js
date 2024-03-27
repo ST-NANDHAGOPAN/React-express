@@ -1,12 +1,6 @@
 const express = require("express");
-const router = express().Router();
+const router = express.Router();
 const userController = require('../controllers/userController');
-const multer = require("multer")
-const upload = multer.diskStorage({
-    destination : (req,res) => {
-        
-    }
-})
 
 // GET all users
 router.get("/", userController.getAllUsers);
