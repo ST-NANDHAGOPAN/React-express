@@ -5,14 +5,16 @@ export type User = {
   email?: string
   age?: string
   address?: string
-  
+  image?:File | null; 
 }
 
 export type UsersQueryResponse = Response<Array<User>>
 
 export const initialUser: User = {
+  _id:'',
   name: '',
   email: '',
   age: '',
   address: '',
+  image:null
 }

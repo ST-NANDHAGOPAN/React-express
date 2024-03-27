@@ -191,3 +191,7 @@
     opacity: $form-check-btn-check-disabled-opacity;
   }
 }
+.disabled-input {
+  background-color: #9d9696!important; /* Lighter background color */
+  cursor: not-allowed; /* Show disabled cursor */
+}

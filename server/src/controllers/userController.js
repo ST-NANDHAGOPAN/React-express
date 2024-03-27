@@ -1,4 +1,6 @@
 const UserModel = require('../models/userModel');
+const fs = require("fs")
+const path = require("path")
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -20,13 +22,26 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
+  console.log( "body" ,req.body,"file" , req.file );
   try {
     const { name, age, email, address } = req.body;
+    if (!req.file) {
+      throw new Error("No file uploaded");
+    }
+    const  filename  = req.file.originalname; 
+    const fileData = req.file.buffer;
+    const uploadDir = path.join(__dirname , ".." , ".." , "public" , "uploads");
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    fs.writeFileSync(path.join(uploadDir, filename), fileData);
+
     const postData = new UserModel({
       name: name,
       age: age,
       email: email,
       address: address,
+      image :filename,
     });
     await postData.save();
     const responseData = {
@@ -40,6 +55,7 @@ exports.createUser = async (req, res) => {
 };
 
 exports.updateUserById = async (req, res) => {
+  console.log( "body" ,req.body,"file" , req.file  ,"req",req);
   try {
     const id = req.params.id;
     const { name, age, email, address } = req.body;

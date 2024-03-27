@@ -1,13 +1,13 @@
-import {FC, useState} from 'react'
+import { FC, useState } from 'react'
 import * as Yup from 'yup'
-import {useFormik} from 'formik'
-import {isNotEmpty} from '../../../../../../_metronic/helpers'
-import {initialUser, User} from '../core/_models'
+import { useFormik } from 'formik'
+import { isNotEmpty } from '../../../../../../_metronic/helpers'
+import { initialUser, User } from '../core/_models'
 import clsx from 'clsx'
-import {useListView} from '../core/ListViewProvider'
-import {UsersListLoading} from '../components/loading/UsersListLoading'
-import {createUser, updateUser} from '../core/_requests'
-import {useQueryResponse} from '../core/QueryResponseProvider'
+import { useListView } from '../core/ListViewProvider'
+import { UsersListLoading } from '../components/loading/UsersListLoading'
+import { createUser, updateUser } from '../core/_requests'
+import { useQueryResponse } from '../core/QueryResponseProvider'
 
 type Props = {
   isUserLoading: boolean
@@ -26,16 +26,18 @@ const editUserSchema = Yup.object().shape({
     .required('Name is required'),
 })
 
-const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
-    const {setItemIdForUpdate} = useListView()
-  const {refetch} = useQueryResponse()
+const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
+  const { isedit, setItemIdForUpdate } = useListView()
+  const { refetch } = useQueryResponse()
 
-  const [userForEdit] = useState<User>({
+  const [userForEdit, setUserForEdit] = useState<User>({
     ...user,
+    _id : user._id  || initialUser._id ,
     name: user.name || initialUser.name,
     email: user.email || initialUser.email,
     age: user.age || initialUser.age,
     address: user.address || initialUser.address,
+    image: user.image || initialUser.image,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -45,31 +47,83 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
     setItemIdForUpdate(undefined)
   }
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const imageFile = event.target.files[0]
+      setUserForEdit((prevUser) => ({
+        ...prevUser,
+        image: imageFile,
+      }))
+    }
 
+  }
   const formik = useFormik({
     initialValues: userForEdit,
     validationSchema: editUserSchema,
-    onSubmit: async (values, {setSubmitting}) => {
-      setSubmitting(true)
+    onSubmit: async (values, { setSubmitting }) => {
+      console.log("values",values);
       
+      setSubmitting(true);
       try {
+        const formData = new FormData();
+        if (userForEdit.image) {
+          formData.append("image", userForEdit.image as Blob); // Cast userForEdit.image to Blob
+        }
+
+        Object.entries(values).forEach(([key, value]) => {
+          if (key !== "image" && value !== null && value !== undefined) {
+            formData.append(key, value); // Convert value to string and append
+          }
+        });
+      
         if (isNotEmpty(values._id)) {
-          await updateUser(values)
+          await updateUser(formData,values._id);
         } else {
-          await createUser(values)
+          await createUser(formData);
         }
       } catch (ex) {
-        console.error(ex)
+        console.error(ex);
       } finally {
-        setSubmitting(true)
-        cancel(true)
+        setSubmitting(false);
+        cancel(true);
       }
     },
-  })
+  });
+
+
+
 
   return (
     <>
       <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit} noValidate>
+        {isedit &&
+          <div className='fv-row mb-7'>
+            <label className='required fw-bold fs-6 mb-2'>ID</label>
+            <input
+              placeholder='Full name'
+              {...formik.getFieldProps('_id')}
+              type='text'
+              name='_id'
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0 disabled-input',
+                { 'is-invalid': formik.touched._id && formik.errors._id },
+                {
+                  'is-valid': formik.touched._id && !formik.errors._id,
+                },
+              )}
+              autoComplete='off'
+              disabled={true}
+              readOnly
+            />
+            {formik.touched._id && formik.errors._id && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors._id}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        }
         <div
           className='d-flex flex-column scroll-y me-n7 pe-7'
           id='kt_modal_add_user_scroll'
@@ -81,15 +135,34 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
           data-kt-scroll-offset='300px'
         >
           <div className='fv-row mb-7'>
+            <label className='fw-bold fs-6 mb-2'>Image</label>
+            <input
+              title='image'
+              type='file'
+              accept='image/*'
+              onChange={handleImageChange}
+              className='form-control form-control-solid mb-3 mb-lg-0'
+              disabled={formik.isSubmitting || isUserLoading}
+            />
+            {userForEdit.image && ( // Display image preview if available
+              <img
+                src={URL.createObjectURL(userForEdit.image)} // Convert File to URL string
+                alt='Preview'
+                style={{ maxWidth: '100px', maxHeight: '100px', marginTop: '5px' }}
+              />
+            )}
+          </div>
+
+          <div className='fv-row mb-7'>
             <label className='required fw-bold fs-6 mb-2'>Name</label>
-               <input
+            <input
               placeholder='Full name'
               {...formik.getFieldProps('name')}
               type='text'
               name='name'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                {'is-invalid': formik.touched.name && formik.errors.name},
+                { 'is-invalid': formik.touched.name && formik.errors.name },
                 {
                   'is-valid': formik.touched.name && !formik.errors.name,
                 }
@@ -105,16 +178,16 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
               </div>
             )}
           </div>
-         
+
           <div className='fv-row mb-7'>
-          
+
             <label className='required fw-bold fs-6 mb-2'>Email</label>
             <input
               placeholder='Email'
               {...formik.getFieldProps('email')}
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                {'is-invalid': formik.touched.email && formik.errors.email},
+                { 'is-invalid': formik.touched.email && formik.errors.email },
                 {
                   'is-valid': formik.touched.email && !formik.errors.email,
                 }
@@ -140,7 +213,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
               name='age'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                {'is-invalid': formik.touched.age && formik.errors.age},
+                { 'is-invalid': formik.touched.age && formik.errors.age },
                 {
                   'is-valid': formik.touched.age && !formik.errors.age,
                 }
@@ -157,7 +230,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             )}
           </div>
 
-           <div className='fv-row mb-7'>
+          <div className='fv-row mb-7'>
             <label className='required fw-bold fs-6 mb-2'>Address</label>
             <input
               placeholder='Address'
@@ -166,7 +239,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
               name='address'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                {'is-invalid': formik.touched.address && formik.errors.address},
+                { 'is-invalid': formik.touched.address && formik.errors.address },
                 {
                   'is-valid': formik.touched.address && !formik.errors.address,
                 }
@@ -217,4 +290,4 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
   )
 }
 
-export {UserEditModalForm}
+export { UserEditModalForm }

@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   age: String,
   email: String,
   address: String,
+  image:String,
 });
 
 const UserModel = mongoose.model("crud-operation", userSchema);

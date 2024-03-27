@@ -16,16 +16,24 @@ const getUserById = (id: ID): Promise<User | undefined> => {
     .then((response: Response<User>) => response.data)
 }
 
-const createUser = (user: User): Promise<User | undefined> => {
+const createUser = (userFormData: FormData): Promise<User | undefined> => {
   return axios
-    .post(`${GET_USERS_URL}`, user)
+    .post(`${GET_USERS_URL}`, userFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data' 
+      }
+    })
     .then((response: AxiosResponse<Response<User>>) => response.data)
     .then((response: Response<User>) => response.data)
-}
+    }
 
-const updateUser = (user: User): Promise<User | undefined> => {
+const updateUser = (user: FormData ,id : ID): Promise<User | undefined> => {  
   return axios
-    .put(`${GET_USERS_URL}/${user._id}`, user)
+    .put(`${GET_USERS_URL}/${id}`, user,{
+      headers: {
+        'Content-Type': 'multipart/form-data' 
+      }
+    })
     .then((response: AxiosResponse<Response<User>>) => response.data)
     .then((response: Response<User>) => response.data)
 }

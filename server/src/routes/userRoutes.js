@@ -1,7 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const userController = require('../controllers/userController');
+const multer = require("multer")
 
+const storage = multer.memoryStorage()
+
+const uploads = multer({
+    storage : storage
+}).single("image")
 // GET all users
 router.get("/", userController.getAllUsers);
 
@@ -9,10 +15,10 @@ router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserById);
 
 // Create a new user
-router.post("/", userController.createUser);
+router.post("/",uploads, userController.createUser);
 
 // Update user by ID
-router.put("/:id", userController.updateUserById);
+router.put("/:id",uploads, userController.updateUserById);
 
 // Delete user by ID
 router.delete("/:id", userController.deleteUserById);
