@@ -25,7 +25,7 @@ const AppRoutes: FC = () => {
               <Route path='/*' element={<PrivateRoutes />} />
               <Route index element={<Navigate to='/dashboard' />} />
             </>
-          ) : currentUser?.email ? (
+          ) : currentUser ? (
             <>
              <Route path='/*' element={<UserRoutes />} />
               <Route index element={<Navigate to='/usercomponent' />} />

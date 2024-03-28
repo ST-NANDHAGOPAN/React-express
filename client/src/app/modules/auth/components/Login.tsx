@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { getUserByToken, login } from '../core/_requests'
+import { getUserByToken, adminLogin, userLogin } from '../core/_requests'
 import { toAbsoluteUrl } from '../../../../_metronic/helpers'
 import { useAuth } from '../core/Auth'
 export interface LoginProps {
@@ -44,13 +44,21 @@ function Login({ userType }: LoginProps) {
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true)
       if (userType === "user") {
-        setCurrentUser({
-          email: values.email,
-          password: values.password
-        })
+        try {
+          const { data: auth } = await userLogin(values.email, values.password)
+          saveAuth(auth)
+          const { data: user } = await getUserByToken(auth.token)
+          setCurrentUser (user)
+        } catch (error) {
+          console.error(error)
+          saveAuth(undefined)
+          setStatus('The login details are incorrect')
+          setSubmitting(false)
+          setLoading(false)
+        }
       } else {
         try {
-          const { data: auth } = await login(values.email, values.password)
+          const { data: auth } = await adminLogin(values.email, values.password)
           saveAuth(auth)
           const { data: user } = await getUserByToken(auth.token)
           setCurrentAdmin(user)
