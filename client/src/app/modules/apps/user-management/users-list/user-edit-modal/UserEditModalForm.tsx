@@ -32,7 +32,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 
   const [userForEdit, setUserForEdit] = useState<User>({
     ...user,
-    _id : user._id  || initialUser._id ,
+    _id: user._id || initialUser._id,
     name: user.name || initialUser.name,
     email: user.email || initialUser.email,
     age: user.age || initialUser.age,
@@ -61,8 +61,8 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     initialValues: userForEdit,
     validationSchema: editUserSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("values",values);
-      
+      console.log("values", values);
+
       setSubmitting(true);
       try {
         const formData = new FormData();
@@ -75,9 +75,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             formData.append(key, value); // Convert value to string and append
           }
         });
-      
+
         if (isNotEmpty(values._id)) {
-          await updateUser(formData,values._id);
+          await updateUser(formData, values._id);
         } else {
           await createUser(formData);
         }
@@ -144,9 +144,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
               className='form-control form-control-solid mb-3 mb-lg-0'
               disabled={formik.isSubmitting || isUserLoading}
             />
-            {userForEdit.image && ( // Display image preview if available
+            {userForEdit.image && userForEdit.image.type && userForEdit.image.type.startsWith('image/') && (
               <img
-                src={URL.createObjectURL(userForEdit.image)} // Convert File to URL string
+                src={URL.createObjectURL(userForEdit.image)}
                 alt='Preview'
                 style={{ maxWidth: '100px', maxHeight: '100px', marginTop: '5px' }}
               />

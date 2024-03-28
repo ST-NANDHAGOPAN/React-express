@@ -8,7 +8,13 @@ exports.getAllUsers = async (req, res) => {
     const pageIndex = parseInt(req.query.page) || 1; 
     const skip = limit * (pageIndex - 1); 
 
-    const data = await UserModel.find().limit(limit).skip(skip);
+    let sort = {};
+    const sortBy = req.query.sort || 'createdAt'; // Default sorting by createdAt
+    const sortOrder = req.query.order === 'desc' ? -1 : 1; // Default order is ascending
+
+    sort[sortBy] = sortOrder;
+
+    const data = await UserModel.find().sort(sort).limit(limit).skip(skip);
     const totalData = await UserModel.countDocuments();
     const totalDataReceived = data.length
     const totalPages = Math.ceil(totalData / limit); 
@@ -60,6 +66,7 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ message: "Internal error: " + error });
   }
 };
+
 
 exports.getUserById = async (req, res) => {
   try {
