@@ -16,13 +16,10 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     Header: (props) => <UserCustomHeader tableProps={props} title='Image' className='min-w-125px' />,
     accessor: 'image',
     Cell: ({ ...props }) => {
-      console.log("props",props.data[props.row.index].image);
       const file = props.data[props.row.index].image
       let prdImg = logo;
       try {
           prdImg = require(`../../../../../../../../../server/public/uploads/${file}`);
-          console.log("prdImg",prdImg);
-          
       } catch (err) {
         // Just Leave it empty
         // console.error("Error loading product image:", err);

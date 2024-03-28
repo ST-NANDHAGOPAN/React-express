@@ -18,7 +18,8 @@ const UsersTable = () => {
     columns,
     data,
   })
-
+  console.log("users",users);
+  
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
