@@ -1,12 +1,12 @@
 // controllers/adminController.js
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const {AdminRegisterModel} = require("../authModels/AdminModels");
+const AuthModel = require("../models/authModel");
 
 exports.adminLogin = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const admin = await AdminRegisterModel.findOne({ email });
+        const admin = await AuthModel.AdminRegisterModel.findOne({ email });
         const isPasswordValid = await bcrypt.compare(password, admin.password);
 
         if (!admin || !isPasswordValid) {
@@ -28,7 +28,7 @@ exports.adminRegister = async (req, res) => {
         if (password !== password_confirmation) {
             return res.status(400).json({ error: 'Passwords do not match' });
         }
-        const existingAdmin = await AdminRegisterModel.findOne({ email });
+        const existingAdmin = await AuthModel.AdminRegisterModel.findOne({ email });
         if (existingAdmin) {
             return res.status(400).json({ error: 'An admin with this email already exists' });
         }
