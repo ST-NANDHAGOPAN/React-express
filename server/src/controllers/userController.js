@@ -4,8 +4,58 @@ const path = require("path")
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const data = await UserModel.find();
-    res.json({ data: data, message: "Data GET Success" });
+    const limit = parseInt(req.query.items_per_page) || 10; 
+    const pageIndex = parseInt(req.query.page) || 1; 
+    const skip = limit * (pageIndex - 1); 
+
+    const data = await UserModel.find().limit(limit).skip(skip);
+    const totalData = await UserModel.countDocuments();
+    const totalDataReceived = data.length
+    const totalPages = Math.ceil(totalData / limit); 
+
+    const pagination = {
+      page: pageIndex,
+      first_page_url: `/?page=1`,
+      from: skip + 1,
+      last_page: totalPages,
+      links: [],
+      next_page_url: pageIndex < totalPages ? `/?page=${pageIndex + 1}` : null,
+      items_per_page: limit.toString(),
+      prev_page_url: pageIndex > 1 ? `/?page=${pageIndex - 1}` : null,
+      to: skip + data.length,
+      totalData: totalData ,
+      totalDataReceived: totalDataReceived
+    };
+
+    // Generating links for pagination
+    if (pageIndex > 1) {
+      pagination.links.push({
+        url: `/?page=${pageIndex - 1}`,
+        label: "&laquo; Previous",
+        active: false,
+        page: pageIndex - 1
+      });
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+      pagination.links.push({
+        url: i === pageIndex ? null : `/?page=${i}`,
+        label: i.toString(),
+        active: i === pageIndex,
+        page: i
+      });
+    }
+
+    if (pageIndex < totalPages) {
+      pagination.links.push({
+        url: `/?page=${pageIndex + 1}`,
+        label: "Next &raquo;",
+        active: false,
+        page: pageIndex + 1
+      });
+    }
+
+    res.json({ pagination: pagination, data: data, message: "Data GET Success" });
   } catch (error) {
     res.status(500).json({ message: "Internal error: " + error });
   }

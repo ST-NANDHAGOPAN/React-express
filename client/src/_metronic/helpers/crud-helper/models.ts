@@ -4,8 +4,9 @@ export type ID = undefined | null | string
 
 export type PaginationState = {
   page: number
-  items_per_page: 10 | 30 | 50 | 100
+  items_per_page: 6
   links?: Array<{label: string; active: boolean; url: string | null; page: number | null}>
+  last_page : number
 }
 
 export type SortState = {
@@ -23,13 +24,7 @@ export type SearchState = {
 
 export type Response<T> = {
   data?: T
-  payload?: {
-    message?: string
-    errors?: {
-      [key: string]: Array<string>
-    }
-    pagination?: PaginationState
-  }
+  pagination?: PaginationState
 }
 
 export type QueryState = PaginationState & SortState & FilterState & SearchState
@@ -41,7 +36,8 @@ export type QueryRequestContextProps = {
 
 export const initialQueryState: QueryState = {
   page: 1,
-  items_per_page: 10,
+  items_per_page: 6,
+  last_page : 1
 }
 
 export const initialQueryRequest: QueryRequestContextProps = {

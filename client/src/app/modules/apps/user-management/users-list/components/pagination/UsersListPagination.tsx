@@ -1,32 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import {useQueryResponseLoading, useQueryResponsePagination} from '../../core/QueryResponseProvider'
-import {useQueryRequest} from '../../core/QueryRequestProvider'
-import {PaginationState} from '../../../../../../../_metronic/helpers'
-import {useMemo} from 'react'
+import { useQueryResponseLoading, useQueryResponsePagination } from '../../core/QueryResponseProvider'
+import { useQueryRequest } from '../../core/QueryRequestProvider'
+import { PaginationState } from '../../../../../../../_metronic/helpers'
+import { useMemo } from 'react'
 
 const mappedLabel = (label: string): string => {
   if (label === '&laquo; Previous') {
-    return 'Previous'
+    return 'Previous';
   }
 
   if (label === 'Next &raquo;') {
-    return 'Next'
+    return 'Next';
   }
 
-  return label
-}
+  return label;
+};
+
 
 const UsersListPagination = () => {
   const pagination = useQueryResponsePagination()
   const isLoading = useQueryResponseLoading()
-  const {updateState} = useQueryRequest()
+  const { updateState } = useQueryRequest()
   const updatePage = (page: number | undefined | null) => {
     if (!page || isLoading || pagination.page === page) {
       return
     }
 
-    updateState({page, items_per_page: pagination.items_per_page || 10})
+    updateState({ page, items_per_page: pagination.items_per_page || 10 })
   }
 
   const PAGINATION_PAGES_COUNT = 5
@@ -43,9 +44,9 @@ const UsersListPagination = () => {
       url: string | null
       page: number | null
     }> = []
-    let previousLink: {label: string; active: boolean; url: string | null; page: number | null} =
+    let previousLink: { label: string; active: boolean; url: string | null; page: number | null } =
       scopedLinks.shift()!
-    let nextLink: {label: string; active: boolean; url: string | null; page: number | null} =
+    let nextLink: { label: string; active: boolean; url: string | null; page: number | null } =
       scopedLinks.pop()!
 
     const halfOfPagesCount = Math.floor(PAGINATION_PAGES_COUNT / 2)
@@ -112,35 +113,37 @@ const UsersListPagination = () => {
                 return {...link, label: mappedLabel(link.label)}
               })
               .map((link) => (
-                <li
-                  key={link.label}
-                  className={clsx('page-item', {
-                    active: pagination.page === link.page,
-                    disabled: isLoading,
-                    previous: link.label === 'Previous',
-                    next: link.label === 'Next',
-                  })}
-                >
-                  <a
-                    className={clsx('page-link', {
-                      'page-text': link.label === 'Previous' || link.label === 'Next',
-                      'me-5': link.label === 'Previous',
+                  <li
+                    key={link.label}
+                    className={clsx('page-item', {
+                      active: pagination.page === link.page,
+                      disabled: isLoading,
+                      previous: link.label === 'Previous',
+                      next: link.label === 'Next',
                     })}
-                    onClick={() => updatePage(link.page)}
-                    style={{cursor: 'pointer'}}
                   >
-                    {mappedLabel(link.label)}
-                  </a>
-                </li>
-              ))}
+                    <a
+                      className={clsx('page-link', {
+                        'page-text': link.label === 'Previous' || link.label === 'Next',
+                        'me-5': link.label === 'Previous',
+                      })}
+                      onClick={() => updatePage(link.page)}
+                      style={{cursor: 'pointer'}}
+                    >
+                      {mappedLabel(link.label)}
+                    </a>
+                  </li>
+                ))}
             <li
               className={clsx('page-item', {
-                disabled: isLoading || pagination.page === pagination.links?.length! - 2,
+                disabled: isLoading || pagination.page === pagination.last_page,
               })}
             >
               <a
-                onClick={() => updatePage(pagination.links?.length! - 2)}
-                style={{cursor: 'pointer'}}
+                onClick={() => {
+                  updatePage(pagination.last_page)
+                }}
+                style={{ cursor: 'pointer' }}
                 className='page-link'
               >
                 Last
@@ -153,4 +156,4 @@ const UsersListPagination = () => {
   )
 }
 
-export {UsersListPagination}
+export { UsersListPagination }

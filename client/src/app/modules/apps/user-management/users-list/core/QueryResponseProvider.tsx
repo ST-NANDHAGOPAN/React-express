@@ -63,11 +63,11 @@ const useQueryResponsePagination = () => {
   }
 
   const {response} = useQueryResponse()
-  if (!response || !response.payload || !response.payload.pagination) {
+  if (!response || !response.pagination) {    
     return defaultPaginationState
   }
 
-  return response.payload.pagination
+  return response.pagination
 }
 
 const useQueryResponseLoading = (): boolean => {

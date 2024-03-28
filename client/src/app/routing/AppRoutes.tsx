@@ -14,7 +14,6 @@ import { UserRoutes } from './UserRoutes'
 
 const AppRoutes: FC = () => {
   const {currentAdmin , currentUser} = useAuth()
-  console.log("currentAdmin",currentAdmin ,"currentUser" ,currentUser);
   
   return (
     <BrowserRouter basename="/webadmin">
