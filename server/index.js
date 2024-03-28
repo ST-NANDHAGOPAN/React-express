@@ -8,6 +8,7 @@ require("dotenv").config();
 
 // cors config
 const cors = require("cors");
+const authRoutes = require("./src/auth/authRoutes");
 app.use(
   cors()
 );
@@ -25,7 +26,7 @@ db.on("error", console.error.bind(console, "Connection error : "));
 db.once("open", () => {
   console.log("Connected to MongoDB");
 });
-
+authRoutes(app)
 routes(app)
 
 

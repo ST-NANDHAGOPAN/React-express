@@ -70,7 +70,7 @@ export function Registration({userType}:LoginProps) {
           values.changepassword
         )
         saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
+        const {data: user} = await getUserByToken(auth.token)
         setCurrentAdmin(user)
       } catch (error) {
         console.error(error)

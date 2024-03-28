@@ -1,4 +1,4 @@
-const UserModel = require('../models/userModel');
+const UserModel = require('../models/UserModel');
 const fs = require("fs")
 const path = require("path")
 
@@ -93,14 +93,7 @@ exports.createUser = async (req, res) => {
     }
     fs.writeFileSync(path.join(uploadDir, filename), fileData);
 
-    const postData = new UserModel({
-      name: name,
-      age: age,
-      email: email,
-      address: address,
-      image :filename,
-    });
-    await postData.save();
+   
     const responseData = {
       receivedData: postData,
       message: "Data Received Successfully",
