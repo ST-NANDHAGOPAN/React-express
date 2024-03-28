@@ -5,7 +5,6 @@ const {AdminRegisterModel} = require("../authModels/AdminModels");
 
 exports.adminLogin = async (req, res) => {
     const { email, password } = req.body;
-
     try {
         const admin = await AdminRegisterModel.findOne({ email });
         const isPasswordValid = await bcrypt.compare(password, admin.password);
@@ -25,20 +24,15 @@ exports.adminLogin = async (req, res) => {
 
 exports.adminRegister = async (req, res) => {
     const { email, first_name, last_name, password, password_confirmation } = req.body;
-   console.log("body", req.body);
     try {
-        // Check if passwords match
         if (password !== password_confirmation) {
             return res.status(400).json({ error: 'Passwords do not match' });
         }
-
-        // Check if admin with the same email already exists
         const existingAdmin = await AdminRegisterModel.findOne({ email });
         if (existingAdmin) {
             return res.status(400).json({ error: 'An admin with this email already exists' });
         }
 
-        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10); // Use bcrypt to hash the password
 
         // Create a new admin user
@@ -46,10 +40,8 @@ exports.adminRegister = async (req, res) => {
             email,
             first_name,
             last_name,
-            password: hashedPassword // Store the hashed password in the database
+            password: hashedPassword 
         });
-
-        // Save the new admin user to the database
         await newAdmin.save();
 
         // Generate JWT token
