@@ -10,7 +10,7 @@ const UserSelectionCell: FC<Props> = ({id}) => {
 const {selected, onSelect} = useListView()
   const isSelected = useMemo(() => selected.includes(id), [id, selected])
   return (
-    <div className='form-check form-check-custom form-check-solid'>
+    <div className='form-check form-check-custom form-check-solid me-3'>
       <input
         title='user'
         className='form-check-input'
