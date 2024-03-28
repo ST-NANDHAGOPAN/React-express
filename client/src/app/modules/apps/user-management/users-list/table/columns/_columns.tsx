@@ -17,15 +17,15 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     accessor: 'image',
     Cell: ({ ...props }) => {
       const file = props.data[props.row.index].image
-      let prdImg = logo;
+      let userImg = logo;
       try {
-          prdImg = require(`../../../../../../../../../server/public/uploads/${file}`);
+        userImg = require(`../../../../../../../../../server/public/uploads/${file}`);
       } catch (err) {
         // Just Leave it empty
         // console.error("Error loading product image:", err);
       }
     return(
-    <img src={prdImg} alt="User" style={{ maxWidth: '100px', maxHeight: '100px' }} />)},
+    <img src={userImg} alt="User" style={{ width: '50px', height: '50px' , borderRadius:"50%" }} />)},
   },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
