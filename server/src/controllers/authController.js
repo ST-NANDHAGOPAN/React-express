@@ -1,4 +1,3 @@
-// controllers/adminController.js
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const {AdminRegisterModel , UserRegisterModel} = require("../models/authModel");
@@ -20,15 +19,9 @@ exports.verifyToken = (req, res) => {
 };
 
 exports.adminLogin = async (req, res) => {
-    const { email, password } = req.body;
+    const { email } = req.body;
     try {
         const admin = await AdminRegisterModel.findOne({ email });
-        const isPasswordValid = await bcrypt.compare(password, admin.password);
-
-        if (!admin || !isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
-
         // Generate JWT token
         const token = jwt.sign({ email: admin.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token });
@@ -70,17 +63,11 @@ exports.adminRegister = async (req, res) => {
 };
 
 exports.userLogin = async (req, res) => {
-    const { email, password } = req.body;
+    const { email } = req.body;
     try {
-        const admin = await UserRegisterModel.findOne({ email });
-        const isPasswordValid = await bcrypt.compare(password, admin.password);
-
-        if (!admin || !isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
-
+        const user = await UserRegisterModel.findOne({ email });
         // Generate JWT token
-        const token = jwt.sign({ email: admin.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token });
     } catch (error) {
         console.error(error);
