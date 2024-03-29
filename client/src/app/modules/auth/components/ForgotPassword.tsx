@@ -3,11 +3,8 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
-import {requestPassword} from '../core/_requests'
-
-const initialValues = {
-  email: 'admin@demo.com',
-}
+import { AdminRequestPassword ,UserRequestPassword} from '../core/_requests'
+import { LoginProps, initialValues } from './Login'
 
 const forgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
@@ -17,28 +14,48 @@ const forgotPasswordSchema = Yup.object().shape({
     .required('Email is required'),
 })
 
-export function ForgotPassword() {
+export function ForgotPassword({userType}:LoginProps) {
   const [loading, setLoading] = useState(false)
   const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined)
+  
+  const initialFormValues = (userType === 'user') ? initialValues.user : initialValues.admin;
+  
   const formik = useFormik({
-    initialValues,
+    initialValues : initialFormValues,
     validationSchema: forgotPasswordSchema,
     onSubmit: (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       setHasErrors(undefined)
-      setTimeout(() => {
-        requestPassword(values.email)
-          .then(({data: {result}}) => {
-            setHasErrors(false)
-            setLoading(false)
-          })
-          .catch(() => {
-            setHasErrors(true)
-            setLoading(false)
-            setSubmitting(false)
-            setStatus('The login detail is incorrect')
-          })
-      }, 1000)
+      if(userType === 'user'){
+        setTimeout(() => {
+          UserRequestPassword(values.email)
+            .then(({data: {result}}) => {
+              setHasErrors(false)
+              setLoading(false)
+            })
+            .catch(() => {
+              setHasErrors(true)
+              setLoading(false)
+              setSubmitting(false)
+              setStatus('The login detail is incorrect')
+            })
+        }, 1000)
+      }else {
+        setTimeout(() => {
+          AdminRequestPassword(values.email)
+            .then(({data: {result}}) => {
+              setHasErrors(false)
+              setLoading(false)
+            })
+            .catch(() => {
+              setHasErrors(true)
+              setLoading(false)
+              setSubmitting(false)
+              setStatus('The login detail is incorrect')
+            })
+        }, 1000)
+      }
+      
     },
   })
 
@@ -114,7 +131,8 @@ export function ForgotPassword() {
             </span>
           )}
         </button>
-        <Link to='/auth/login'>
+        {userType === 'user' ?
+          <Link to='/auth/user/login'>
           <button
             type='button'
             id='kt_login_password_reset_form_cancel_button'
@@ -123,7 +141,20 @@ export function ForgotPassword() {
           >
             Cancel
           </button>
-        </Link>{' '}
+        </Link>
+        :
+          <Link to='/auth/admin/login'>
+          <button
+            type='button'
+            id='kt_login_password_reset_form_cancel_button'
+            className='btn btn-light'
+            disabled={formik.isSubmitting || !formik.isValid}
+          >
+            Cancel
+          </button>
+        </Link>
+          }
+        
       </div>
       {/* end::Form group */}
     </form>

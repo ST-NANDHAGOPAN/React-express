@@ -11,7 +11,8 @@ const AuthPage = () => (
       <Route path='/user/login' element={<Login userType='user' />} />
       <Route path='/admin/register' element={<Registration userType='admin' />} />
       <Route path='/user/register' element={<Registration userType='user' />} />
-      <Route path='forgot-password' element={<ForgotPassword />} />
+      <Route path='/admin/forgot-password' element={<ForgotPassword userType='admin' />} />
+      <Route path='/user/forgot-password' element={<ForgotPassword userType='user' />} />
     </Route>
   </Routes>
 )

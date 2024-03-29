@@ -22,11 +22,16 @@ const loginSchema = Yup.object().shape({
     .required('Password is required'),
 })
 
-const initialValues = {
-  email: 'admin@admin.com',
-  password: 'admin',
-}
-
+export const initialValues = {
+  user: {
+    email: 'admin@user.com',
+    password: 'admin',
+  },
+  admin: {
+    email: 'admin@admin.com',
+    password: 'admin',
+  }
+};
 /*
   Formik+YUP+Typescript:
   https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
@@ -37,9 +42,10 @@ function Login({ userType }: LoginProps) {
 
   const [loading, setLoading] = useState(false)
   const { saveAuth, setCurrentAdmin, setCurrentUser } = useAuth()
+  const initialFormValues = userType === 'user' ? initialValues.user : initialValues.admin;
 
   const formik = useFormik({
-    initialValues,
+    initialValues: initialFormValues,
     validationSchema: loginSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true)
@@ -48,7 +54,7 @@ function Login({ userType }: LoginProps) {
           const { data: auth } = await userLogin(values.email, values.password)
           saveAuth(auth)
           const { data: user } = await getUserByToken(auth.token)
-          setCurrentUser (user)
+          setCurrentUser(user)
         } catch (error) {
           console.error(error)
           saveAuth(undefined)
@@ -144,10 +150,16 @@ function Login({ userType }: LoginProps) {
         </div>
       ) : (
         <div className='mb-10 bg-light-info p-8 rounded'>
-          <div className='text-info'>
-            Use account <strong>admin@demo.com</strong> and password <strong>demo</strong> to
-            continue.
-          </div>
+          {userType === "user" ?
+            (<div className='text-info'>
+              Use account <strong>admin@user.com</strong> and password <strong>admin</strong> to
+              continue.
+            </div>)
+            :
+            (<div className='text-info'>
+              Use account <strong>admin@admin.com</strong> and password <strong>admin</strong> to
+              continue.
+            </div>)}
         </div>
       )}
 
@@ -208,9 +220,14 @@ function Login({ userType }: LoginProps) {
         <div />
 
         {/* begin::Link */}
-        <Link to='/auth/forgot-password' className='link-primary'>
-          Forgot Password ?
-        </Link>
+        {userType === "user" ?
+          <Link to='/auth/user/forgot-password' className='link-primary'>
+            Forgot Password ?
+          </Link> :
+          <Link to='/auth/admin/forgot-password' className='link-primary'>
+            Forgot Password ?
+          </Link>
+          }
         {/* end::Link */}
       </div>
       {/* end::Wrapper */}

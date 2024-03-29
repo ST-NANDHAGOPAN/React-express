@@ -10,7 +10,8 @@ export const USER_LOGIN_URL = `http://localhost:5000/api/user/login`
 export const ADMIN_REGISTER_URL = `http://localhost:5000/api/admin/register`
 export const USER_REGISTER_URL = `http://localhost:5000/api/user/register`
 
-export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`
+export const ADMIN_REQUEST_PASSWORD_URL = `http://localhost:5000/api/admin/forgot-password`
+export const USER_REQUEST_PASSWORD_URL = `http://localhost:5000/api/user/forgot-password`
 
 // Server should return AuthModel
 export function adminLogin(email: string, password: string) {
@@ -58,8 +59,14 @@ export function userRegister(
   })
 }
 // Server should return object => { result: boolean } (Is Email in DB)
-export function requestPassword(email: string) {
-  return axios.post<{result: boolean}>(REQUEST_PASSWORD_URL, {
+export function AdminRequestPassword(email: string) {
+  return axios.post<{result: boolean}>(ADMIN_REQUEST_PASSWORD_URL, {
+    email,
+  })
+}
+// Server should return object => { result: boolean } (Is Email in DB)
+export function UserRequestPassword(email: string) {
+  return axios.post<{result: boolean}>(USER_REQUEST_PASSWORD_URL, {
     email,
   })
 }
