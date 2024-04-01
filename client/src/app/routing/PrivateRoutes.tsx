@@ -8,6 +8,7 @@ import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 
 const PrivateRoutes = () => {
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
+  const UserAddressPage = lazy(() => import('../modules/apps/userAddress-management/UsersAddressPage'))
   const SeatPage = lazy(() => import('../modules/apps/seat-management/SeatPage'))
   const FabricPage = lazy(() => import('../modules/apps/fabricjs/FabricPage'))
   const KonvaPage = lazy(() => import('../modules/apps/konvajs/KonvaPage'))
@@ -23,6 +24,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <UsersPage />
+            </SuspensedView>
+          }
+        />
+                <Route
+          path='/userAddress-management/*'
+          element={
+            <SuspensedView>
+              <UserAddressPage />
             </SuspensedView>
           }
         />

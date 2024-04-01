@@ -2,7 +2,7 @@ const {UserModel, UserAddressModel} = require('../models/userModel');
 const fs = require("fs")
 const path = require("path")
 const jwt = require("jsonwebtoken");
-const { UserRegisterModel } = require('../models/authModel');
+const { UserRegisterModel, AdminRegisterModel } = require('../models/authModel');
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -152,8 +152,9 @@ exports.getuserAddress = async (req,res) => {
   try {
     // Step 4: Query the database for all user details
     const users = await UserAddressModel.find({});
+    const totalData = await UserAddressModel.countDocuments();
     // Step 5: Send the retrieved user details as a response
-    res.status(200).json(users);
+    res.status(200).json({data: users, totalData:totalData, message: "Data GET Success"});
   } catch (error) {
     // Handle errors
     console.error('Error fetching users:', error);
@@ -173,9 +174,15 @@ exports.getUserAddressById = async (req, res) => {
 
 exports.createUserAddress = async (req, res) => {
   try {
-    const { first_name, last_name, address, phone_no , token } = req.body;
-    const dbw = jwt.verify(token,process.env.JWT_SECRET);
-    const userdata = await UserRegisterModel.find({email:dbw.email})
+    const { first_name, last_name, address, phone_no  } = req.body;
+    const token = req.headers.authorization;
+    const tokenWithoutBearer = token.split(' ')[1];
+
+    const dbw = jwt.verify(tokenWithoutBearer,process.env.JWT_SECRET);
+    console.log("dbw",dbw);
+    const userdata = await AdminRegisterModel.find({email:dbw.email})
+    console.log("user_id" ,userdata);
+
     const user_id = userdata[0]._id
 
     const postData = new UserAddressModel({

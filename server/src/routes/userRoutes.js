@@ -37,7 +37,7 @@ router.get("/address/:id", userController.getUserAddressById);
 // Create a new userAddress
 router.post("/address", userController.createUserAddress);
 // Update userAddress by ID
-router.put("/address/:id",uploads,validateRequest("createuser"), checkValidationResult, userController.updateUserAddressById);
+router.put("/address/:id", userController.updateUserAddressById);
 
 // Delete userAddress by ID
 router.delete("/address/:id", userController.deleteUserAddressById);
