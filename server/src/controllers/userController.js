@@ -1,6 +1,8 @@
-const UserModel = require('../models/userModel');
+const {UserModel, UserAddressModel} = require('../models/userModel');
 const fs = require("fs")
 const path = require("path")
+const jwt = require("jsonwebtoken");
+const { UserRegisterModel } = require('../models/authModel');
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -74,12 +76,11 @@ exports.getUserById = async (req, res) => {
     const data = await UserModel.findById(id);
     res.json({ data: data, message: "Unique Data GET Success" });
   } catch (error) {
-    res.status(500).json({ message: "Internal error: " + error });
+    res.status(500).json({ message: error });
   }
 };
 
 exports.createUser = async (req, res) => {
-  console.log( "body" ,req.body,"file" , req.file );
   try {
     const { name, age, email, address } = req.body;
     if (!req.file) {
@@ -112,7 +113,6 @@ exports.createUser = async (req, res) => {
 };
 
 exports.updateUserById = async (req, res) => {
-  console.log( "body" ,req.body,"file" , req.file  ,"req",req);
   try {
     const id = req.params.id;
     const { name, age, email, address } = req.body;
@@ -138,6 +138,90 @@ exports.deleteUserById = async (req, res) => {
   try {
     const id = req.params.id;
     const deleteData = await UserModel.findByIdAndDelete(id);
+    if (!deleteData) {
+      return res.status(404).json({ message: "Data not found" });
+    }
+    const responseData = { message: "Data Deleted Successfully" };
+    res.json(responseData);
+  } catch (error) {
+    res.status(500).json({ message: "Internal error: " + error });
+  }
+};
+
+exports.getuserAddress = async (req,res) => {
+  try {
+    // Step 4: Query the database for all user details
+    const users = await UserAddressModel.find({});
+    // Step 5: Send the retrieved user details as a response
+    res.status(200).json(users);
+  } catch (error) {
+    // Handle errors
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+exports.getUserAddressById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await UserAddressModel.findById(id);
+    res.json({ data: data, message: "Unique Data GET Success" });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
+exports.createUserAddress = async (req, res) => {
+  try {
+    const { first_name, last_name, address, phone_no , token } = req.body;
+    const dbw = jwt.verify(token,process.env.JWT_SECRET);
+    const userdata = await UserRegisterModel.find({email:dbw.email})
+    const user_id = userdata[0]._id
+
+    const postData = new UserAddressModel({
+      first_name: first_name,
+      last_name: last_name,
+      address: address,
+      phone_no :phone_no,
+      user_id : user_id
+    });
+    await postData.save();
+    const responseData = {
+      receivedData: postData,
+      message: "Data Received Successfully",
+    };
+    res.json(responseData);
+  } catch (error) {
+    res.status(500).send({ message: "Internal error: " + error });
+  }
+};
+
+exports.updateUserAddressById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { first_name, last_name, address, phone_no } = req.body;
+    const putData = await UserAddressModel.findByIdAndUpdate(
+      id,
+      { first_name, last_name, address, phone_no },
+      { new: true }
+    );
+    if (!putData) {
+      return res.status(404).json({ message: "Data not found" });
+    }
+    const responseData = {
+      receivedData: putData,
+      message: "Data Updated Successfully",
+    };
+    res.status(200).json(responseData);
+  } catch (error) {
+    res.status(500).json({ message: "Internal error: " + error });
+  }
+};
+
+exports.deleteUserAddressById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleteData = await UserAddressModel.findByIdAndDelete(id);
     if (!deleteData) {
       return res.status(404).json({ message: "Data not found" });
     }

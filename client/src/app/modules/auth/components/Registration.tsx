@@ -1,19 +1,17 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {useState, useEffect} from 'react'
-import {useFormik} from 'formik'
+import { useState, useEffect } from 'react'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {getUserByToken, adminRegister, userRegister} from '../core/_requests'
-import {Link} from 'react-router-dom'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
-import {PasswordMeterComponent} from '../../../../_metronic/assets/ts/components'
-import {useAuth} from '../core/Auth'
+import { getUserByToken, adminRegister, userRegister } from '../core/_requests'
+import { Link } from 'react-router-dom'
+import { toAbsoluteUrl } from '../../../../_metronic/helpers'
+import { PasswordMeterComponent } from '../../../../_metronic/assets/ts/components'
+import { useAuth } from '../core/Auth'
 import { LoginProps } from './Login'
 
 const initialValues = {
-  firstname: '',
-  lastname: '',
   email: '',
   password: '',
   changepassword: '',
@@ -21,19 +19,11 @@ const initialValues = {
 }
 
 const registrationSchema = Yup.object().shape({
-  firstname: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('First name is required'),
   email: Yup.string()
     .email('Wrong email format')
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
-  lastname: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Last name is required'),
   password: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
@@ -46,26 +36,24 @@ const registrationSchema = Yup.object().shape({
   acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
 })
 
-export function Registration({userType}:LoginProps) {
+export function Registration({ userType }: LoginProps) {
   const [loading, setLoading] = useState(false)
-  const {saveAuth, setCurrentAdmin ,setCurrentUser} = useAuth()
-  
+  const { saveAuth, setCurrentAdmin, setCurrentUser } = useAuth()
+
   const formik = useFormik({
     initialValues,
     validationSchema: registrationSchema,
-    onSubmit: async (values, {setStatus, setSubmitting}) => {
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true)
-      if(userType === "user"){
+      if (userType === "user") {
         try {
-          const {data: auth} = await userRegister(
+          const { data: auth } = await userRegister(
             values.email,
-            values.firstname,
-            values.lastname,
             values.password,
             values.changepassword
           )
           saveAuth(auth)
-          const {data: user} = await getUserByToken(auth.token)
+          const { data: user } = await getUserByToken(auth.token)
           setCurrentUser(user)
         } catch (error) {
           console.error(error)
@@ -74,26 +62,24 @@ export function Registration({userType}:LoginProps) {
           setSubmitting(false)
           setLoading(false)
         }
-     }else{
-      try {
-        const {data: auth} = await adminRegister(
-          values.email,
-          values.firstname,
-          values.lastname,
-          values.password,
-          values.changepassword
-        )
-        saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.token)
-        setCurrentAdmin(user)
-      } catch (error) {
-        console.error(error)
-        saveAuth(undefined)
-        setStatus('The registration details is incorrect')
-        setSubmitting(false)
-        setLoading(false)
+      } else {
+        try {
+          const { data: auth } = await adminRegister(
+            values.email,
+            values.password,
+            values.changepassword
+          )
+          saveAuth(auth)
+          const { data: user } = await getUserByToken(auth.token)
+          setCurrentAdmin(user)
+        } catch (error) {
+          console.error(error)
+          saveAuth(undefined)
+          setStatus('The registration details is incorrect')
+          setSubmitting(false)
+          setLoading(false)
+        }
       }
-    }
     },
   })
 
@@ -173,61 +159,6 @@ export function Registration({userType}:LoginProps) {
         </div>
       )}
 
-      {/* begin::Form group Firstname */}
-      <div className='fv-row mb-8'>
-        <label className='form-label fw-bolder text-dark fs-6'>First name</label>
-        <input
-          placeholder='First name'
-          type='text'
-          autoComplete='off'
-          {...formik.getFieldProps('firstname')}
-          className={clsx(
-            'form-control bg-transparent',
-            {
-              'is-invalid': formik.touched.firstname && formik.errors.firstname,
-            },
-            {
-              'is-valid': formik.touched.firstname && !formik.errors.firstname,
-            }
-          )}
-        />
-        {formik.touched.firstname && formik.errors.firstname && (
-          <div className='fv-plugins-message-container'>
-            <div className='fv-help-block'>
-              <span role='alert'>{formik.errors.firstname}</span>
-            </div>
-          </div>
-        )}
-      </div>
-      {/* end::Form group */}
-      <div className='fv-row mb-8'>
-        {/* begin::Form group Lastname */}
-        <label className='form-label fw-bolder text-dark fs-6'>Last name</label>
-        <input
-          placeholder='Last name'
-          type='text'
-          autoComplete='off'
-          {...formik.getFieldProps('lastname')}
-          className={clsx(
-            'form-control bg-transparent',
-            {
-              'is-invalid': formik.touched.lastname && formik.errors.lastname,
-            },
-            {
-              'is-valid': formik.touched.lastname && !formik.errors.lastname,
-            }
-          )}
-        />
-        {formik.touched.lastname && formik.errors.lastname && (
-          <div className='fv-plugins-message-container'>
-            <div className='fv-help-block'>
-              <span role='alert'>{formik.errors.lastname}</span>
-            </div>
-          </div>
-        )}
-        {/* end::Form group */}
-      </div>
-
       {/* begin::Form group Email */}
       <div className='fv-row mb-8'>
         <label className='form-label fw-bolder text-dark fs-6'>Email</label>
@@ -238,7 +169,7 @@ export function Registration({userType}:LoginProps) {
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control bg-transparent',
-            {'is-invalid': formik.touched.email && formik.errors.email},
+            { 'is-invalid': formik.touched.email && formik.errors.email },
             {
               'is-valid': formik.touched.email && !formik.errors.email,
             }
@@ -340,7 +271,7 @@ export function Registration({userType}:LoginProps) {
           <span>
             I Accept the{' '}
             <a
-            rel='noopener'
+              rel='noopener'
               href='https://keenthemes.com/metronic/?page=faq'
               target='_blank'
               className='ms-1 link-primary'
@@ -370,21 +301,30 @@ export function Registration({userType}:LoginProps) {
         >
           {!loading && <span className='indicator-label'>Submit</span>}
           {loading && (
-            <span className='indicator-progress' style={{display: 'block'}}>
+            <span className='indicator-progress' style={{ display: 'block' }}>
               Please wait...{' '}
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
           )}
         </button>
-        <Link to='/auth/login'>
-          <button
-            type='button'
-            id='kt_login_signup_form_cancel_button'
-            className='btn btn-lg btn-light-primary w-100 mb-5'
-          >
-            Cancel
-          </button>
-        </Link>
+        {userType === "user" ?
+          <Link to='/auth/user/login'>
+            <button
+              type='button'
+              id='kt_user_login_signup_form_cancel_button'
+              className='btn btn-lg btn-light-primary w-100 mb-5'
+            >
+              Cancel
+            </button>
+          </Link> : <Link to='/auth/admin/login'>
+            <button
+              type='button'
+              id='kt_admin_login_signup_form_cancel_button'
+              className='btn btn-lg btn-light-primary w-100 mb-5'
+            >
+              Cancel
+            </button>
+          </Link>}
       </div>
       {/* end::Form group */}
     </form>

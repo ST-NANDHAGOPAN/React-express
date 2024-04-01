@@ -5,7 +5,7 @@ exports.validateRequest = (schema) => {
     case 'login':
       return [
         body('email').notEmpty().trim().isEmail().normalizeEmail().withMessage('Enter a Valid email'),
-        body('password').notEmpty().trim().escape().isLength({ min: 5 }).withMessage('Password must be at least 5 characters long'),
+        body('password').notEmpty().trim().escape().isLength({ min: 4 }).withMessage('Password must be at least 4 characters long'),
       ];
     case 'createuser':
       return [

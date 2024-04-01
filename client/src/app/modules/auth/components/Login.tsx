@@ -34,8 +34,8 @@ interface CustomError {
 
 export const initialValues = {
   user: {
-    email: 'admin@user.com',
-    password: 'admin',
+    email: 'user@user.com',
+    password: 'user',
   },
   admin: {
     email: 'admin@admin.com',

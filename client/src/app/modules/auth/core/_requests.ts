@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {AuthModel, UserModel} from './_models'
 
-const API_URL = process.env.REACT_APP_API_URL
+// const API_URL = process.env.REACT_APP_API_URL
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `http://localhost:5000/api/verify_token`
 export const ADMIN_LOGIN_URL = `http://localhost:5000/api/admin/login`
@@ -30,30 +30,22 @@ export function userLogin(email: string, password: string) {
 
 export function adminRegister(
   email: string,
-  firstname: string,
-  lastname: string,
   password: string,
   password_confirmation: string
 ) {
   return axios.post(ADMIN_REGISTER_URL, {
     email,
-    first_name: firstname,
-    last_name: lastname,
     password,
     password_confirmation,
   })
 }
 export function userRegister(
   email: string,
-  firstname: string,
-  lastname: string,
   password: string,
   password_confirmation: string
 ) {
   return axios.post(USER_REGISTER_URL, {
     email,
-    first_name: firstname,
-    last_name: lastname,
     password,
     password_confirmation,
   })

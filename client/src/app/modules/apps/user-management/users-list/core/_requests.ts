@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../../_metronic/helpers'
 import {User, UsersQueryResponse} from './_models'
-const GET_USERS_URL = `http://localhost:5000/api/user-register`
+const GET_USERS_URL = `http://localhost:5000/api/user/crud`
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {  
   return axios

@@ -61,8 +61,6 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     initialValues: userForEdit,
     // validationSchema: editUserSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("values", values);
-
       setSubmitting(true);
       try {
         const formData = new FormData();
