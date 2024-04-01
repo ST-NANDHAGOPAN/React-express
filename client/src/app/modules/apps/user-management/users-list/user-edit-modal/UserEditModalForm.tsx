@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import * as Yup from 'yup'
+// import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { isNotEmpty } from '../../../../../../_metronic/helpers'
 import { initialUser, User } from '../core/_models'
@@ -14,17 +14,17 @@ type Props = {
   user: User
 }
 
-const editUserSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Wrong email format')
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Email is required'),
-  name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Name is required'),
-})
+// const editUserSchema = Yup.object().shape({
+//   email: Yup.string()
+//     .email('Wrong email format')
+//     .min(3, 'Minimum 3 symbols')
+//     .max(50, 'Maximum 50 symbols')
+//     .required('Email is required'),
+//   name: Yup.string()
+//     .min(3, 'Minimum 3 symbols')
+//     .max(50, 'Maximum 50 symbols')
+//     .required('Name is required'),
+// })
 
 const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   const { isedit, setItemIdForUpdate } = useListView()
@@ -59,7 +59,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   }
   const formik = useFormik({
     initialValues: userForEdit,
-    validationSchema: editUserSchema,
+    // validationSchema: editUserSchema,
     onSubmit: async (values, { setSubmitting }) => {
       console.log("values", values);
 

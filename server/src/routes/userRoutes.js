@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require('../controllers/userController');
 const multer = require("multer")
+const { validateCreateUser, checkValidationResult } = require('../middleware/validationMiddleware');
 
 const storage = multer.memoryStorage()
 
@@ -15,7 +16,7 @@ router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserById);
 
 // Create a new user
-router.post("/",uploads, userController.createUser);
+router.post("/",uploads,validateCreateUser, checkValidationResult, userController.createUser);
 
 // Update user by ID
 router.put("/:id",uploads, userController.updateUserById);
