@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const AuthController = require('../controllers/authController');
 const passport = require("passport");
+const { validateRequest, checkValidationResult } = require('../middleware/validationMiddleware');
 
-router.post('/admin/login',passport.authenticate('local', {
+router.post('/admin/login',validateRequest("login") ,checkValidationResult,passport.authenticate('local', {
     failureRedirect: '/admin/login',
     failureFlash: true
   }), AuthController.adminLogin );
 
-router.post('/user/login',passport.authenticate('local', {
+router.post('/user/login',validateRequest("login") ,checkValidationResult,passport.authenticate('local', {
     failureRedirect: '/user/login',
     failureFlash: true
   }),AuthController.userLogin );

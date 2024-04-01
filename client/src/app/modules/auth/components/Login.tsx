@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react'
-import * as Yup from 'yup'
+// import * as Yup from 'yup'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
@@ -10,17 +10,27 @@ import { useAuth } from '../core/Auth'
 export interface LoginProps {
   userType: string;
 }
-const loginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Wrong email format')
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Email is required'),
-  password: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Password is required'),
-})
+interface CustomError {
+  response?: {
+    data?: {
+      errors?: Array<{
+        msg: string;
+        path: string;
+      }>;
+    }
+  }
+}
+// const loginSchema = Yup.object().shape({
+//   email: Yup.string()
+//     .email('Wrong email format')
+//     .min(3, 'Minimum 3 symbols')
+//     .max(50, 'Maximum 50 symbols')
+//     .required('Email is required'),
+//   password: Yup.string()
+//     .min(3, 'Minimum 3 symbols')
+//     .max(50, 'Maximum 50 symbols')
+//     .required('Password is required'),
+// })
 
 export const initialValues = {
   user: {
@@ -42,12 +52,13 @@ function Login({ userType }: LoginProps) {
 
   const [loading, setLoading] = useState(false)
   const { saveAuth, setCurrentAdmin, setCurrentUser } = useAuth()
+  
   const initialFormValues = userType === 'user' ? initialValues.user : initialValues.admin;
 
   const formik = useFormik({
     initialValues: initialFormValues,
-    validationSchema: loginSchema,
-    onSubmit: async (values, { setStatus, setSubmitting }) => {
+    // validationSchema: loginSchema,
+    onSubmit: async (values, { setErrors, setSubmitting }) => {
       setLoading(true)
       if (userType === "user") {
         try {
@@ -55,10 +66,17 @@ function Login({ userType }: LoginProps) {
           saveAuth(auth)
           const { data: user } = await getUserByToken(auth.token)
           setCurrentUser(user)
-        } catch (error) {
-          console.error(error)
+        } catch (error: unknown) {
+          const customError = error as CustomError;
+          if (customError.response && customError.response.data?.errors?.[0]) {
+            const errors = customError.response.data.errors;
+            const fieldErrors = {};
+          errors.forEach((err) => {
+            fieldErrors[err.path] = err.msg;
+          });
+          setErrors(fieldErrors);
+          } 
           saveAuth(undefined)
-          setStatus('The login details are incorrect')
           setSubmitting(false)
           setLoading(false)
         }
@@ -69,9 +87,16 @@ function Login({ userType }: LoginProps) {
           const { data: user } = await getUserByToken(auth.token)
           setCurrentAdmin(user)
         } catch (error) {
-          console.error(error)
+          const customError = error as CustomError;
+          if (customError.response && customError.response.data?.errors?.[0]) {
+            const errors = customError.response.data.errors;
+            const fieldErrors = {};
+          errors.forEach((err) => {
+            fieldErrors[err.path] = err.msg;
+          });
+          setErrors(fieldErrors);
+          } 
           saveAuth(undefined)
-          setStatus('The login details are incorrect')
           setSubmitting(false)
           setLoading(false)
         }
@@ -182,7 +207,9 @@ function Login({ userType }: LoginProps) {
         />
         {formik.touched.email && formik.errors.email && (
           <div className='fv-plugins-message-container'>
-            <span role='alert'>{formik.errors.email}</span>
+            <div className='fv-help-block'>
+              <span role='alert'>{formik.errors.email}</span>
+            </div>
           </div>
         )}
       </div>
@@ -227,7 +254,7 @@ function Login({ userType }: LoginProps) {
           <Link to='/auth/admin/forgot-password' className='link-primary'>
             Forgot Password ?
           </Link>
-          }
+        }
         {/* end::Link */}
       </div>
       {/* end::Wrapper */}
@@ -242,7 +269,7 @@ function Login({ userType }: LoginProps) {
         >
           {!loading && <span className='indicator-label'>Continue</span>}
           {loading && (
-            <span className='indicator-progress' style={{ display: 'block' }}>
+            <span className='indicator-progress d-block'>
               Please wait...
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>

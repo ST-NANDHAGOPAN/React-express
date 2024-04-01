@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const userController = require('../controllers/userController');
 const multer = require("multer")
-const { validateCreateUser, checkValidationResult } = require('../middleware/validationMiddleware');
+const { validateRequest, checkValidationResult } = require('../middleware/validationMiddleware');
 
-const storage = multer.memoryStorage()
+const storage = multer.memoryStorage();
 
 const uploads = multer({
     storage : storage
@@ -16,10 +16,10 @@ router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserById);
 
 // Create a new user
-router.post("/",uploads,validateCreateUser, checkValidationResult, userController.createUser);
+router.post("/",uploads,validateRequest("createuser"), checkValidationResult, userController.createUser);
 
 // Update user by ID
-router.put("/:id",uploads, userController.updateUserById);
+router.put("/:id",uploads,validateRequest("createuser"), checkValidationResult, userController.updateUserById);
 
 // Delete user by ID
 router.delete("/:id", userController.deleteUserById);
