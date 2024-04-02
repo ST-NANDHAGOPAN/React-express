@@ -116,9 +116,19 @@ exports.updateUserById = async (req, res) => {
   try {
     const id = req.params.id;
     const { name, age, email, address } = req.body;
+    if (!req.file) {
+      throw new Error("No file uploaded");
+    }
+    const  filename  = req.file.originalname; 
+    const fileData = req.file.buffer;
+    const uploadDir = path.join(__dirname , ".." , ".." , "public" , "uploads");
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    fs.writeFileSync(path.join(uploadDir, filename), fileData);
     const putData = await UserModel.findByIdAndUpdate(
       id,
-      { name, age, email, address },
+      { name, age, email, address ,image:filename},
       { new: true }
     );
     if (!putData) {
