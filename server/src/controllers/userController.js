@@ -15,8 +15,12 @@ exports.getAllUsers = async (req, res) => {
     const sortOrder = req.query.order === 'desc' ? -1 : 1; // Default order is ascending
 
     sort[sortBy] = sortOrder;
-
-    const data = await UserModel.find().sort(sort).limit(limit).skip(skip);
+    const pipeline = [
+      { $sort: sort },
+      { $skip: skip },
+      { $limit: limit }
+    ];
+    const data = await UserModel.aggregate(pipeline);
     const totalData = await UserModel.countDocuments();
     const totalDataReceived = data.length
     const totalPages = Math.ceil(totalData / limit); 
@@ -116,19 +120,25 @@ exports.updateUserById = async (req, res) => {
   try {
     const id = req.params.id;
     const { name, age, email, address } = req.body;
-    if (!req.file) {
-      throw new Error("No file uploaded");
+    let updateData = { name, age, email, address };
+    
+    if (req.file) {
+      const filename = req.file.originalname;
+      const fileData = req.file.buffer;
+      const uploadDir = path.join(__dirname , ".." , ".." , "public" , "uploads");
+      
+      // Save the new image file to the server
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      fs.writeFileSync(path.join(uploadDir, filename), fileData);
+
+      // Add the image filename to the update data
+      updateData.image = filename;
     }
-    const  filename  = req.file.originalname; 
-    const fileData = req.file.buffer;
-    const uploadDir = path.join(__dirname , ".." , ".." , "public" , "uploads");
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    fs.writeFileSync(path.join(uploadDir, filename), fileData);
     const putData = await UserModel.findByIdAndUpdate(
       id,
-      { name, age, email, address ,image:filename},
+      updateData,
       { new: true }
     );
     if (!putData) {
