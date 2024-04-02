@@ -24,6 +24,12 @@ const SidebarMenuMain = () => {
         title='User management'
         fontIcon='bi-layers'
       />
+       <SidebarMenuItem
+        to='/userAddress-management/usersAddress'
+        icon='abstract-12'
+        title='UserAddress management'
+        fontIcon='bi-layers'
+      />
       <SidebarMenuItem
         to='/seat-management/seat'
         icon='abstract-3'

@@ -27,12 +27,12 @@ exports.adminLogin = async (req, res) => {
         res.json({ token });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Server error' });
+        res.status(500).json({ error: error });
     }
 };
 
 exports.adminRegister = async (req, res) => {
-    const { email, first_name, last_name, password, password_confirmation } = req.body;
+    const { email, password, password_confirmation } = req.body;
     try {
         if (password !== password_confirmation) {
             return res.status(400).json({ error: 'Passwords do not match' });
@@ -47,8 +47,6 @@ exports.adminRegister = async (req, res) => {
         // Create a new admin user
         const newAdmin = new AdminRegisterModel({
             email,
-            first_name,
-            last_name,
             password: hashedPassword 
         });
         await newAdmin.save();
@@ -58,7 +56,7 @@ exports.adminRegister = async (req, res) => {
         res.json({ token });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Server error' });
+        res.status(500).json({ error: error });
     }
 };
 
@@ -71,13 +69,13 @@ exports.userLogin = async (req, res) => {
         res.json({ token });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Server error' });
+        res.status(500).json({ error: error });
     }
 };
 
 
 exports.userRegister = async (req, res) => {
-    const { email, first_name, last_name, password, password_confirmation } = req.body;
+    const { email, password, password_confirmation } = req.body;
     try {
         if (password !== password_confirmation) {
             return res.status(400).json({ error: 'Passwords do not match' });
@@ -92,8 +90,6 @@ exports.userRegister = async (req, res) => {
         // Create a new admin user
         const newUser = new UserRegisterModel({
             email,
-            first_name,
-            last_name,
             password: hashedPassword 
         });
         await newUser.save();
@@ -103,6 +99,6 @@ exports.userRegister = async (req, res) => {
         res.json({ token });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Server error' });
+        res.status(500).json({ error: error });
     }
 };

@@ -1,9 +1,10 @@
 import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../../_metronic/helpers'
 import {User, UsersQueryResponse} from './_models'
-const GET_USERS_URL = `http://localhost:5000/api/user/crud`
+import { Token } from 'prismjs'
+const GET_USERS_URL = `http://localhost:5000/api/user/address`
 
-const getUsers = (query: string): Promise<UsersQueryResponse> => {  
+const getUsersAddress = (query: string): Promise<UsersQueryResponse> => {  
   return axios
     .get(`${GET_USERS_URL}?${query}`)
     .then((d: AxiosResponse<UsersQueryResponse>) => d.data)
@@ -16,24 +17,20 @@ const getUserById = (id: ID): Promise<User | undefined> => {
     .then((response: Response<User>) => response.data)
 }
 
-const createUser = (userFormData: FormData): Promise<User | undefined> => {
+const createUser = (users: User ,token :string | null): Promise<User | undefined> => {
   return axios
-    .post(`${GET_USERS_URL}`, userFormData, {
-      headers: {
-        'Content-Type': 'multipart/form-data' 
+    .post(`${GET_USERS_URL}`, users ,{
+      headers :{
+        Authorization: `Bearer ${token}`, 
       }
     })
     .then((response: AxiosResponse<Response<User>>) => response.data)
     .then((response: Response<User>) => response.data)
     }
 
-const updateUser = (user: FormData ,id : ID): Promise<User | undefined> => {  
+const updateUser = (user: User ,id : ID): Promise<User | undefined> => {  
   return axios
-    .put(`${GET_USERS_URL}/${id}`, user,{
-      headers: {
-        'Content-Type': 'multipart/form-data' 
-      }
-    })
+    .put(`${GET_USERS_URL}/${id}`, user)
     .then((response: AxiosResponse<Response<User>>) => response.data)
     .then((response: Response<User>) => response.data)
 }
@@ -47,4 +44,4 @@ const deleteSelectedUsers = (userIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getUsers, deleteUser, deleteSelectedUsers, getUserById, createUser, updateUser}
+export {getUsersAddress, deleteUser, deleteSelectedUsers, getUserById, createUser, updateUser}

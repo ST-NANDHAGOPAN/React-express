@@ -30,14 +30,14 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   const { isedit, setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
 
-  const [userForEdit, setUserForEdit] = useState<User>({
+  const [userForEdit] = useState<User>({
     ...user,
     _id: user._id || initialUser._id,
-    name: user.name || initialUser.name,
-    email: user.email || initialUser.email,
-    age: user.age || initialUser.age,
+    user_id: user.user_id || initialUser.user_id,
+    first_name: user.first_name || initialUser.first_name,
+    last_name: user.last_name || initialUser.last_name,
     address: user.address || initialUser.address,
-    image: user.image || initialUser.image,
+    phone_no: user.phone_no || initialUser.phone_no,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -47,37 +47,20 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     setItemIdForUpdate(undefined)
   }
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const imageFile = event.target.files[0]
-      setUserForEdit((prevUser) => ({
-        ...prevUser,
-        image: imageFile,
-      }))
-    }
-
-  }
   const formik = useFormik({
     initialValues: userForEdit,
     // validationSchema: editUserSchema,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        const formData = new FormData();
-        if (userForEdit.image) {
-          formData.append("image", userForEdit.image as Blob); // Cast userForEdit.image to Blob
-        }
-
-        Object.entries(values).forEach(([key, value]) => {
-          if (key !== "image" && value !== null && value !== undefined) {
-            formData.append(key, value); // Convert value to string and append
-          }
-        });
-
+        
         if (isNotEmpty(values._id)) {
-          await updateUser(formData, values._id);
+          await updateUser(values, values._id);
         } else {
-          await createUser(formData);
+          const token = localStorage.getItem("token")
+          const { _id, user_id, ...userData } = values;
+
+          await createUser(userData,token);
         }
       } catch (ex) {
         console.error(ex);
@@ -94,7 +77,18 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   return (
     <>
       <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit} noValidate>
-        {isedit &&
+        <div
+          className='d-flex flex-column scroll-y me-n7 pe-7'
+          id='kt_modal_add_user_scroll'
+          data-kt-scroll='true'
+          data-kt-scroll-activate='{default: false, lg: true}'
+          data-kt-scroll-max-height='auto'
+          data-kt-scroll-dependencies='#kt_modal_add_user_header'
+          data-kt-scroll-wrappers='#kt_modal_add_user_scroll'
+          data-kt-scroll-offset='300px'
+        >
+          
+          {isedit &&
           <div className='fv-row mb-7'>
             <label className='required fw-bold fs-6 mb-2'>ID</label>
             <input
@@ -122,112 +116,56 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             )}
           </div>
         }
-        <div
-          className='d-flex flex-column scroll-y me-n7 pe-7'
-          id='kt_modal_add_user_scroll'
-          data-kt-scroll='true'
-          data-kt-scroll-activate='{default: false, lg: true}'
-          data-kt-scroll-max-height='auto'
-          data-kt-scroll-dependencies='#kt_modal_add_user_header'
-          data-kt-scroll-wrappers='#kt_modal_add_user_scroll'
-          data-kt-scroll-offset='300px'
-        >
           <div className='fv-row mb-7'>
-            <label className='fw-bold fs-6 mb-2'>Image</label>
+            <label className='required fw-bold fs-6 mb-2'>FirstName</label>
             <input
-              title='image'
-              type='file'
-              accept='image/*'
-              onChange={handleImageChange}
-              className='form-control form-control-solid mb-3 mb-lg-0'
-              disabled={formik.isSubmitting || isUserLoading}
-            />
-            {userForEdit.image && userForEdit.image.type && userForEdit.image.type.startsWith('image/') && (
-              <img
-                src={URL.createObjectURL(userForEdit.image)}
-                alt='Preview'
-                style={{ maxWidth: '100px', maxHeight: '100px', marginTop: '5px' }}
-              />
-            )}
-          </div>
-
-          <div className='fv-row mb-7'>
-            <label className='required fw-bold fs-6 mb-2'>Name</label>
-            <input
-              placeholder='Full name'
-              {...formik.getFieldProps('name')}
+              placeholder='FirstName'
+              {...formik.getFieldProps('first_name')}
               type='text'
-              name='name'
+              name='first_name'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                { 'is-invalid': formik.touched.name && formik.errors.name },
+                { 'is-invalid': formik.touched.first_name && formik.errors.first_name },
                 {
-                  'is-valid': formik.touched.name && !formik.errors.name,
+                  'is-valid': formik.touched.first_name && !formik.errors.first_name,
                 }
               )}
               autoComplete='off'
               disabled={formik.isSubmitting || isUserLoading}
             />
-            {formik.touched.name && formik.errors.name && (
+            {formik.touched.first_name && formik.errors.first_name && (
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.name}</span>
+                  <span role='alert'>{formik.errors.first_name}</span>
                 </div>
               </div>
             )}
           </div>
-
           <div className='fv-row mb-7'>
-
-            <label className='required fw-bold fs-6 mb-2'>Email</label>
+            <label className='required fw-bold fs-6 mb-2'>LastName</label>
             <input
-              placeholder='Email'
-              {...formik.getFieldProps('email')}
-              className={clsx(
-                'form-control form-control-solid mb-3 mb-lg-0',
-                { 'is-invalid': formik.touched.email && formik.errors.email },
-                {
-                  'is-valid': formik.touched.email && !formik.errors.email,
-                }
-              )}
-              type='email'
-              name='email'
-              autoComplete='off'
-              disabled={formik.isSubmitting || isUserLoading}
-            />
-            {formik.touched.email && formik.errors.email && (
-              <div className='fv-plugins-message-container'>
-                <span role='alert'>{formik.errors.email}</span>
-              </div>
-            )}
-          </div>
-
-          <div className='fv-row mb-7'>
-            <label className='required fw-bold fs-6 mb-2'>Age</label>
-            <input
-              placeholder='Age'
-              {...formik.getFieldProps('age')}
+              placeholder='LastName'
+              {...formik.getFieldProps('last_name')}
               type='text'
-              name='age'
+              name='last_name'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                { 'is-invalid': formik.touched.age && formik.errors.age },
+                { 'is-invalid': formik.touched.last_name && formik.errors.last_name },
                 {
-                  'is-valid': formik.touched.age && !formik.errors.age,
+                  'is-valid': formik.touched.last_name && !formik.errors.last_name,
                 }
               )}
               autoComplete='off'
               disabled={formik.isSubmitting || isUserLoading}
             />
-            {formik.touched.age && formik.errors.age && (
+            {formik.touched.last_name && formik.errors.last_name && (
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.age}</span>
+                  <span role='alert'>{formik.errors.last_name}</span>
                 </div>
               </div>
             )}
           </div>
-
           <div className='fv-row mb-7'>
             <label className='required fw-bold fs-6 mb-2'>Address</label>
             <input
@@ -249,6 +187,31 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
                   <span role='alert'>{formik.errors.address}</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className='fv-row mb-7'>
+            <label className='required fw-bold fs-6 mb-2'>Phone_no</label>
+            <input
+              placeholder='phone_no'
+              {...formik.getFieldProps('phone_no')}
+              type='text'
+              name='phone_no'
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                { 'is-invalid': formik.touched.phone_no && formik.errors.phone_no },
+                {
+                  'is-valid': formik.touched.phone_no && !formik.errors.phone_no,
+                }
+              )}
+              autoComplete='off'
+              disabled={formik.isSubmitting || isUserLoading}
+            />
+            {formik.touched.phone_no && formik.errors.phone_no && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.phone_no}</span>
                 </div>
               </div>
             )}

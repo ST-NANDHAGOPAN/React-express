@@ -9,19 +9,38 @@ const storage = multer.memoryStorage();
 const uploads = multer({
     storage : storage
 }).single("image")
+
+// User CRUD
 // GET all users
-router.get("/", userController.getAllUsers);
+router.get("/crud", userController.getAllUsers);
 
 // GET user by ID
-router.get("/:id", userController.getUserById);
+router.get("/crud/:id", userController.getUserById);
 
 // Create a new user
-router.post("/",uploads,validateRequest("createuser"), checkValidationResult, userController.createUser);
+router.post("/crud",uploads,validateRequest("createuser"), checkValidationResult, userController.createUser);
 
 // Update user by ID
-router.put("/:id",uploads,validateRequest("createuser"), checkValidationResult, userController.updateUserById);
+router.put("/crud/:id",uploads,validateRequest("createuser"), checkValidationResult, userController.updateUserById);
 
 // Delete user by ID
-router.delete("/:id", userController.deleteUserById);
+router.delete("/crud/:id", userController.deleteUserById);
+
+
+// UserAddress CRUD
+// Get ALL userAddress 
+router.get("/address", userController.getuserAddress);
+
+// GET userAddress by ID
+router.get("/address/:id", userController.getUserAddressById);
+
+// Create a new userAddress
+router.post("/address", userController.createUserAddress);
+// Update userAddress by ID
+router.put("/address/:id", userController.updateUserAddressById);
+
+// Delete userAddress by ID
+router.delete("/address/:id", userController.deleteUserAddressById);
+
 
 module.exports = router;
