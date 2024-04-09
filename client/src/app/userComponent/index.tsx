@@ -1,4 +1,4 @@
-import { useAuth } from '../modules/auth'
+import { useAuth } from '../auth'
 import {useIntl} from 'react-intl'
 import {PageTitle} from '../../_metronic/layout/core'
 function UserComponent() {
