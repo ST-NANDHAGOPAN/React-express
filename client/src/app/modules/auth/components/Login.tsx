@@ -86,7 +86,6 @@ function Login({ userType }: LoginProps) {
           const { data: auth } = await adminLogin(values.email, values.password)
           saveAuth(auth)
           const { data: user } = await getUserByToken(auth.token)
-          console.log("user",user);
           setCurrentAdmin(user)
         } catch (error) {
           const customError = error as CustomError;

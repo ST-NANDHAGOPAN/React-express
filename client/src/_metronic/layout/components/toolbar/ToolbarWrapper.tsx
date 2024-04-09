@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import {ToolbarType, useLayout} from '../../core'
-import {Toolbar} from './Toolbar'
 import {PageTitleWrapper} from './page-title'
 
 const ToolbarWrapper = () => {
@@ -33,7 +32,6 @@ const ToolbarWrapper = () => {
         )}
       >
         {isPageTitleVisible && <PageTitleWrapper />}
-        <Toolbar />
       </div>
     </div>
   )
