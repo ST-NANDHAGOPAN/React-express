@@ -1,13 +1,11 @@
 import { useAuth } from '../../../auth'
-import {useIntl} from 'react-intl'
 import {PageTitle} from '../../../layout/core'
 function UserComponent() {
   const { logout} = useAuth()
-  const intl = useIntl()
 
   return (
     <>
-    <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
+    <PageTitle breadcrumbs={[]}>DASHBOARD</PageTitle>
     <div>UserComponent
       <div className='menu-item px-5'>
         <button 

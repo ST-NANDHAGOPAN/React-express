@@ -9,7 +9,7 @@ import {FC} from 'react'
 import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import {PrivateRoutes} from './PrivateRoutes'
 import {Logout, AuthPage, useAuth} from '../auth'
-import {App} from '../components/App'
+import {App} from '../App'
 import { UserRoutes } from './UserRoutes'
 
 const AppRoutes: FC = () => {

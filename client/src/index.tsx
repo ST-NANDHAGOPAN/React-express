@@ -5,7 +5,6 @@ import {Chart, registerables} from 'chart.js'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 // Apps
-import {MetronicI18nProvider} from './i18n/Metronici18n'
 import './assets/fonticon/fonticon.css'
 import './assets/keenicons/duotone/style.css'
 import './assets/keenicons/outline/style.css'
@@ -39,11 +38,9 @@ const container = document.getElementById('root')
 if (container) {
   createRoot(container).render(
     <QueryClientProvider client={queryClient}>
-      <MetronicI18nProvider>
         <AuthProvider>
           <AppRoutes />
         </AuthProvider>
-      </MetronicI18nProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
