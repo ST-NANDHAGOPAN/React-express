@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { getUserByToken, adminLogin, userLogin } from '../core/_requests'
-import { toAbsoluteUrl } from '../../../_metronic/helpers'
+import { toAbsoluteUrl } from '../../helpers'
 import { useAuth } from '../core/Auth'
 export interface LoginProps {
   userType: string;

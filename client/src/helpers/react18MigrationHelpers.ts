@@ -1,5 +1,5 @@
 import {ReactNode} from 'react'
-import {MenuComponent} from '../../assets/ts/components'
+import {MenuComponent} from '../assets/ts/components'
 
 type WithChildren = {
   children?: ReactNode

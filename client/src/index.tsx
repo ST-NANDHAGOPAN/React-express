@@ -5,7 +5,7 @@ import {Chart, registerables} from 'chart.js'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 // Apps
-import {MetronicI18nProvider} from './_metronic/i18n/Metronici18n'
+import {MetronicI18nProvider} from './i18n/Metronici18n'
 import './assets/fonticon/fonticon.css'
 import './assets/keenicons/duotone/style.css'
 import './assets/keenicons/outline/style.css'
@@ -18,8 +18,8 @@ import './assets/keenicons/solid/style.css'
 import './assets/sass/style.scss'
 import './assets/sass/plugins.scss'
 import './assets/sass/style.react.scss'
-import {AppRoutes} from './app/routing/AppRoutes'
-import {AuthProvider, setupAxios} from './app/auth'
+import {AppRoutes} from './routing/AppRoutes'
+import {AuthProvider, setupAxios} from './auth'
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.

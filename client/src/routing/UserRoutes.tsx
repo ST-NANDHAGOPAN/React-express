@@ -1,5 +1,5 @@
 import {Route, Routes, Navigate} from 'react-router-dom'
-import UserComponent from '../userComponent/user/User'
+import UserComponent from '../components/userComponent/user/User'
 
 const UserRoutes = () => {
 

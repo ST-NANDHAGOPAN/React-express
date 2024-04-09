@@ -1,5 +1,5 @@
 import {useLayout} from '../layout/core'
-import {ThemeModeComponent} from '../../assets/ts/layout'
+import {ThemeModeComponent} from '../assets/ts/layout'
 
 export const toAbsoluteUrl = (pathname: string) => process.env.PUBLIC_URL + pathname
 

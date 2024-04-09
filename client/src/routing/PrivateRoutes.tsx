@@ -1,9 +1,9 @@
 import { lazy, FC, Suspense } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
-import { MasterLayout } from '../../_metronic/layout/MasterLayout'
+import { MasterLayout } from '../layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import { getCSSVariableValue } from '../../assets/ts/_utils'
-import { WithChildren } from '../../_metronic/helpers'
+import { getCSSVariableValue } from '../assets/ts/_utils'
+import { WithChildren } from '../helpers'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 
 const PrivateRoutes = () => {
