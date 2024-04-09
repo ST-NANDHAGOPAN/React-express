@@ -18,7 +18,7 @@ import './assets/keenicons/solid/style.css'
 import './assets/sass/style.scss'
 import './assets/sass/plugins.scss'
 import './assets/sass/style.react.scss'
-import {AppRoutes} from './routing/AppRoutes'
+import {AppRoutes} from './routes/AppRoutes'
 import {AuthProvider, setupAxios} from './auth'
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
