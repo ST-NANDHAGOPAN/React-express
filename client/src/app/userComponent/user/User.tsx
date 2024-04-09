@@ -1,6 +1,6 @@
-import { useAuth } from '../auth'
+import { useAuth } from '../../auth'
 import {useIntl} from 'react-intl'
-import {PageTitle} from '../../_metronic/layout/core'
+import {PageTitle} from '../../../_metronic/layout/core'
 function UserComponent() {
   const { logout} = useAuth()
   const intl = useIntl()
