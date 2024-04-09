@@ -1,9 +1,10 @@
-import { lazy, FC, Suspense } from 'react'
+// import { lazy, FC, Suspense } from 'react'
+// import TopBarProgress from 'react-topbar-progress-indicator'
+// import { getCSSVariableValue } from '../assets/ts/_utils'
+// import { WithChildren } from '../helpers'
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { MasterLayout } from '../layout/MasterLayout'
-import TopBarProgress from 'react-topbar-progress-indicator'
-import { getCSSVariableValue } from '../assets/ts/_utils'
-import { WithChildren } from '../helpers'
+
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 
 const PrivateRoutes = () => {
@@ -31,16 +32,16 @@ const PrivateRoutes = () => {
   )
 }
 
-const SuspensedView: FC<WithChildren> = ({ children }) => {
-  const baseColor = getCSSVariableValue('--bs-primary')
-  TopBarProgress.config({
-    barColors: {
-      '0': baseColor,
-    },
-    barThickness: 1,
-    shadowBlur: 5,
-  })
-  return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
-}
+// const SuspensedView: FC<WithChildren> = ({ children }) => {
+//   const baseColor = getCSSVariableValue('--bs-primary')
+//   TopBarProgress.config({
+//     barColors: {
+//       '0': baseColor,
+//     },
+//     barThickness: 1,
+//     shadowBlur: 5,
+//   })
+//   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
+// }
 
 export { PrivateRoutes }
