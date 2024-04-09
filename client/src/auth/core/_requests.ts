@@ -3,7 +3,6 @@ import {AuthModel, UserModel} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
 
-console.log("API_URL",API_URL);
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
 export const ADMIN_LOGIN_URL = `${API_URL}/admin/login`;
 export const USER_LOGIN_URL = `${API_URL}/user/login`;
