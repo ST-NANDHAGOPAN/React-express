@@ -76,6 +76,8 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
         if (!didRequest.current) {
           const { data } = await getUserByToken(apiToken)
           if (data) {
+            console.log("setCurrentAdmin",data);
+            
             setCurrentAdmin(data)
           }
         }
@@ -92,6 +94,7 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
     }
 
     if (auth && auth.token) {
+      console.log("auth",auth);
       requestUser(auth.token)
     } else {
       logout()

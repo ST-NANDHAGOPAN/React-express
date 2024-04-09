@@ -12,42 +12,6 @@ const SidebarMenuMain = () => {
         title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
         fontIcon='bi-app-indicator'
       />
-      <div className='menu-item'>
-        <div className='menu-content pt-8 pb-2'>
-          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Apps</span>
-        </div>
-      </div>
-
-      <SidebarMenuItem
-        to='/user-management/users'
-        icon='abstract-28'
-        title='User management'
-        fontIcon='bi-layers'
-      />
-       <SidebarMenuItem
-        to='/userAddress-management/usersAddress'
-        icon='abstract-12'
-        title='UserAddress management'
-        fontIcon='bi-layers'
-      />
-      <SidebarMenuItem
-        to='/seat-management/seat'
-        icon='abstract-3'
-        title='Seat management'
-        fontIcon='bi-layers'
-      />
-      <SidebarMenuItem
-        to='/fabric-management/fabric'
-        icon='abstract-18'
-        title='Fabric JS'
-        fontIcon='bi-layers'
-      />
-      <SidebarMenuItem
-        to='/konva-management/konva'
-        icon='abstract-35'
-        title='konva JS'
-        fontIcon='bi-layers'
-      />
     </>
   )
 }

@@ -7,11 +7,8 @@ import { WithChildren } from '../../_metronic/helpers'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 
 const PrivateRoutes = () => {
-  const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
-  const UserAddressPage = lazy(() => import('../modules/apps/userAddress-management/UsersAddressPage'))
-  const SeatPage = lazy(() => import('../modules/apps/seat-management/SeatPage'))
-  const FabricPage = lazy(() => import('../modules/apps/fabricjs/FabricPage'))
-  const KonvaPage = lazy(() => import('../modules/apps/konvajs/KonvaPage'))
+  
+  // const KonvaPage = lazy(() => import('../modules/apps/konvajs/KonvaPage'))
   return (
     <Routes>
       <Route element={<MasterLayout />}>
@@ -19,46 +16,14 @@ const PrivateRoutes = () => {
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         <Route path='dashboard' element={<DashboardWrapper />} />
         {/* Lazy Loading */}
-        <Route
-          path='/user-management/*'
-          element={
-            <SuspensedView>
-              <UsersPage />
-            </SuspensedView>
-          }
-        />
-                <Route
-          path='/userAddress-management/*'
-          element={
-            <SuspensedView>
-              <UserAddressPage />
-            </SuspensedView>
-          }
-        />
-         <Route
-          path='/seat-management/*'
-          element={
-            <SuspensedView>
-              <SeatPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='/fabric-management/*'
-          element={
-            <SuspensedView>
-              <FabricPage />
-            </SuspensedView>
-          }
-        />
-         <Route
+         {/* <Route
           path='/konva-management/*'
           element={
             <SuspensedView>
               <KonvaPage />
             </SuspensedView>
           }
-        />
+        /> */}
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/dashboard' />} />
       </Route>
