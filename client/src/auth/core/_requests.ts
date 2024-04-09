@@ -1,17 +1,18 @@
 import axios from 'axios'
 import {AuthModel, UserModel} from './_models'
 
-// const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL
+console.log("API_URL",API_URL);
 
-export const GET_USER_BY_ACCESSTOKEN_URL = `http://localhost:5000/api/verify_token`
-export const ADMIN_LOGIN_URL = `http://localhost:5000/api/admin/login`
-export const USER_LOGIN_URL = `http://localhost:5000/api/user/login`
+export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
+export const ADMIN_LOGIN_URL = `${API_URL}/admin/login`;
+export const USER_LOGIN_URL = `${API_URL}/user/login`;
 
-export const ADMIN_REGISTER_URL = `http://localhost:5000/api/admin/register`
-export const USER_REGISTER_URL = `http://localhost:5000/api/user/register`
+export const ADMIN_REGISTER_URL = `${API_URL}/admin/register`;
+export const USER_REGISTER_URL = `${API_URL}/user/register`;
 
-export const ADMIN_REQUEST_PASSWORD_URL = `http://localhost:5000/api/admin/forgot-password`
-export const USER_REQUEST_PASSWORD_URL = `http://localhost:5000/api/user/forgot-password`
+export const ADMIN_REQUEST_PASSWORD_URL = `${API_URL}/admin/forgot-password`;
+export const USER_REQUEST_PASSWORD_URL = `${API_URL}/user/forgot-password`;
 
 // Server should return AuthModel
 export function adminLogin(email: string, password: string) {
