@@ -23,7 +23,7 @@ const MenuInnerWithSub: FC<Props & WithChildren> = ({
   fontIcon,
   menuTrigger,
   menuPlacement,
-  hasArrow = false,
+  hasArrow = true,
   hasBullet = false,
   isMega = false,
 }) => {
