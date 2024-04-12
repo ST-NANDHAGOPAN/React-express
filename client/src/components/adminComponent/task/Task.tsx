@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "../../../assets/custom/task.css";
 import { GoPlus } from "react-icons/go";
 import { ImCross } from "react-icons/im";
+import { TbDots } from "react-icons/tb";
 
 function TrelloTask() {
   const [columns, setColumns] = useState<Array<{ name: string, tasks: { name: string }[] }>>([]);
@@ -9,6 +10,8 @@ function TrelloTask() {
   const [taskNameInputs, setTaskNameInputs] = useState<string[]>(['']);
   const [showTaskInputs, setShowTaskInputs] = useState<boolean[]>([]);
   const [showColumnNameInput, setShowColumnNameInput] = useState<boolean>(false);
+  const [editColumnIndex, setEditColumnIndex] = useState<number | null>(null);
+  const [editedColumnName, setEditedColumnName] = useState<string>('');
 
   const handleColumnNameChange = (event: React.ChangeEvent<HTMLInputElement>, columnIndex: number) => {
     const newInputs = [...columnNameInputs];
@@ -61,14 +64,60 @@ function TrelloTask() {
       setShowColumnNameInput(false); // Hide input field after adding column
     }
   };
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>, columnIndex: number) => {
+    if (event.key === 'Enter') {
+      if (editedColumnName.trim() !== '') {
+        const updatedColumns = [...columns];
+        updatedColumns[columnIndex].name = editedColumnName;
+        setColumns(updatedColumns);
+      }
+      setEditColumnIndex(null);
+    }
+  };
 
   return (
     <div className="container">
-      <div className="card-columns">
-        {columns.map((column, columnIndex) => (
-          <div className="card me-5 addcolumn" key={columnIndex}>
-            <div className="card-body">
-              <h5 className="card-title">{column.name}</h5>
+      <div className="card-columns ">
+        {columns.map((column, columnIndex) =>  (
+          <div className="card me-5 addcolumn">
+            <div className="card-body p-4 ">
+              {editColumnIndex === columnIndex ? (
+                <div className='d-flex justify-content-between'>
+                  <input
+                    type="text"
+                    className="form-control"
+                    title='list name'
+                    value={editedColumnName}
+                    onChange={(event) => setEditedColumnName(event.target.value)}
+                    onBlur={() => {
+                      if (editedColumnName.trim() !== '') {
+                        const updatedColumns = [...columns];
+                        updatedColumns[columnIndex].name = editedColumnName;
+                        setColumns(updatedColumns);
+                      }
+                      setEditColumnIndex(null);
+                    }}
+                    onKeyDown={(event) => handleKeyPress(event, columnIndex)}
+                    autoFocus
+                  />
+                  <span className='cursor-pointer p-3'><TbDots /></span>
+                </div>
+              ) : (
+                <div className='d-flex justify-content-between'>
+                  <h5
+                    className="card-title"
+                    onClick={() => {
+                      setEditedColumnName(column.name);
+                      setEditColumnIndex(columnIndex);
+                    }}
+                  >
+                    {column.name}
+                  </h5>
+                  <span className='cursor-pointer'><TbDots /></span>
+                </div>
+
+              )}
+
               {column.tasks.map((task, taskIndex) => (
                 <div className="card mb-2" key={taskIndex}>
                   <div className="card-body">
@@ -77,13 +126,15 @@ function TrelloTask() {
                   </div>
                 </div>
               ))}
+              
               {showTaskInputs[columnIndex] && (
                 <>
                   <div className="mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Task Name"
+                      title="card name"
+                      placeholder="Card Name"
                       value={taskNameInputs[columnIndex]}
                       onChange={(event) => handleTaskNameChange(event, columnIndex)}
                       onKeyDown={(event) => handleKeyDown(event, columnIndex)}
@@ -93,17 +144,21 @@ function TrelloTask() {
                 </>
               )}
               {!showTaskInputs[columnIndex] && (
-                <button className="btn btn-primary mb-3" onClick={() => toggleTaskInputs(columnIndex)}>Add card</button>
+                <button className="add-column p-5" onClick={() => toggleTaskInputs(columnIndex)}>
+                  <GoPlus className='me-1' /> Add a card
+                </button>
               )}
             </div>
           </div>
         ))}
-        <div className="card addcolumn h-25">
+        <div className="card addcolumn">
           <div className="card-body p-4">
             {showColumnNameInput && (
               <div className=" mb-2 ">
                 <input
+                  autoFocus
                   type="text"
+                  title="List name"
                   className="form-control p-4 mb-2"
                   placeholder="Enter list title"
                   value={columnNameInputs[columnNameInputs.length - 1]}
@@ -116,11 +171,11 @@ function TrelloTask() {
                   </span>
                 </div>
               </div>
-            )} 
+            )}
             {!showColumnNameInput && (
-                <button className='add-column p-5' onClick={() => setShowColumnNameInput(true)}>
-                  <GoPlus className='me-1' /> Add a list
-                </button>
+              <button className='add-column p-5' onClick={() => setShowColumnNameInput(true)}>
+                <GoPlus className='me-1' /> Add a list
+              </button>
             )}
           </div>
         </div>

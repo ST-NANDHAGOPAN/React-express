@@ -40,8 +40,9 @@
 }
 
 .add-column:hover {
-    background-color: #e9e2e296;
+    background-color: #e0e0e0;
 }
 .icon-red{
  color: red;
+ cursor: pointer;
 }
