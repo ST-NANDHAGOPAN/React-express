@@ -3,7 +3,6 @@ import {Outlet, useLocation} from 'react-router-dom'
 import {HeaderWrapper} from './components/header'
 import {ScrollTop} from './components/scroll-top'
 import {Content} from './components/content/Content'
-import {FooterWrapper} from './components/footer'
 import {Sidebar} from './components/sidebar'
 import {PageDataProvider} from './core'
 import {reInitMenu} from '../helpers'
@@ -27,7 +26,6 @@ const MasterLayout = () => {
                   <Outlet />
                 </Content>
               </div>
-              <FooterWrapper />
             </div>
           </div>
         </div>

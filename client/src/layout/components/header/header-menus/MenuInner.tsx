@@ -7,7 +7,6 @@ import { MenuItem } from "./MenuItem";
 export function MenuInner() {
   return (
     <>
-     <MenuItem title='NYC Seating ' to='/dashboard' />
       <MenuInnerWithSub
         title='Workspace'
         to='/dg'
