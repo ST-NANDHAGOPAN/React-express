@@ -11,20 +11,6 @@
     margin-right: 10px;
   }
 
-  /* .add-card {
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: #838c91;
-    padding: 1rem;
-    cursor: pointer;
-  }
-  
-  .add-card:hover {
-    background-color: #cdd2d4;
-    color: #4d4d4d;
-    text-decoration: underline;
-  } */
-
   .add-list {
     display: flex;
     width: 100%;
