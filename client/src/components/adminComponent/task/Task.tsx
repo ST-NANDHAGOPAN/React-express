@@ -3,6 +3,7 @@ import "../../../assets/custom/task.css";
 import { GoPlus } from "react-icons/go";
 import { ImCross } from "react-icons/im";
 import { TbDots } from "react-icons/tb";
+import { MdEdit } from "react-icons/md";
 
 function TrelloTask() {
   const [columns, setColumns] = useState<Array<{ name: string, tasks: { name: string }[] }>>([]);
@@ -82,7 +83,7 @@ function TrelloTask() {
           <div className="card me-5 addcolumn" key={columnIndex}>
             <div className="card-body p-4 " key={columnIndex}>
               {editColumnIndex === columnIndex ? (
-                <div className='d-flex justify-content-between' key={columnIndex}>
+                <div className='d-flex justify-content-between mb-2' key={columnIndex}>
                   <input
                     type="text"
                     className="form-control"
@@ -103,7 +104,7 @@ function TrelloTask() {
                   <span className='cursor-pointer p-3'><TbDots /></span>
                 </div>
               ) : (
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between mb-2'>
                   <h5
                     className="card-title"
                     onClick={() => {
@@ -119,11 +120,9 @@ function TrelloTask() {
               )}
 
               {column.tasks.map((task, taskIndex) => (
-                <div className="card mb-2" key={taskIndex}>
-                  <div className="card-body">
+                <div className="card d-flex flex-row justify-content-between mb-2 pt-2 px-2" key={taskIndex}>
                     <h5 className="card-title">{task.name}</h5>
-                    <button className="btn btn-danger" onClick={() => deleteTask(columnIndex, taskIndex)}>Delete</button>
-                  </div>
+                    <span className='cursor-pointer'><MdEdit /></span>
                 </div>
               ))}
 
@@ -140,14 +139,21 @@ function TrelloTask() {
                       onKeyDown={(event) => handleKeyDown(event, columnIndex)}
                     />
                   </div>
-                  <button className="btn btn-primary mb-3" onClick={() => handleAddTask(columnIndex)}>Add card</button>
+                  <button className="btn btn-primary" onClick={() => handleAddTask(columnIndex)}>Add card</button>
+                  <span onClick={() => setShowTaskInputs(prevState => {
+                    const newState = [...prevState];
+                    newState[columnIndex] = false;
+                    return newState;
+                  })} className='icon-red p-3' >
+                    <ImCross />
+                  </span>
                 </>
               )}
               {!showTaskInputs[columnIndex] && (
-                <button className="add-column p-5" onClick={() => toggleTaskInputs(columnIndex)}>
+                <button className="add-list p-5" onClick={() => toggleTaskInputs(columnIndex)}>
                   <GoPlus className='me-1' /> Add a card
                 </button>
-                
+
               )}
             </div>
           </div>
@@ -176,7 +182,7 @@ function TrelloTask() {
               </div>
             )}
             {!showColumnNameInput && (
-              <button className='add-column p-5' onClick={() => setShowColumnNameInput(true)}>
+              <button className='add-list p-5' onClick={() => setShowColumnNameInput(true)}>
                 <GoPlus className='me-1' /> Add a list
               </button>
             )}

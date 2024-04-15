@@ -25,7 +25,7 @@
     text-decoration: underline;
   } */
 
-  .add-column {
+  .add-list {
     display: flex;
     width: 100%;
     justify-content: start;
@@ -37,10 +37,11 @@
     height: 2rem;
 }
 
-.add-column:hover {
+.add-list:hover {
     background-color: #e0e0e0;
 }
 .icon-red{
  color: red;
  cursor: pointer;
 }
+
