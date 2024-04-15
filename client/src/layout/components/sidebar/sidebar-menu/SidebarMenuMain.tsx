@@ -10,7 +10,7 @@ const SidebarMenuMain = () => {
       </div>
     
       <SidebarMenuItem
-        to='/'
+        to='/dashboard'
         icon='abstract-28'
         title='NYC Seating'
         fontIcon='bi-layers'

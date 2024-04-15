@@ -1,33 +1,61 @@
 .container {
-    width: 100%; 
-    overflow-x: auto; 
-    white-space: nowrap;
-    height: 85vh;
-    display: flex;
-  }
-  
-  .addcolumn {
-    width: 300px; 
-    margin-right: 10px;
-  }
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  height: 85vh;
+  display: flex;
+}
 
-  .add-list {
-    display: flex;
-    width: 100%;
-    justify-content: start;
-    align-items: center;
-    border-radius: 0.25rem;
-    background-color: transparent;
-    border: 1px solid transparent;
-    transition: background-color 0.3s ease;
-    height: 2rem;
+.addcolumn {
+  width: 300px;
+  margin-right: 10px;
+}
+
+.add-list {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  align-items: center;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease;
+  height: 2rem;
 }
 
 .add-list:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
-.icon-red{
- color: red;
- cursor: pointer;
+.icon-red {
+  color: red;
+  cursor: pointer;
 }
 
+.workspacelogo  {
+  width: 60px;
+  height: 60px;
+  border-radius:15px ;
+  
+
+  background-color: #4caf50;
+}
+.logoheader{
+  font-weight: 800;
+}
+.card-container {
+  display: flex;
+  justify-content: space-between; /* Adjust the spacing between cards */
+}
+
+.workspace .board {
+  width: 250px; 
+  height: 150px; 
+  border-radius: 5px;
+  background-color: #8d8bcc; 
+  font-weight: 800;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
