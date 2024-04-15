@@ -77,12 +77,12 @@ function TrelloTask() {
 
   return (
     <div className="container">
-      <div className="card-columns ">
-        {columns.map((column, columnIndex) =>  (
-          <div className="card me-5 addcolumn">
-            <div className="card-body p-4 ">
+      {columns.map((column, columnIndex) => (
+        <div className='main'>
+          <div className="card me-5 addcolumn" key={columnIndex}>
+            <div className="card-body p-4 " key={columnIndex}>
               {editColumnIndex === columnIndex ? (
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between' key={columnIndex}>
                   <input
                     type="text"
                     className="form-control"
@@ -126,7 +126,7 @@ function TrelloTask() {
                   </div>
                 </div>
               ))}
-              
+
               {showTaskInputs[columnIndex] && (
                 <>
                   <div className="mb-3">
@@ -147,10 +147,13 @@ function TrelloTask() {
                 <button className="add-column p-5" onClick={() => toggleTaskInputs(columnIndex)}>
                   <GoPlus className='me-1' /> Add a card
                 </button>
+                
               )}
             </div>
           </div>
-        ))}
+        </div>
+      ))}
+      <div>
         <div className="card addcolumn">
           <div className="card-body p-4">
             {showColumnNameInput && (
