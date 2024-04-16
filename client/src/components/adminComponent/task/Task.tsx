@@ -171,6 +171,8 @@ function TrelloTask() {
                   </div>
                 </div>
               ))}
+
+              {/*  Add List */}
               {showTaskInputs[columnIndex] && (
                 <>
                   <div className="mb-3">
@@ -198,7 +200,6 @@ function TrelloTask() {
                 <button className="add-list rounded p-5" onClick={() => toggleTaskInputs(columnIndex)}>
                   <GoPlus className='me-1' /> Add a card
                 </button>
-
               )}
             </div>
           </div>
