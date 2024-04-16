@@ -1,4 +1,4 @@
-.container {
+.main {
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
@@ -48,8 +48,16 @@
 }
 .list-container{
   position: relative;
+  border:  3px solid white;
+}
+.list-container:hover {
+  border: 3px solid rgb(96, 188, 245);
+  .imagewithedit{
+    display: block;
+  }
 }
 .imagewithedit {
+  display: none;
   position: absolute;
   top: 15px;
   right: 10px;

@@ -27,7 +27,7 @@ function TrelloTask() {
   const [showColumnNameInput, setShowColumnNameInput] = useState<boolean>(false);
   const [editColumnIndex, setEditColumnIndex] = useState<number | null>(null);
   const [editedColumnName, setEditedColumnName] = useState<string>('');
-  const [hoveredTaskIndices, setHoveredTaskIndices] = useState<(number | null)[]>(new Array(columns.length).fill(null));
+
 
 
   useEffect(() => {
@@ -100,11 +100,12 @@ function TrelloTask() {
   };
 
   return (
-    <div className="container ">
+    <div className="main">
       {columns.map((column, columnIndex) => (
-        <div className='main ' key={columnIndex}>
+        <div key={columnIndex}>
           <div className="card me-5 addcolumn">
             <div className="card-body p-4 grey-color rounded">
+              {/* List Header  */}
               {editColumnIndex === columnIndex ? (
                 <div className='d-flex justify-content-between mb-2'>
                   <input
@@ -141,44 +142,32 @@ function TrelloTask() {
                 </div>
 
               )}
+
+              {/* Add Task  */}
               {column.tasks.map((task, taskIndex) => (
                 <div
-                  className={`card list-container mb-2 ${hoveredTaskIndices[columnIndex] === taskIndex ? 'border border-2 rounded border-primary' : 'border rounded border-2'}`}
+                  className={`card list-container mb-2 `}
                   key={taskIndex}
-                  onMouseEnter={() => {
-                    const newHoveredTaskIndices = [...hoveredTaskIndices];
-                    newHoveredTaskIndices[columnIndex] = taskIndex;
-                    setHoveredTaskIndices(newHoveredTaskIndices);
-                  }}
-                  onMouseLeave={() => {
-                    const newHoveredTaskIndices = [...hoveredTaskIndices];
-                    newHoveredTaskIndices[columnIndex] = null;
-                    setHoveredTaskIndices(newHoveredTaskIndices);
-                  }}
                 >
-                  <img
-                    className='card-image border border-2  rounded-top  '
-                    src={logo}
-                    alt="qwe" />
-                  {hoveredTaskIndices[columnIndex] === taskIndex && (
-                      <span className='cursor-pointer imagewithedit'><MdEdit /></span>
-                    )}
-                    
+                  <div>
+                    <img
+                      className='card-image border border-2  rounded-top  '
+                      src={logo}
+                      alt="qwe" />
+                    <span className='cursor-pointer imagewithedit'><MdEdit /></span>
+                  </div>
+
                   <div className='d-flex flex-row justify-content-between p-2 '>
                     <h5 className="card-title">{task.name}</h5>
-                    {/* {hoveredTaskIndices[columnIndex] === taskIndex && (
-                      <span className='cursor-pointer titlewithedit'><MdEdit /></span>
-                    )} */}
+                    {/* <span className='cursor-pointer titlewithedit'><MdEdit /></span> */}
                   </div>
-                  <div className='d-flex justify-content-around p-4'>
 
+                  <div className='d-flex justify-content-around p-4'>
                     <span className='cursor-pointer text-warning fs-6 '>  <MdNotificationsActive /></span>
                     <span className='cursor-pointer fs-6 '><MdOutlineRemoveRedEye /></span>
                     <span className='cursor-pointer fs-6'><BsCardText /></span>
                     <span className='cursor-pointer fs-6'><FaRegComment /> 2</span>
                     <span className='cursor-pointer fs-6'> <RiAttachment2 /></span>
-
-
                   </div>
                 </div>
               ))}
