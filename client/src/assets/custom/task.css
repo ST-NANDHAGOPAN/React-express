@@ -1,3 +1,8 @@
+/* -----------------------------------------------------------------------------
+
+#  Task Css
+
+----------------------------------------------------------------------------- */
 .main {
   width: 100%;
   overflow-x: auto;
@@ -31,21 +36,6 @@
   cursor: pointer;
 }
 
-.workspacelogo  {
-  width: 60px;
-  height: 60px;
-  border-radius:15px ;
-  
-
-  background-color: #4caf50;
-}
-.logoheader{
-  font-weight: 800;
-}
-.card-container {
-  display: flex;
-  justify-content: space-between; /* Adjust the spacing between cards */
-}
 .list-container{
   position: relative;
   border:  3px solid white;
@@ -84,15 +74,3 @@
   height: 150px;
 }
 
-.workspace .board {
-  width: 250px; 
-  height: 150px; 
-  border-radius: 5px;
-  background-color: #8d8bcc; 
-  font-weight: 800;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}

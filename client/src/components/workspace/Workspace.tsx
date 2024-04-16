@@ -1,14 +1,14 @@
 import React from 'react'
-import "../../assets/custom/task.css";
-import logo from "../../assets/images//custom-1.png"
+import logo from "../../assets/images/custom-1.png"
 import { IoIosLock } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { FaPlusCircle } from "react-icons/fa";
+import "../../assets/custom/workspace.css";
 
 function Workspace() {
   return (
     <div className='workspace'>
-      <div className="d-flex justify-content-around my-8">
+      <div className="d-flex justify-content-around ">
         <div className='d-flex'>
           <img
             className='workspacelogo me-3 '

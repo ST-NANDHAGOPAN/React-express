@@ -19,6 +19,7 @@ import './assets/sass/plugins.scss'
 import './assets/sass/style.react.scss'
 import {AppRoutes} from './routes/AppRoutes'
 import {AuthProvider, setupAxios} from './auth'
+
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
