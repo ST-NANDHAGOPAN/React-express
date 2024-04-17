@@ -4,5 +4,39 @@
 .popup-header-icon{
    position: absolute;
    top: 0px;
-   left: 5px;
+   left: 0px;
+   font-size: x-large;
+   line-height: 1;
 }
+.addmembers{
+   background-color: #e0dada;
+   text-align: center;
+   font-size: medium;
+   height: 25px;
+   width: 25px;
+   border-radius: 50%;
+   text-align: center;
+   padding: 6px;
+ }
+ .addmembers:hover{
+   background-color: #e9e2e2;
+   
+ }
+
+ .description-container {
+    height: 200px;
+    border: 1px solid black;
+ }
+
+ .popup-card-options {
+   display: flex;
+   width: 100%;
+   justify-content: start;
+   align-items: center;
+   border-radius: 0.25rem;
+   background-color: #e0e0e0;
+
+   border: 1px solid transparent;
+   transition: background-color 0.3s ease;
+   height: 2rem;
+ }

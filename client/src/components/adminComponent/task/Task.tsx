@@ -160,7 +160,7 @@ function TrelloTask() {
                       className='card-image border border-2  rounded-top  '
                       src={logo}
                       alt="qwe" />
-                    <span className='cursor-pointer imagewithedit'  
+                    <span className='cursor-pointer imagewithedit pt-1  ps-1'  
                     onClick={() => setShowCreateAppModal(true)}><MdEdit />
                     </span>
                     <Dropdown2  show={showCreateAppModal} handleClose={() => setShowCreateAppModal(false)} />
