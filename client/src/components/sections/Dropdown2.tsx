@@ -1,5 +1,4 @@
 import "../../assets/custom/Dropdown.css"
-import { Modal } from "react-bootstrap";
 import { KTIcon } from "../../helpers";
 import { MdOutlineArchive, MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaWindowMaximize } from "react-icons/fa";
@@ -22,16 +21,7 @@ type Props = {
 
 const Dropdown2 = ({ show, handleClose }: Props) => {
     return (
-        <Modal
-            tabIndex={-1}
-            aria-hidden="true"
-            dialogClassName="modal-dialog-centered"
-            show={show}
-            onHide={handleClose}
-            backdrop={true}
-            size="lg"
-
-        >
+        <>
             <div className="modal-header">
                 <h2>Card</h2>
                 <div
@@ -124,7 +114,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                                 <p className="ms-2">
                                                     <span className="cursor-pointer">board.png <FcRightUp />
                                                     </span>
-                                                    <a href="https://trello.com/1/cards/661924d24e3056ff806b1c07/attachments/661f9fad4fa4ac221cbf3991/download/board.png"  title="board.png">
+                                                    <a href="https://trello.com/1/cards/661924d24e3056ff806b1c07/attachments/661f9fad4fa4ac221cbf3991/download/board.png" title="board.png">
                                                         <span></span>
                                                     </a>
                                                     <span className="d-block mb-3">
@@ -207,7 +197,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                     <button className='text-start btn btn-secondary rounded w-100 mb-2'>
                                         <RiAttachment2 className='me-1' />Attachement
                                     </button>
-                                    
+
                                 </div>
                             </div>
                             <div>
@@ -229,7 +219,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                 </div>
             </div>
 
-        </Modal >
+        </>
     );
 };
 

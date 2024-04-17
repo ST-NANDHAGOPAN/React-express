@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../../../assets/custom/task.css";
+import { Modal } from "react-bootstrap";
 import { GoPlus } from "react-icons/go";
 import { ImCross } from "react-icons/im";
 import { TbDots } from "react-icons/tb";
@@ -71,12 +72,6 @@ function TrelloTask() {
     if (event.key === 'Enter') {
       handleAddTask(columnIndex);
     }
-  };
-
-  const deleteTask = (columnIndex: number, taskIndex: number) => {
-    const updatedColumns = [...columns];
-    updatedColumns[columnIndex].tasks.splice(taskIndex, 1);
-    setColumns(updatedColumns);
   };
 
   const addColumn = () => {
@@ -160,10 +155,10 @@ function TrelloTask() {
                       className='card-image border border-2  rounded-top  '
                       src={logo}
                       alt="qwe" />
-                    <span className='cursor-pointer imagewithedit pt-1  ps-1'  
-                    onClick={() => setShowCreateAppModal(true)}><MdEdit />
+                    <span className='cursor-pointer imagewithedit pt-1  ps-1'
+                      onClick={() => setShowCreateAppModal(true)}><MdEdit />
                     </span>
-                    <Dropdown2  show={showCreateAppModal} handleClose={() => setShowCreateAppModal(false)} />
+
                   </div>
 
                   <div className='d-flex flex-row justify-content-between p-2 '>
@@ -244,6 +239,15 @@ function TrelloTask() {
           </div>
         </div>
       </div>
+      <Modal
+        tabIndex={-1}
+        aria-hidden="true"
+        dialogClassName="modal-dialog-centered"
+        show={showCreateAppModal}
+        backdrop={true}
+        size="lg">
+        <Dropdown2 show={showCreateAppModal} handleClose={() => setShowCreateAppModal(false)} />
+      </Modal>
     </div>
   );
 }
