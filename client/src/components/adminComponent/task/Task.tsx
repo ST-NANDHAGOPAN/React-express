@@ -8,6 +8,9 @@ import { BsCardText } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa6";
 import { RiAttachment2 } from "react-icons/ri";
 import logo from "../../../assets/images/trello.png"
+import { Dropdown1 } from '../../sections/Dropdown1';
+import { Dropdown2 } from '../../sections/Dropdown2';
+
 interface Column {
   name: string;
   tasks: { name: string }[];
@@ -27,8 +30,7 @@ function TrelloTask() {
   const [showColumnNameInput, setShowColumnNameInput] = useState<boolean>(false);
   const [editColumnIndex, setEditColumnIndex] = useState<number | null>(null);
   const [editedColumnName, setEditedColumnName] = useState<string>('');
-
-
+  const [showCreateAppModal, setShowCreateAppModal] = useState<boolean>(false)
 
   useEffect(() => {
     // Initialize default task name inputs and show task inputs
@@ -138,7 +140,11 @@ function TrelloTask() {
                   >
                     {column.name}
                   </h5>
-                  <span className='cursor-pointer'><TbDots /></span>
+                  <span className='cursor-pointer' data-kt-menu-trigger='click'
+                    data-kt-menu-placement='bottom-start'><TbDots />
+                  </span>
+                  <Dropdown1 />
+
                 </div>
 
               )}
@@ -154,7 +160,10 @@ function TrelloTask() {
                       className='card-image border border-2  rounded-top  '
                       src={logo}
                       alt="qwe" />
-                    <span className='cursor-pointer imagewithedit'><MdEdit /></span>
+                    <span className='cursor-pointer imagewithedit'  
+                    onClick={() => setShowCreateAppModal(true)}><MdEdit />
+                    </span>
+                    <Dropdown2  show={showCreateAppModal} handleClose={() => setShowCreateAppModal(false)} />
                   </div>
 
                   <div className='d-flex flex-row justify-content-between p-2 '>

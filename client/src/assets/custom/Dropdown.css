@@ -1,0 +1,8 @@
+.popup-header{
+   position: relative;
+}
+.popup-header-icon{
+   position: absolute;
+   top: 0px;
+   left: 5px;
+}
