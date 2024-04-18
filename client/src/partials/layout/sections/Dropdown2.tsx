@@ -74,16 +74,6 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
 
                                     </div>
                                 </div>
-                                <div>
-                                    <h3 className="mb-4">Notifications</h3>
-                                    <a className="rounded text-black border border-2 bg-secondary py-3 ps-2 pe-1" href="/" title="You are receiving notifications for updates on this card (click to stop watching)">
-                                        <span className='cursor-pointer me-4'><MdOutlineRemoveRedEye />
-                                        </span>
-                                        <span className="me-5">Watching</span>
-                                        <span className='cursor-pointer text-success rounded border border-2 bg-white py-2 px-3'><TiTick />
-                                        </span>
-                                    </a>
-                                </div>
                             </div>
                             <div className="popup-header mb-8">
                                 <span className='cursor-pointer popup-header-icon '>
@@ -130,11 +120,6 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
 
                                                         </span>
                                                         <span>
-                                                            <a href="/">
-                                                                <span>Comment <BsDot /></span>
-                                                            </a>
-                                                        </span>
-                                                        <span>
                                                             <a href="/" >
                                                                 <span>Download <BsDot />
                                                                 </span>
@@ -142,12 +127,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                                         </span>
                                                         <span>
                                                             <a href="/">
-                                                                <span>Delete<BsDot /></span>
-                                                            </a>
-                                                        </span>
-                                                        <span>
-                                                            <a href="/">
-                                                                <span>Edit</span>
+                                                                <span>Delete</span>
                                                             </a>
                                                         </span>
                                                     </span>

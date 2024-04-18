@@ -12,16 +12,7 @@ export function Dropdown1() {
                 <a className='menu-link px-3'>Add card</a>
             </div>
             <div className='menu-item px-3'>
-                <a className='menu-link px-3'>copy list</a>
-            </div>
-            <div className='menu-item px-3'>
-                <a className='menu-link px-3'>Archive</a>
-            </div>
-            <div className='menu-item px-3'>
-                <a className='menu-link px-3'>Watch</a>
-            </div>
-            <div className='menu-item px-3'>
-                <a className='menu-link px-3'>Sort By</a>
+                <a className='menu-link px-3'>Archive List</a>
             </div>
         </div>
     )

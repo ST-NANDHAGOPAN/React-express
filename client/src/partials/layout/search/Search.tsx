@@ -69,7 +69,7 @@ const Search: FC = () => {
         data-kt-menu-placement='bottom-end'
         ref={element}
       >
-        <div
+              <div
           className='d-flex align-items-center'
           data-kt-search-element='toggle'
           id='kt_header_search_toggle'
@@ -78,7 +78,6 @@ const Search: FC = () => {
             <KTIcon iconName='magnifier' className='fs-2' />
           </div>
         </div>
-
         <div
           data-kt-search-element='content'
           className='menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px'
