@@ -12,7 +12,7 @@ const UsersListSearchComponent = () => {
         <input
           type='text'
           data-kt-user-table-filter='search'
-          className='form-control form-control-solid w-250px ps-14'
+          className='form-control form-control-solid w-750px ps-14'
           placeholder='Search'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

@@ -1,58 +1,42 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import clsx from 'clsx'
-import {FC} from 'react'
-import {Link} from 'react-router-dom'
-import {
-  defaultAlerts,
-  defaultLogs,
-  KTIcon,
-  toAbsoluteUrl,
-  useIllustrationsPath,
-} from '../../../helpers'
+import { FC } from 'react'
+import { PiDotsThreeOutlineVertical } from "react-icons/pi";
 
-const HeaderNotificationsMenu: FC = () => (
-  <div
-    className='menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px'
-    data-kt-menu='true'
-  >
+
+const HeaderNotificationsMenu: FC = () => {
+
+  return (
     <div
-      className='d-flex flex-column bgi-no-repeat rounded-top'
-      style={{backgroundImage: `url('${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}')`}}
+      className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-450px'
+      data-kt-menu='true'
     >
-      
-    </div>
-
-    <div className='tab-content'>
-
-      <div className='tab-pane fade show active' id='kt_topbar_notifications_2' role='tabpanel'>
-        <div className='d-flex flex-column px-9'>
-          <div className='pt-10 pb-0'>
-            <h3 className='text-dark text-center fw-bolder'>Get Pro Access</h3>
-
-            <div className='text-center text-gray-600 fw-bold pt-1'>
-              Outlines keep you honest. They stoping you from amazing poorly about drive
-            </div>
-
-            <div className='text-center mt-5 mb-9'>
-              <a
-                href='#'
-                className='btn btn-sm btn-primary px-6'
-                data-bs-toggle='modal'
-                data-bs-target='#kt_modal_upgrade_plan'
-              >
-                Upgrade
-              </a>
-            </div>
+      <div className='menu-item px-3 pb-5'>
+        <div className='menu-content d-flex  justify-content-between px-3'>
+          <div className='fw-bolder fs-5'>
+            <h1>Notification</h1>
           </div>
-
-          <div className='text-center px-4'>
-            <img className='mw-100 mh-200px' alt='metronic' src={useIllustrationsPath('1.png')} />
+          <div>
+            <label className='form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack pt-1'>
+              <span className='form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2'>
+                Only show unread
+              </span>
+              <input className='form-check-input' type='checkbox' value='1' defaultChecked />
+            </label>
           </div>
+          <span className='ms-4'><PiDotsThreeOutlineVertical />
+            </span>
         </div>
       </div>
 
-    </div>
-  </div>
-)
+      <div className='separator my-2'></div>
 
-export {HeaderNotificationsMenu}
+      <div className="text-center p-5 mb-10" data-testid="notifications-empty-state">
+        <img alt="Taco" src="	https://trello.com/assets/ee2660df9335718b1a80.svg"/>
+        <h3>No unread notifications</h3>
+        </div>
+      
+    </div>
+  )
+}
+
+export { HeaderNotificationsMenu }

@@ -1,7 +1,6 @@
 import "../../../assets/custom/Dropdown.css"
 import { MdOutlineArchive, MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaWindowMaximize } from "react-icons/fa";
-import { TiTick } from "react-icons/ti";
 import { GoPlus } from "react-icons/go";
 import { BsCardText, BsDot } from "react-icons/bs";
 import { RiAttachment2 } from "react-icons/ri";
