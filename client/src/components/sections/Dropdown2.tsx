@@ -13,6 +13,7 @@ import { RxActivityLog } from "react-icons/rx";
 import { IoMdCheckboxOutline, IoMdPerson } from "react-icons/io";
 import { IoCopy, IoTicket } from "react-icons/io5";
 import { LuMoveRight } from "react-icons/lu";
+import { ImCross } from "react-icons/im";
 
 type Props = {
     show: boolean;
@@ -22,10 +23,14 @@ type Props = {
 const Dropdown2 = ({ show, handleClose }: Props) => {
     return (
         <>
-            <div className="modal-header">
-                <h2>Card</h2>
+            <div className="modal-header card-model-header p-0">
+                <img className="card-cover-img" src={logo}
+                    alt="trello"
+                    title="trello"
+                />
+               
                 <div
-                    className="btn btn-sm btn-icon btn-active-color-primary"
+                    className="cross-button btn btn-sm btn-icon btn-color-dark  btn-active-color-light"
                     onClick={handleClose}
                 >
                     <KTIcon className="fs-1" iconName="cross" />
@@ -35,7 +40,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                 <div className="popup-header ">
                     <span className='cursor-pointer popup-header-icon  '>
                         <FaWindowMaximize /></span>
-                    <div className="px-10">
+                    <div className="px-11">
                         <h2>
                             qwewqewqr
                         </h2>
@@ -48,7 +53,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                 </div>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-9">
+                        <div className="col-9 p-0">
                             <div className="d-flex my-12">
                                 <div className="px-10">
                                     <h3>Members</h3>
@@ -108,8 +113,8 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                         <div>
                                             <div className="d-flex">
                                                 <img height="100" width="100" src={logo}
-                                                    alt="surya"
-                                                    title="surya"
+                                                    alt="trello"
+                                                    title="trello"
                                                 />
                                                 <p className="ms-2">
                                                     <span className="cursor-pointer">board.png <FcRightUp />
@@ -169,7 +174,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                     <div className="activity-container">
                                         <div >
                                             <button className="btn p-0 ms-1 me-2 ">
-                                                <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c371033753894a11c8801/723fa7519790f2a3375508873db66ab3/170.png"
+                                                <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c371033753894a11c8801/e318e9587a3ba8de4072a03e534dcb82/50.png"
                                                     alt="NANDHA"
                                                     title="NANDHA"
                                                 />

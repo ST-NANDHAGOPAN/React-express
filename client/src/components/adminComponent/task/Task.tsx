@@ -99,9 +99,9 @@ function TrelloTask() {
   return (
     <div className="main">
       {columns.map((column, columnIndex) => (
-        <div key={columnIndex}>
+        <div key={columnIndex} >
           <div className="card me-5 addcolumn">
-            <div className="card-body p-4 grey-color rounded">
+            <div className="card-body p-4 grey-color rounded ">
               {/* List Header  */}
               {editColumnIndex === columnIndex ? (
                 <div className='d-flex justify-content-between mb-2'>
@@ -181,6 +181,7 @@ function TrelloTask() {
                 <>
                   <div className="mb-3">
                     <input
+                      autoFocus
                       type="text"
                       className="form-control"
                       title="card name"
