@@ -8,9 +8,10 @@ import { MdEdit, MdOutlineRemoveRedEye, MdNotificationsActive } from "react-icon
 import { BsCardText } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa6";
 import { RiAttachment2 } from "react-icons/ri";
-import logo from "../../../assets/images/trello.png"
-import { Dropdown1 } from '../../sections/Dropdown1';
-import { Dropdown2 } from '../../sections/Dropdown2';
+import { Dropdown1 } from '../../../partials/layout/sections/Dropdown1';
+import { Dropdown2 } from '../../../partials/layout/sections/Dropdown2';
+import { toAbsoluteUrl } from '../../../helpers';
+
 
 interface Column {
   name: string;
@@ -153,9 +154,9 @@ function TrelloTask() {
                   <div>
                     <img
                       className='card-image border border-2  rounded-top  '
-                      src={logo}
+                      src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
                       alt="qwe" />
-                    <span className='cursor-pointer imagewithedit pt-1  ps-1'
+                    <span className='cursor-pointer imagewithedit '
                       onClick={() => setShowCreateAppModal(true)}><MdEdit />
                     </span>
 

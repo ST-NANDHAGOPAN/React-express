@@ -1,9 +1,9 @@
 import React from 'react'
-import logo from "../../assets/images/custom-1.png"
 import { IoIosLock } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { FaPlusCircle } from "react-icons/fa";
 import "../../assets/custom/workspace.css";
+import { toAbsoluteUrl } from '../../helpers';
 
 function Workspace() {
   return (
@@ -12,7 +12,7 @@ function Workspace() {
         <div className='d-flex'>
           <img
             className='workspacelogo me-3 '
-            src={logo}
+            src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
             alt="qwe" />
           <div>
             <h2 className="logoheader">Bart Team <MdEdit /> </h2>

@@ -33,9 +33,9 @@
 
 .list-container:hover {
   border: 3px solid rgb(96, 188, 245);
-  .imagewithedit{
+  /* .imagewithedit{
     display: block;
-  }
+  } */
 }
 
 .card-image{
@@ -44,7 +44,7 @@
 }
 
 .imagewithedit {
-  display: none;
+  /* display: none; */
   position: absolute;
   top: 15px;
   right: 10px;
@@ -57,7 +57,8 @@
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  text-align: center;
+  padding-top: 1.5px;
+  padding-left: 1px;
 }
 
 .titlewithedit:hover ,.imagewithedit:hover{

@@ -1,5 +1,4 @@
-import "../../assets/custom/Dropdown.css"
-import { KTIcon } from "../../helpers";
+import "../../../assets/custom/Dropdown.css"
 import { MdOutlineArchive, MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaWindowMaximize } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
@@ -8,12 +7,11 @@ import { BsCardText, BsDot } from "react-icons/bs";
 import { RiAttachment2 } from "react-icons/ri";
 import { FcRightUp } from "react-icons/fc";
 import { MdOutlineCreditCard } from "react-icons/md";
-import logo from "../../assets/images/trello.png";
 import { RxActivityLog } from "react-icons/rx";
 import { IoMdCheckboxOutline, IoMdPerson } from "react-icons/io";
 import { IoCopy, IoTicket } from "react-icons/io5";
 import { LuMoveRight } from "react-icons/lu";
-import { ImCross } from "react-icons/im";
+import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 
 type Props = {
     show: boolean;
@@ -24,7 +22,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
     return (
         <>
             <div className="modal-header card-model-header p-0">
-                <img className="card-cover-img" src={logo}
+                <img className="card-cover-img  rounded-top" src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
                     alt="trello"
                     title="trello"
                 />
@@ -112,7 +110,11 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                     <div className="attachement-container">
                                         <div>
                                             <div className="d-flex">
-                                                <img height="100" width="100" src={logo}
+                                                <img 
+                                                className="rounded"
+                                                height="100" 
+                                                width="100"  
+                                                src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
                                                     alt="trello"
                                                     title="trello"
                                                 />

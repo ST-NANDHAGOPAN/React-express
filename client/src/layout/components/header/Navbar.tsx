@@ -1,7 +1,8 @@
 import clsx from 'clsx'
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
-import {HeaderNotificationsMenu, HeaderUserMenu, ThemeModeSwitcher} from '../../../partials'
-import {useLayout} from '../../core'
+import { KTIcon, toAbsoluteUrl } from '../../../helpers'
+import { HeaderNotificationsMenu, HeaderUserMenu, ThemeModeSwitcher } from '../../../partials'
+import { useLayout } from '../../core'
+import { Search } from '../../../partials/layout/search/Search'
 
 const itemClass = 'ms-1 ms-md-4'
 const btnClass =
@@ -10,10 +11,12 @@ const userAvatarClass = 'symbol-35px'
 const btnIconClass = 'fs-2'
 
 const Navbar = () => {
-  const {config} = useLayout()
+  const { config } = useLayout()
   return (
     <div className='app-navbar flex-shrink-0'>
-
+      <div className={clsx('app-navbar-item align-items-stretch', itemClass)}>
+        <Search />
+      </div>
       <div className={clsx('app-navbar-item', itemClass)}>
         <div
           data-kt-menu-trigger="{default: 'click'}"
@@ -21,7 +24,7 @@ const Navbar = () => {
           data-kt-menu-placement='bottom-end'
           className={btnClass}
         >
-          <KTIcon iconName='element-plus' className={btnIconClass} />
+          <KTIcon iconName='notification-on' className={btnIconClass} />
         </div>
         <HeaderNotificationsMenu />
       </div>
@@ -56,4 +59,4 @@ const Navbar = () => {
   )
 }
 
-export {Navbar}
+export { Navbar }
