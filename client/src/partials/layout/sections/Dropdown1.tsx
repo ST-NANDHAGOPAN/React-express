@@ -2,7 +2,7 @@
 export function Dropdown1() {
     return (
         <div
-            className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-250px w-md-300px py-4'
+            className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-6 w-250px w-md-300px py-4'
             data-kt-menu='true'
         >
             <div className='px-7 py-5'>
