@@ -245,14 +245,3 @@ export interface ILayoutCSSClasses {
   pageContainer: Array<string>
 }
 
-export interface ILayoutHTMLAttributes {
-  asideMenu: Map<string, string | number | boolean>
-  headerMobile: Map<string, string | number | boolean>
-  headerMenu: Map<string, string | number | boolean>
-  headerContainer: Map<string, string | number | boolean>
-  pageTitle: Map<string, string | number | boolean>
-}
-
-export interface ILayoutCSSVariables {
-  body: Map<string, string | number | boolean>
-}

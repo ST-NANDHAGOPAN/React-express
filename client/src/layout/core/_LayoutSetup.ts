@@ -1,4 +1,4 @@
-import {ILayout, ILayoutCSSClasses, ILayoutCSSVariables, ILayoutHTMLAttributes} from './_Models'
+import {ILayout, ILayoutCSSClasses} from './_Models'
 import {DefaultConfig} from './_LayoutConfig'
 
 const LAYOUT_CONFIG_KEY = process.env.REACT_APP_BASE_LAYOUT_CONFIG_KEY || 'LayoutConfig'
@@ -13,14 +13,6 @@ const getLayoutFromLocalStorage = (): ILayout => {
     }
   }
   return DefaultConfig
-}
-
-const setLayoutIntoLocalStorage = (config: ILayout) => {
-  try {
-    localStorage.setItem(LAYOUT_CONFIG_KEY, JSON.stringify(config))
-  } catch (er) {
-    console.error(er)
-  }
 }
 
 const getEmptyCssClasses = (): ILayoutCSSClasses => {
@@ -43,39 +35,14 @@ const getEmptyCssClasses = (): ILayoutCSSClasses => {
   }
 }
 
-const getEmptyHTMLAttributes = () => {
-  return {
-    asideMenu: new Map(),
-    headerMobile: new Map(),
-    headerMenu: new Map(),
-    headerContainer: new Map(),
-    pageTitle: new Map(),
-  }
-}
-
-const getEmptyCSSVariables = () => {
-  return {
-    body: new Map(),
-  }
-}
-
 class LayoutSetup {
   public static isLoaded: boolean = false
   public static config: ILayout = getLayoutFromLocalStorage()
   public static classes: ILayoutCSSClasses = getEmptyCssClasses()
-  public static attributes: ILayoutHTMLAttributes = getEmptyHTMLAttributes()
-  public static cssVariables: ILayoutCSSVariables = getEmptyCSSVariables()
+
 
   private static initCSSClasses(): void {
     LayoutSetup.classes = getEmptyCssClasses()
-  }
-
-  private static initHTMLAttributes(): void {
-    LayoutSetup.attributes = Object.assign({}, getEmptyHTMLAttributes())
-  }
-
-  private static initCSSVariables(): void {
-    LayoutSetup.cssVariables = getEmptyCSSVariables()
   }
 
   private static initConfig(config: ILayout): ILayout {
@@ -193,17 +160,12 @@ class LayoutSetup {
     const config = LayoutSetup.config
     const updatedConfig = {...config, ...fieldsToUpdate}
     LayoutSetup.initCSSClasses()
-    LayoutSetup.initCSSVariables()
-    LayoutSetup.initHTMLAttributes()
     LayoutSetup.isLoaded = false
     LayoutSetup.config = LayoutSetup.initConfig(Object.assign({}, updatedConfig))
     LayoutSetup.isLoaded = true // remove loading there
     return updatedConfig
   }
 
-  public static setConfig(config: ILayout): void {
-    setLayoutIntoLocalStorage(config)
-  }
 
   public static bootstrap = (() => {
     LayoutSetup.updatePartialConfig(LayoutSetup.config)
@@ -213,8 +175,5 @@ class LayoutSetup {
 export {
   LayoutSetup,
   getLayoutFromLocalStorage,
-  setLayoutIntoLocalStorage,
   getEmptyCssClasses,
-  getEmptyCSSVariables,
-  getEmptyHTMLAttributes,
 }

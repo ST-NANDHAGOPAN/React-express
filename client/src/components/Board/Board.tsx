@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "../../../assets/custom/task.css";
+import "../../assets/custom/task.css";
 import { Modal } from "react-bootstrap";
 import { GoPlus } from "react-icons/go";
 import { ImCross } from "react-icons/im";
@@ -8,9 +8,9 @@ import { MdEdit, MdOutlineRemoveRedEye, MdNotificationsActive } from "react-icon
 import { BsCardText } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa6";
 import { RiAttachment2 } from "react-icons/ri";
-import { Dropdown1 } from '../../../partials/layout/sections/Dropdown1';
-import { Dropdown2 } from '../../../partials/layout/sections/Dropdown2';
-import { toAbsoluteUrl } from '../../../helpers';
+import { Dropdown1 } from '../../partials/layout/sections/Dropdown1';
+import { Dropdown2 } from '../../partials/layout/sections/Dropdown2';
+import { toAbsoluteUrl } from '../../helpers';
 
 
 interface Column {
@@ -140,7 +140,6 @@ function TrelloTask() {
                     data-kt-menu-placement='bottom-start'><TbDots />
                   </span>
                   <Dropdown1 />
-
                 </div>
 
               )}

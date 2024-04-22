@@ -10,7 +10,6 @@ import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import {PrivateRoutes} from './PrivateRoutes'
 import {Logout, AuthPage, useAuth} from '../auth'
 import {App} from '../App'
-import { UserRoutes } from './UserRoutes'
 
 const AppRoutes: FC = () => {
   const {currentAdmin , currentUser} = useAuth()
@@ -27,8 +26,8 @@ const AppRoutes: FC = () => {
             </>
           ) : currentUser ? (
             <>
-             <Route path='/*' element={<UserRoutes />} />
-              <Route index element={<Navigate to='/usercomponent' />} />
+              <Route path='/*' element={<PrivateRoutes />} />
+              <Route index element={<Navigate to='/dashboard' />} />
             </>
           ) : (
             <>
