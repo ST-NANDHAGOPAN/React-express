@@ -33,9 +33,9 @@
 
 .list-container:hover {
   border: 3px solid rgb(96, 188, 245);
-  /* .imagewithedit{
+  .imagewithedit{
     display: block;
-  } */
+  }
 }
 
 .card-image{
@@ -44,7 +44,7 @@
 }
 
 .imagewithedit {
-  /* display: none; */
+  display: none;
   position: absolute;
   top: 15px;
   right: 10px;
@@ -74,7 +74,7 @@
 .add-list {
   display: flex;
   width: 100%;
-  justify-content: start;
+  justify-content: flex-start; /* Change to flex-start */
   align-items: center;
   border-radius: 0.25rem;
   background-color: transparent;

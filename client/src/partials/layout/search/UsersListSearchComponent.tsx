@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState} from 'react'
 import {KTIcon} from '../../../helpers'
 
 const UsersListSearchComponent = ({value,onChange}) => {
