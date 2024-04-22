@@ -1,5 +1,5 @@
 import "../../../assets/custom/Dropdown.css"
-import { MdOutlineArchive, MdOutlineRemoveRedEye } from "react-icons/md";
+import { MdOutlineAddReaction, MdOutlineArchive, MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaWindowMaximize } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { BsCardText, BsDot } from "react-icons/bs";
@@ -25,7 +25,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                     alt="trello"
                     title="trello"
                 />
-               
+
                 <div
                     className="cross-button btn btn-sm btn-icon btn-color-dark  btn-active-color-light"
                     onClick={handleClose}
@@ -80,9 +80,13 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                 <div className="px-11">
                                     <div className='d-flex flex-row justify-content-between mb-3 '>
                                         <h2 >Description</h2>
-                                        <span className='btn btn-secondary text-center p-4 lh-0  '> Edit</span>
+                                        <span className='btn btn-secondary text-center p-2 px-3 '> Edit</span>
                                     </div>
-                                    <div className="description-container">
+                                    <div >
+                                        <textarea
+                                            className="description-container"
+                                            title="vcb">
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>
@@ -94,16 +98,16 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                 <div className="px-11">
                                     <div className='d-flex flex-row justify-content-between mb-3 '>
                                         <h2 >Attachement</h2>
-                                        <span className='btn btn-secondary text-center p-4 lh-0  '> Add</span>
+                                        <span className='btn btn-secondary text-center p-2 px-3   '> Add</span>
                                     </div>
                                     <div className="attachement-container">
                                         <div>
                                             <div className="d-flex">
-                                                <img 
-                                                className="rounded"
-                                                height="100" 
-                                                width="100"  
-                                                src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
+                                                <img
+                                                    className="rounded"
+                                                    height="100"
+                                                    width="100"
+                                                    src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
                                                     alt="trello"
                                                     title="trello"
                                                 />
@@ -119,19 +123,26 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
 
                                                         </span>
                                                         <span>
-                                                            <a href="/" >
-                                                                <span>Download <BsDot />
+                                                            <a
+                                                                className="text-decoration-underline"
+                                                                href="/">
+                                                                <span>Download
                                                                 </span>
                                                             </a>
                                                         </span>
+                                                        <span> <BsDot /></span>
                                                         <span>
-                                                            <a href="/">
+                                                            <a
+                                                                className="text-decoration-underline"
+                                                                href="/">
                                                                 <span>Delete</span>
                                                             </a>
                                                         </span>
                                                     </span>
                                                     <span>
-                                                        <a href="/">
+                                                        <a
+                                                            className="text-decoration-underline"
+                                                            href="/">
                                                             <span><MdOutlineCreditCard className="me-2" />
                                                                 Remove cover
                                                             </span>
@@ -148,20 +159,79 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                     <RxActivityLog />
                                 </span>
                                 <div className="px-11">
-                                    <div className='d-flex flex-row justify-content-between mb-3 '>
+                                    <div className='d-flex flex-row 
+                                    justify-content-between mb-3 '>
                                         <h2 >Activity</h2>
-                                        <span className='btn btn-secondary text-center p-4 lh-0  '> Show Details</span>
+                                        <span className='btn btn-secondary text-center p-2 px-3  '> Show Details</span>
                                     </div>
-                                    <div className="activity-container">
-                                        <div >
-                                            <button className="btn p-0 ms-1 me-2 ">
-                                                <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c371033753894a11c8801/e318e9587a3ba8de4072a03e534dcb82/50.png"
-                                                    alt="NANDHA"
-                                                    title="NANDHA"
-                                                />
-                                            </button>
-                                            <input type="text" placeholder="Write a comment…" title="Write a comment" />
+
+                                </div>
+                                <div className="activity-container">
+                                    <div className="d-flex">
+                                        <button className="btn p-0 me-2 ">
+                                            <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c371033753894a11c8801/8308706128695d36c8af601394eafe73/170.png"
+                                                alt="NANDHA"
+                                                title="NANDHA"
+                                            />
+                                        </button>
+                                        <div className="pe-11 w-100">
+                                            <input
+                                                className="description-container h-auto p-2"
+                                                type="text"
+                                                placeholder="Write a comment…"
+                                                title="Write a comment" />
                                         </div>
+                                    </div>
+                                    <div className="mt-4" >
+                                        <div className="d-flex ">
+                                            <div>
+                                                <button className="btn p-0  me-2 ">
+                                                    <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c36ea2f47260a413da144/2418a823d05944d358c04043c2df5a40/30.png"
+                                                        alt="SURYA"
+                                                        title="SURYA"
+                                                    />
+                                                </button>
+                                            </div>
+                                            <div className="lh-lg">
+                                                <span className="fw-bolder fs-6 me-3">Surya</span>
+                                                <a className="cursor-pointer dateview" href="/" title="18 January 2024 12:11">18 Jan at 12:11 </a>
+                                                <span>(edited)</span>
+                                            </div>
+                                        </div>
+                                        <div className="px-11">
+                                            <div
+                                                className="description-container h-auto"
+                                                title="vcb">
+                                                <p>
+                                                    <img
+                                                        className="mt-4 ms-4"
+                                                        height="100"
+                                                        width="100"
+                                                        src="https://trello.com/1/cards/661e3aa2f165ddead3a1b452/attachments/661e3abad09bb95209afd781/download/trello.png" alt="trello.png" />
+                                                </p>
+                                                <p className="px-2">Task Completed. Kindly check this PR
+                                                    <a href="/" className="cursor-pointer text-decoration-underline ms-4">https://github.com/ </a></p>
+                                            </div>
+                                            <div>
+                                                <span><MdOutlineAddReaction /> <BsDot /></span>
+                                                <span>
+                                                    <a
+                                                        className="text-decoration-underline"
+                                                        href="/">
+                                                        <span>Edit</span>
+                                                    </a>
+                                                </span>
+                                                <span> <BsDot /></span>
+                                                <span>
+                                                    <a
+                                                        className="text-decoration-underline"
+                                                        href="/">
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

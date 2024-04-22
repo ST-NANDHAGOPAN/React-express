@@ -114,78 +114,18 @@ function Login({ userType }: LoginProps) {
     >
       {/* begin::Heading */}
       <div className='text-center mb-11'>
-        <h1 className='text-dark fw-bolder mb-3'>Sign In</h1>
-        <div className='text-gray-500 fw-semibold fs-6'>Your Social Campaigns</div>
+          {/* begin::Logo */}
+          <Link to='/' className='mb-12'>
+            <img alt='Logo' src={toAbsoluteUrl('/media/logos/sumanas.webp')} className='h-75px' />
+           </Link>
+          {/* end::Logo */}
       </div>
       {/* begin::Heading */}
 
-      {/* begin::Login options */}
-      <div className='row g-3 mb-9'>
-        {/* begin::Col */}
-        <div className='col-md-6'>
-          {/* begin::Google link */}
-          <a
-            href='#'
-            className='btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100'
-          >
-            <img
-              alt='Logo'
-              src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')}
-              className='h-15px me-3'
-            />
-            Sign in with Google
-          </a>
-          {/* end::Google link */}
-        </div>
-        {/* end::Col */}
 
-        {/* begin::Col */}
-        <div className='col-md-6'>
-          {/* begin::Google link */}
-          <a
-            href='#'
-            className='btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100'
-          >
-            <img
-              alt='Logo'
-              src={toAbsoluteUrl('/media/svg/brand-logos/apple-black.svg')}
-              className='theme-light-show h-15px me-3'
-            />
-            <img
-              alt='Logo'
-              src={toAbsoluteUrl('/media/svg/brand-logos/apple-black-dark.svg')}
-              className='theme-dark-show h-15px me-3'
-            />
-            Sign in with Apple
-          </a>
-          {/* end::Google link */}
-        </div>
-        {/* end::Col */}
-      </div>
-      {/* end::Login options */}
-
-      {/* begin::Separator */}
-      <div className='separator separator-content my-14'>
-        <span className='w-125px text-gray-500 fw-semibold fs-7'>Or with email</span>
-      </div>
-      {/* end::Separator */}
-
-      {formik.status ? (
+      {formik.status && (
         <div className='mb-lg-15 alert alert-danger'>
           <div className='alert-text font-weight-bold'>{formik.status}</div>
-        </div>
-      ) : (
-        <div className='mb-10 bg-light-info p-8 rounded'>
-          {userType === "user" ?
-            (<div className='text-info'>
-              Use account <strong>admin@user.com</strong> and password <strong>admin</strong> to
-              continue.
-            </div>)
-            :
-            (<div className='text-info'>
-              Use account <strong>admin@admin.com</strong> and password <strong>admin</strong> to
-              continue.
-            </div>)}
         </div>
       )}
 
@@ -268,7 +208,7 @@ function Login({ userType }: LoginProps) {
           className='btn btn-primary'
           disabled={formik.isSubmitting || !formik.isValid}
         >
-          {!loading && <span className='indicator-label'>Continue</span>}
+          {!loading && <span className='indicator-label'>Login</span>}
           {loading && (
             <span className='indicator-progress d-block'>
               Please wait...
@@ -278,24 +218,6 @@ function Login({ userType }: LoginProps) {
         </button>
       </div>
       {/* end::Action */}
-      <div className='text-gray-500 text-center fw-semibold fs-6'>
-        {userType === 'user' && (
-          <>
-            Not a Member yet?{' '}
-            <Link to='/auth/user/register' className='link-primary'>
-              Sign up
-            </Link>
-          </>
-        )}
-        {userType === 'admin' && (
-          <>
-            Not a Member yet?{' '}
-            <Link to='/auth/admin/register' className='link-primary'>
-              Sign up
-            </Link>
-          </>
-        )}
-      </div>
 
     </form>
   )

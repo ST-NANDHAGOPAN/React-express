@@ -4,6 +4,7 @@ import { HeaderNotificationsMenu, HeaderUserMenu, ThemeModeSwitcher } from '../.
 import { useLayout } from '../../core'
 import { Search } from '../../../partials/layout/search/Search'
 import { UsersListSearchComponent } from '../../../partials/layout/search/UsersListSearchComponent'
+import { useState } from 'react'
 
 const itemClass = 'ms-1 ms-md-4'
 const btnClass =
@@ -13,13 +14,18 @@ const btnIconClass = 'fs-2'
 
 const Navbar = () => {
   const { config } = useLayout()
+  const [searchTerm, setSearchTerm] = useState<string>('')
+
   return (
     <div className='app-navbar flex-shrink-0'>
       <span className='cursor-pointer d-flex align-items-center ' data-kt-menu-trigger='click'
         data-kt-menu-placement='bottom-start'>
-          <UsersListSearchComponent />
+        <UsersListSearchComponent
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </span>
-      <Search />
+      <Search searchTerm={searchTerm} />
 
       <div className={clsx('app-navbar-item', itemClass)}>
         <div

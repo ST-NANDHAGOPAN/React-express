@@ -1,9 +1,12 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC } from 'react'
+import { FC, useState } from 'react';
 import { PiDotsThreeOutlineVertical } from "react-icons/pi";
 
-
 const HeaderNotificationsMenu: FC = () => {
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowWelcomeMessage(event.target.checked);
+  };
 
   return (
     <div
@@ -20,23 +23,50 @@ const HeaderNotificationsMenu: FC = () => {
               <span className='form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2'>
                 Only show unread
               </span>
-              <input className='form-check-input' type='checkbox' value='1' defaultChecked />
+              <input
+                className='form-check-input'
+                type='checkbox'
+                value='1'
+                checked={showWelcomeMessage}
+                onChange={handleCheckboxChange}
+              />
             </label>
           </div>
-          <span className='ms-4'><PiDotsThreeOutlineVertical />
-            </span>
+          <span className='ms-4'><PiDotsThreeOutlineVertical /></span>
         </div>
       </div>
 
       <div className='separator my-2'></div>
 
-      <div className="text-center p-5 mb-10" data-testid="notifications-empty-state">
-        <img alt="Taco" src="	https://trello.com/assets/ee2660df9335718b1a80.svg"/>
-        <h3>No unread notifications</h3>
+      {showWelcomeMessage ? (
+        <div className="text-center p-5 mb-10" data-testid="notifications-empty-state">
+          <img alt="Taco" src="https://trello.com/assets/ee2660df9335718b1a80.svg" />
+          <h3>No unread notifications</h3>
         </div>
-      
+      ) : (
+        <div className='px-11'>
+          <div className='description-container rounded'>
+            <div className='bg-primary h-auto p-3 rounded-top'>
+              <div className='description-container bg-white h-auto p-5  rounded mb-3 '>
+                <div>QWerqweqwe</div>
+              </div>
+              <span className='ms-4 text-light'><span className='fw-bolder text-white'>test:</span>Doing</span>
+            </div>
+            <div>
+              <button className="btn pe-2">
+                <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c371033753894a11c8801/8308706128695d36c8af601394eafe73/170.png"
+                  alt="NANDHA"
+                  title="NANDHA"
+                />
+              </button>
+              <strong role="button">Nandhagopan</strong>
+              <div className="px-17 fw-light ">Moved to list To Do<span className="text-muted">&nbsp; 16 Apr at 10:42</span></div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export { HeaderNotificationsMenu }
+export { HeaderNotificationsMenu };

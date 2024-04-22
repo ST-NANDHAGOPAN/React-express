@@ -2,8 +2,7 @@
 import {useState} from 'react'
 import {KTIcon} from '../../../helpers'
 
-const UsersListSearchComponent = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('')
+const UsersListSearchComponent = ({value,onChange}) => {
   return (
     <div className='card-title'>
       {/* begin::Search */}
@@ -14,8 +13,8 @@ const UsersListSearchComponent = () => {
           data-kt-user-table-filter='search'
           className='form-control form-control-solid w-750px ps-14'
           placeholder='Search'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={value}
+          onChange={onChange}
         />
       </div>
       {/* end::Search */}
