@@ -8,7 +8,7 @@ import { toAbsoluteUrl } from '../../helpers';
 function Workspace() {
   return (
     <div className='workspace'>
-      <div className="d-flex justify-content-around ">
+      <div className="d-flex justify-content-between  align-items-center">
         <div className='d-flex'>
           <img
             className='workspacelogo me-3 '
@@ -16,7 +16,7 @@ function Workspace() {
             alt="qwe" />
           <div>
             <h2 className="logoheader">Bart Team <MdEdit /> </h2>
-            <p className='fs-4 '><IoIosLock className='fs-4 me-1 ' />Private</p>
+            <p className='fs-4 mb-0'><IoIosLock className='fs-4 me-1 ' />Private</p>
           </div>
         </div>
         <div>
@@ -26,10 +26,10 @@ function Workspace() {
         </div>
       </div>
       <hr />
-      <div className='menu-item'>
-        <div className='menu-content pt-2 pb-2'>
+      <div className='menu-item p-0'>
+        <div className='menu-content py-2 px-0'>
           <span className='menu-section fw-bolder text-uppercase fs-8 ls-1 '>Your Boards</span>
-          <div className="card-container  my-8 ">
+          <div className="card-container  my-5">
             <div className="board bg-primary">NYU Seating</div>
             <div className="board bg-success">New Mom School</div>
             <div className="board bg-danger">Check Issuing </div>
@@ -39,12 +39,12 @@ function Workspace() {
       </div>
       <hr />
       <div className='menu-item'>
-        <div className='menu-content pt-2 pb-2'>
+        <div className='menu-content py-2 px-0'>
           <span className='menu-section fw-bolder text-uppercase fs-8 ls-1 '>ALl Workspaces</span>
-          <div className="card-container  my-8 ">
+          <div className="card-container  my-5 ">
           <div className="board bg-primary">Bart Team</div>
             <div className="board bg-success">Eyeball</div>
-            <div className="board bg-danger">TM THrive</div>
+            <div className="board bg-danger">TM Thrive</div>
             <div className="board"> <FaPlusCircle className='me-1 fw-bold ' />Create a Workspace</div>
           </div>
         </div>

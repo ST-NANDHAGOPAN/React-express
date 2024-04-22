@@ -45,7 +45,7 @@ const HeaderNotificationsMenu: FC = () => {
         </div>
       ) : (
         <div className='px-11'>
-          <div className='description-container rounded'>
+          <div className='bg-secondary  rounded my-5 '>
             <div className='bg-primary h-auto p-3 rounded-top'>
               <div className='description-container bg-white h-auto p-5  rounded mb-3 '>
                 <div>QWerqweqwe</div>
