@@ -11,13 +11,9 @@ import { IoMdCheckboxOutline, IoMdPerson } from "react-icons/io";
 import { IoCopy, IoTicket } from "react-icons/io5";
 import { LuMoveRight } from "react-icons/lu";
 import { KTIcon, toAbsoluteUrl } from "../../../helpers";
+import { Dropdown1 } from "../../../types/types";
 
-type Props = {
-    show: boolean;
-    handleClose: () => void;
-};
-
-const Dropdown2 = ({ show, handleClose }: Props) => {
+const Dropdown2 = ({ handleClose }: Dropdown1) => {
     return (
         <>
             <div className="modal-header card-model-header p-0">

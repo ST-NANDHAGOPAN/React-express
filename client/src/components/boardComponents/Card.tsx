@@ -8,7 +8,7 @@ import { Modal } from 'react-bootstrap'
 import { Dropdown2 } from '../../partials/layout/sections/Dropdown2'
 
 const Card = ({ card }) => {
-    const [showCreateAppModal, setShowCreateAppModal] = useState<boolean>(false)
+    const [showCreateCardModal, setShowCreateCardModal] = useState<boolean>(false)
 
     return (
         <div
@@ -20,7 +20,7 @@ const Card = ({ card }) => {
                     src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
                     alt="qwe" />
                 <span className='cursor-pointer imagewithedit '
-                    onClick={() => setShowCreateAppModal(true)}><MdEdit />
+                    onClick={() => setShowCreateCardModal(true)}><MdEdit />
                 </span>
 
             </div>
@@ -41,10 +41,10 @@ const Card = ({ card }) => {
                 tabIndex={-1}
                 aria-hidden="true"
                 dialogClassName="modal-dialog-centered"
-                show={showCreateAppModal}
+                show={showCreateCardModal}
                 backdrop={true}
                 size="lg">
-                <Dropdown2 show={showCreateAppModal} handleClose={() => setShowCreateAppModal(false)} />
+                <Dropdown2 handleClose={() => setShowCreateCardModal(false)} />
             </Modal>
         </div>
     )

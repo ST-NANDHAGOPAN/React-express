@@ -3,6 +3,10 @@ export interface ListItems {
     cards: { name: string }[];
   }
 
+export interface Dropdown1  {
+    handleClose: () => void;
+};
+
 
 export enum BasicList {
     TODO ="To Do" ,
