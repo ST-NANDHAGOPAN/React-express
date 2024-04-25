@@ -95,3 +95,11 @@
   background-color: #e0e0e0;
 }
 
+.search-container {
+  width: 200px;
+  transition: width 0.3s ease; /* Smooth transition */
+}
+
+.search-container.focused {
+  width: 750px;
+}

@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div className='app-navbar flex-shrink-0'>
       <span className='cursor-pointer d-flex align-items-center ' data-kt-menu-trigger='click'
-        data-kt-menu-placement='bottom-start'>
+        data-kt-menu-placement='bottom-end'>
         <UsersListSearchComponent
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

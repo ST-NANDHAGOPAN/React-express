@@ -1,8 +1,8 @@
 import React from 'react'
-import Card from './Card';
 import AddCard from './AddCard';
 import ListHeader from './ListHeader';
 import { useThemeMode } from '../../partials';
+import Card from './Card';
 
 const List = ({
     lists,

@@ -14,7 +14,7 @@ const Search = ({ searchTerm }: { searchTerm: string }) => {
   ]
   return (
     <div
-      className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-750px w-lg-775px'
+      className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-750px '
       data-kt-menu='true'
     >
       <div className='d-flex flex-column px-9'>
