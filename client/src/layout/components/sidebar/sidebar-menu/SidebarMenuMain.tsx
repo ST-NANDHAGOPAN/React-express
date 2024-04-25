@@ -10,18 +10,18 @@ const SidebarMenuMain = () => {
       </div>
     
       <SidebarMenuItem
-        to='/dashboard'
+        to='/board'
         icon='abstract-28'
         title='NYC Seating'
         fontIcon='bi-layers'
       />  <SidebarMenuItem
-        to='/apps/user-management/users'
+        to='/users'
         icon='abstract-8'
         title='New Mom School'
         fontIcon='bi-layers'
       />
       <SidebarMenuItem
-        to='/apps/user-management/users'
+        to='/users'
         icon='abstract-46'
         title='Check Issuing'
         fontIcon='bi-layers'
