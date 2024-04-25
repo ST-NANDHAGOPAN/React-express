@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { GoPlus } from 'react-icons/go';
 import { ImCross } from 'react-icons/im';
+import { Add } from '../../types/types';
 
-function AddCard({
+const AddCard = ({
     columns,
     columnIndex,
     setColumns,
-}) {
+}) => {
     const [taskNameInputs, setTaskNameInputs] = useState<string[]>(['']);
     const [showTaskInputs, setShowTaskInputs] = useState<boolean[]>([]);
 
@@ -60,7 +61,7 @@ function AddCard({
                             onKeyDown={(event) => handleKeyDown(event, columnIndex)}
                         />
                     </div>
-                    <button className="btn btn-primary" onClick={() => handleAddTask(columnIndex)}>Add card</button>
+                    <button className="btn btn-primary" onClick={() => handleAddTask(columnIndex)}> {Add.ADDCARD}</button>
                     <span onClick={() => setShowTaskInputs(prevState => {
                         const newState = [...prevState];
                         newState[columnIndex] = false;
@@ -72,7 +73,7 @@ function AddCard({
             ) :
                 (
                     <button className="add-list rounded p-5" onClick={() => toggleTaskInputs(columnIndex)}>
-                        <GoPlus className='me-1' /> Add a card
+                        <GoPlus className='me-1' />{Add.ADDACARD}
                     </button>
                 )}
         </>

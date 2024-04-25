@@ -7,7 +7,7 @@ import { toAbsoluteUrl } from '../../helpers'
 import { Modal } from 'react-bootstrap'
 import { Dropdown2 } from '../../partials/layout/sections/Dropdown2'
 
-function Card({ task }) {
+const Card = ({ task }) => {
     const [showCreateAppModal, setShowCreateAppModal] = useState<boolean>(false)
 
     return (

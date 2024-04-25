@@ -3,13 +3,12 @@ import Card from './Card';
 import AddCard from './AddCard';
 import ListHeader from './ListHeader';
 
-export default function List({
+const List = ({
     columns,
     column,
     columnIndex,
     setColumns,
-}) {
-   
+}) => {
     return (
         <div>
             <div className="card me-5 addcolumn">
@@ -41,3 +40,4 @@ export default function List({
         </div>
     )
 }
+export default List

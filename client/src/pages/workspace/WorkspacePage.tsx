@@ -5,7 +5,7 @@ import { FaPlusCircle } from "react-icons/fa";
 import "../../assets/custom/workspace.css";
 import { toAbsoluteUrl } from '../../helpers';
 
-function Workspace() {
+const Workspace = () => {
   return (
     <div className='workspace'>
       <div className="d-flex justify-content-between  align-items-center">

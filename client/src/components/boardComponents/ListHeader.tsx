@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Dropdown1 } from '../../partials/layout/sections/Dropdown1';
 import { TbDots } from 'react-icons/tb';
 
-function ListHeader({
+const ListHeader = ({
     columns,
     column,
     columnIndex,
     setColumns
-}) {
+}) =>{
     const [editColumnIndex, setEditColumnIndex] = useState<number | null>(null);
     const [editedColumnName, setEditedColumnName] = useState<string>('');
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>, columnIndex: number) => {

@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { GoPlus } from 'react-icons/go'
 import { ImCross } from 'react-icons/im'
+import { Add } from '../../types/types';
 
-function AddList({
-  columns,
-  setColumns,
-}) {
+const AddList = ({ setColumns }) => {
   const [columnNameInputs, setColumnNameInputs] = useState<string[]>(['']);
   const [showColumnNameInput, setShowColumnNameInput] = useState<boolean>(false);
 
@@ -18,7 +16,7 @@ function AddList({
   const addColumn = () => {
     const newColumnName = columnNameInputs[columnNameInputs.length - 1];
     if (newColumnName.trim() !== '') {
-      setColumns([...columns, { name: newColumnName.trim(), tasks: [] }]);
+      setColumns((prev) => [...prev, { name: newColumnName.trim(), tasks: [] }]);
       setColumnNameInputs([...columnNameInputs, '']);
       setShowColumnNameInput(false);
     }
@@ -41,7 +39,7 @@ function AddList({
               />
               <div className='d-flex mb-2'>
                 <button onClick={addColumn} className='w-50 btn btn-primary text-center '>
-                  Add list</button>
+                {Add.ADDLIST}</button>
                 <span onClick={() => setShowColumnNameInput(false)} className='icon-red p-3' >
                   <ImCross />
                 </span>
@@ -49,8 +47,10 @@ function AddList({
             </div>
           )
             : (
-              <button className='add-list p-5 rounded' onClick={() => setShowColumnNameInput(true)}>
-                <GoPlus className='me-1' /> Add a list
+              <button className='add-list p-5 rounded' 
+                 onClick={() => setShowColumnNameInput(true)}
+              >
+                <GoPlus className='me-1' />{Add.ADDALIST}
               </button>
             )}
         </div>

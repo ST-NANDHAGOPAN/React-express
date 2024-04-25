@@ -2,20 +2,16 @@ import React, { useState } from 'react';
 import "../../assets/custom/task.css";
 import List from '../../components/boardComponents/List';
 import AddList from '../../components/boardComponents/AddList';
+import { BasicList, ListItems } from '../../types/types';
 
-
-interface Column {
-  name: string;
-  tasks: { name: string }[];
-}
-const initialColumns: Column[] = [
-  { name: 'To Do', tasks: [] },
-  { name: 'In Progress', tasks: [] },
-  { name: 'Done', tasks: [] }
+const initialListItems: ListItems[] = [
+  { name: BasicList.TODO, tasks: [] },
+  { name: BasicList.INPROGRESS, tasks: [] },
+  { name: BasicList.DONE, tasks: [] }
 ];
 
-function BoardPage() {
-  const [columns, setColumns] = useState<Column[]>(initialColumns);
+const BoardPage = () => {
+  const [columns, setColumns] = useState<ListItems[]>(initialListItems);
 
   return (
     <div className="main">
@@ -29,10 +25,7 @@ function BoardPage() {
         />
       )
       )}
-      <AddList
-        columns={columns}
-        setColumns={setColumns}
-      />
+      <AddList setColumns={setColumns} />
     </div>
   );
 }
