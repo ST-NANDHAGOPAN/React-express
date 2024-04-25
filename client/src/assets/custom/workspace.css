@@ -25,7 +25,7 @@
   justify-content: center;
   align-items: center;
 }
-.card-container {
+.board-container {
   display: flex;
   justify-content: space-between; /* Adjust the spacing between cards */
 }

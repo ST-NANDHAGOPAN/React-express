@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../assets/custom/task.css";
+import "../../assets/custom/board.css";
 import List from '../../components/boardComponents/List';
 import AddList from '../../components/boardComponents/AddList';
 import { BasicList, ListItems } from '../../types/types';

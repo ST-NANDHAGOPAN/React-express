@@ -12,7 +12,7 @@ const Card = ({ card }) => {
 
     return (
         <div
-            className={`card list-container mb-2 `}
+            className={`card card-container mb-2 `}
         >
             <div>
                 <img

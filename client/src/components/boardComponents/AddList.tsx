@@ -24,7 +24,7 @@ const AddList = ({ setLists }) => {
 
   return (
     <div>
-      <div className="card addcolumn">
+      <div className="list-container card">
         <div className="card-body p-4  grey-color rounded">
           {showListNameInput ? (
             <div className=" mb-2 ">

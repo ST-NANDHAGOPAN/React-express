@@ -14,7 +14,7 @@
 
 /* -----------------------------------------------------------------------------
 
-#  Task Css
+#  Board Css
 
 ----------------------------------------------------------------------------- */
 
@@ -25,13 +25,18 @@
   height: 85vh;
   display: flex;
 }
+.list-container {
+  width: 300px;
+  margin-right: 10px;
+  overflow-y: auto;
+}
 
-.list-container{
+.card-container{
   position: relative;
   border:  3px solid white;
 }
 
-.list-container:hover {
+.card-container:hover {
   border: 3px solid rgb(96, 188, 245);
   .imagewithedit{
     display: block;
@@ -65,16 +70,11 @@
   background-color: #e9e2e2;
   
 }
-.addcolumn {
-  width: 300px;
-  margin-right: 10px;
-  overflow-y: auto;
-}
 
 .add-list {
   display: flex;
   width: 100%;
-  justify-content: flex-start; /* Change to flex-start */
+  justify-content: flex-start; 
   align-items: center;
   border-radius: 0.25rem;
   background-color: transparent;

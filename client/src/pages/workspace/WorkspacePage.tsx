@@ -29,7 +29,7 @@ const Workspace = () => {
       <div className='menu-item p-0'>
         <div className='menu-content py-2 px-0'>
           <span className='menu-section fw-bolder text-uppercase fs-8 ls-1 '>Your Boards</span>
-          <div className="card-container  my-5">
+          <div className="board-container  my-5">
             <div className="board bg-primary">NYU Seating</div>
             <div className="board bg-success">New Mom School</div>
             <div className="board bg-danger">Check Issuing </div>
@@ -41,7 +41,7 @@ const Workspace = () => {
       <div className='menu-item'>
         <div className='menu-content py-2 px-0'>
           <span className='menu-section fw-bolder text-uppercase fs-8 ls-1 '>ALl Workspaces</span>
-          <div className="card-container  my-5 ">
+          <div className="board-container  my-5 ">
           <div className="board bg-primary">Bart Team</div>
             <div className="board bg-success">Eyeball</div>
             <div className="board bg-danger">TM Thrive</div>

@@ -12,7 +12,7 @@ const List = ({
   
     return (
         <div>
-            <div className="card me-5 addcolumn">
+            <div className="list-container card me-5 ">
                 <div className="card-body p-4 grey-color rounded ">
                     {/* List Header  */}
                     <ListHeader
