@@ -4,18 +4,18 @@ import { getCSSVariableValue } from '../assets/ts/_utils'
 import { WithChildren } from '../helpers'
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { MasterLayout } from '../layout/MasterLayout'
+import BoardPage from '../pages/board/BoardPage'
 
-import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 
 const PrivateRoutes = () => {
   
-  const Workspace = lazy(() => import('../components/workspace/Workspace'))
+  const Workspace = lazy(() => import('../pages/workspace/WorkspacePage'))
   return (
     <Routes>
       <Route element={<MasterLayout />}>
 
-        <Route path='auth/*' element={<Navigate to='/dashboard' />} />
-        <Route path='dashboard' element={<DashboardWrapper />} />
+        <Route path='auth/*' element={<Navigate to='/board' />} />
+        <Route path='board' element={< BoardPage/>} />
         {/* Lazy Loading */}
          <Route
           path='/workspace/*'
@@ -26,7 +26,7 @@ const PrivateRoutes = () => {
           }
         />
         {/* Page Not Found */}
-        <Route path='*' element={<Navigate to='/dashboard' />} />
+        <Route path='*' element={<Navigate to='/board' />} />
       </Route>
     </Routes>
   )

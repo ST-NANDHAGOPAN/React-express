@@ -22,12 +22,12 @@ const AppRoutes: FC = () => {
           {currentAdmin ? (
             <>
               <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/dashboard' />} />
+              <Route index element={<Navigate to='/board' />} />
             </>
           ) : currentUser ? (
             <>
               <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/dashboard' />} />
+              <Route index element={<Navigate to='/board' />} />
             </>
           ) : (
             <>

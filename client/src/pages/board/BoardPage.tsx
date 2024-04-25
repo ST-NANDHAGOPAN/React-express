@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "../../assets/custom/task.css";
-import List from './List';
-import AddList from './AddList';
+import List from '../../components/boardComponents/List';
+import AddList from '../../components/boardComponents/AddList';
 
 
 interface Column {
@@ -14,7 +14,7 @@ const initialColumns: Column[] = [
   { name: 'Done', tasks: [] }
 ];
 
-function TrelloTask() {
+function BoardPage() {
   const [columns, setColumns] = useState<Column[]>(initialColumns);
 
   return (
@@ -37,4 +37,4 @@ function TrelloTask() {
   );
 }
 
-export default TrelloTask;
+export default BoardPage;
