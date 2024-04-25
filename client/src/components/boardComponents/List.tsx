@@ -4,36 +4,36 @@ import AddCard from './AddCard';
 import ListHeader from './ListHeader';
 
 const List = ({
-    columns,
-    column,
-    columnIndex,
-    setColumns,
+    lists,
+    list,
+    listIndex,
+    setLists
 }) => {
+  
     return (
         <div>
             <div className="card me-5 addcolumn">
                 <div className="card-body p-4 grey-color rounded ">
                     {/* List Header  */}
                     <ListHeader
-                        columns={columns}
-                        column={column}
-                        columnIndex={columnIndex}
-                        setColumns={setColumns}
+                        list={list}
+                        listIndex={listIndex}
+                        setLists={setLists}
                     />
 
                     {/* Card  */}
-                    {column.tasks.map((task, taskIndex) => (
+                    {list.cards.map((card, cardIndex) => (
                         <Card
-                            key={taskIndex}
-                            task={task}
+                            key={cardIndex}
+                            card={card}
                         />
                     ))}
 
                     {/*  Add Card button */}
                     <AddCard
-                        columns={columns}
-                        columnIndex={columnIndex}
-                        setColumns={setColumns}
+                        lists={lists}
+                        listIndex={listIndex}
+                        setLists={setLists}
                     />
                 </div>
             </div>

@@ -5,27 +5,27 @@ import AddList from '../../components/boardComponents/AddList';
 import { BasicList, ListItems } from '../../types/types';
 
 const initialListItems: ListItems[] = [
-  { name: BasicList.TODO, tasks: [] },
-  { name: BasicList.INPROGRESS, tasks: [] },
-  { name: BasicList.DONE, tasks: [] }
+  { name: BasicList.TODO, cards: [] },
+  { name: BasicList.INPROGRESS, cards: [] },
+  { name: BasicList.DONE, cards: [] }
 ];
 
 const BoardPage = () => {
-  const [columns, setColumns] = useState<ListItems[]>(initialListItems);
+  const [lists, setLists] = useState<ListItems[]>(initialListItems);
 
   return (
     <div className="main">
-      {columns.map((column, columnIndex) => (
+      {lists.map((list, listIndex) => (
         <List
-          key={columnIndex}
-          columns={columns}
-          column={column}
-          columnIndex={columnIndex}
-          setColumns={setColumns}
+          key={listIndex}
+          lists={lists}
+          list={list}
+          listIndex={listIndex}
+          setLists={setLists}
         />
       )
       )}
-      <AddList setColumns={setColumns} />
+      <AddList setLists={setLists} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export interface ListItems {
     name: string;
-    tasks: { name: string }[];
+    cards: { name: string }[];
   }
 
 
@@ -9,7 +9,7 @@ export enum BasicList {
     INPROGRESS ="In Progress",
     DONE ="Done"
 }
-export enum Add {
+export enum Addlabels {
   ADDACARD = "Add a Card",
   ADDCARD = "Add Card",
   ADDALIST = "Add a List",

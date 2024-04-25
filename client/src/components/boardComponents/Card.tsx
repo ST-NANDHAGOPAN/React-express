@@ -7,7 +7,7 @@ import { toAbsoluteUrl } from '../../helpers'
 import { Modal } from 'react-bootstrap'
 import { Dropdown2 } from '../../partials/layout/sections/Dropdown2'
 
-const Card = ({ task }) => {
+const Card = ({ card }) => {
     const [showCreateAppModal, setShowCreateAppModal] = useState<boolean>(false)
 
     return (
@@ -26,7 +26,7 @@ const Card = ({ task }) => {
             </div>
 
             <div className='d-flex flex-row justify-content-between p-2 '>
-                <h5 className="card-title">{task.name}</h5>
+                <h5 className="card-title">{card.name}</h5>
                 {/* <span className='cursor-pointer titlewithedit'><MdEdit /></span> */}
             </div>
 

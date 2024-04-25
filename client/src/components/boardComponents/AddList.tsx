@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 import { GoPlus } from 'react-icons/go'
 import { ImCross } from 'react-icons/im'
-import { Add } from '../../types/types';
+import { Addlabels } from '../../types/types';
 
-const AddList = ({ setColumns }) => {
-  const [columnNameInputs, setColumnNameInputs] = useState<string[]>(['']);
-  const [showColumnNameInput, setShowColumnNameInput] = useState<boolean>(false);
+const AddList = ({ setLists }) => {
+  const [listNameInputs, setListNameInputs] = useState<string[]>(['']);
+  const [showListNameInput, setShowListNameInput] = useState<boolean>(false);
 
-  const handleColumnNameChange = (event: React.ChangeEvent<HTMLInputElement>, columnIndex: number) => {
-    const newInputs = [...columnNameInputs];
-    newInputs[columnIndex] = event.target.value;
-    setColumnNameInputs(newInputs);
+  const handleListNameChange = (event: React.ChangeEvent<HTMLInputElement>, listIndex: number) => {
+    const newInputs = [...listNameInputs];
+    newInputs[listIndex] = event.target.value;
+    setListNameInputs(newInputs);
   };
 
-  const addColumn = () => {
-    const newColumnName = columnNameInputs[columnNameInputs.length - 1];
-    if (newColumnName.trim() !== '') {
-      setColumns((prev) => [...prev, { name: newColumnName.trim(), tasks: [] }]);
-      setColumnNameInputs([...columnNameInputs, '']);
-      setShowColumnNameInput(false);
+  const addList = () => {
+    const newListName = listNameInputs[listNameInputs.length - 1];
+    if (newListName.trim() !== '') {
+      setLists((prev) => [...prev, { name: newListName.trim(), cards: [] }]);
+      setListNameInputs([...listNameInputs, '']);
+      setShowListNameInput(false);
     }
   };
 
@@ -26,7 +26,7 @@ const AddList = ({ setColumns }) => {
     <div>
       <div className="card addcolumn">
         <div className="card-body p-4  grey-color rounded">
-          {showColumnNameInput ? (
+          {showListNameInput ? (
             <div className=" mb-2 ">
               <input
                 autoFocus
@@ -34,13 +34,13 @@ const AddList = ({ setColumns }) => {
                 title="List name"
                 className="form-control p-4 mb-2"
                 placeholder="Enter list title"
-                value={columnNameInputs[columnNameInputs.length - 1]}
-                onChange={(event) => handleColumnNameChange(event, columnNameInputs.length - 1)}
+                value={listNameInputs[listNameInputs.length - 1]}
+                onChange={(event) => handleListNameChange(event, listNameInputs.length - 1)}
               />
               <div className='d-flex mb-2'>
-                <button onClick={addColumn} className='w-50 btn btn-primary text-center '>
-                {Add.ADDLIST}</button>
-                <span onClick={() => setShowColumnNameInput(false)} className='icon-red p-3' >
+                <button onClick={addList} className='w-50 btn btn-primary text-center '>
+                {Addlabels.ADDLIST}</button>
+                <span onClick={() => setShowListNameInput(false)} className='icon-red p-3' >
                   <ImCross />
                 </span>
               </div>
@@ -48,9 +48,9 @@ const AddList = ({ setColumns }) => {
           )
             : (
               <button className='add-list p-5 rounded' 
-                 onClick={() => setShowColumnNameInput(true)}
+                 onClick={() => setShowListNameInput(true)}
               >
-                <GoPlus className='me-1' />{Add.ADDALIST}
+                <GoPlus className='me-1' />{Addlabels.ADDALIST}
               </button>
             )}
         </div>

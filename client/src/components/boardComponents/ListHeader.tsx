@@ -3,42 +3,46 @@ import { Dropdown1 } from '../../partials/layout/sections/Dropdown1';
 import { TbDots } from 'react-icons/tb';
 
 const ListHeader = ({
-    columns,
-    column,
-    columnIndex,
-    setColumns
-}) =>{
-    const [editColumnIndex, setEditColumnIndex] = useState<number | null>(null);
-    const [editedColumnName, setEditedColumnName] = useState<string>('');
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>, columnIndex: number) => {
+    list,
+    listIndex,
+    setLists
+}) => {
+    const [editListIndex, setEditListIndex] = useState<number | null>(null);
+    const [editedListName, setEditedListName] = useState<string>('');
+
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>, listIndex: number) => {
         if (event.key === 'Enter') {
-          if (editedColumnName.trim() !== '') {
-            const updatedColumns = [...columns];
-            updatedColumns[columnIndex].name = editedColumnName;
-            setColumns(updatedColumns);
-          }
-          setEditColumnIndex(null);
+            if (editedListName.trim() !== '') {
+                setLists(prevLists =>
+                    prevLists.map((list, index) =>
+                        index === listIndex ? { ...list, name: editedListName } : list
+                    )
+                );
+            }
+            setEditListIndex(null);
         }
-      };
+    };
     return (
         <div>
-            {editColumnIndex === columnIndex ? (
+            {editListIndex === listIndex ? (
                 <div className='d-flex justify-content-between mb-2'>
                     <input
                         type="text"
                         className="form-control"
                         title='list name'
-                        value={editedColumnName}
-                        onChange={(event) => setEditedColumnName(event.target.value)}
+                        value={editedListName}
+                        onChange={(event) => setEditedListName(event.target.value)}
                         onBlur={() => {
-                            if (editedColumnName.trim() !== '') {
-                                const updatedColumns = [...columns];
-                                updatedColumns[columnIndex].name = editedColumnName;
-                                setColumns(updatedColumns);
+                            if (editedListName.trim() !== '') {
+                                setLists(prevLists =>
+                                    prevLists.map((list, index) =>
+                                        index === listIndex ? { ...list, name: editedListName } : list
+                                    )
+                                );
                             }
-                            setEditColumnIndex(null);
+                            setEditListIndex(null);
                         }}
-                        onKeyDown={(event) => handleKeyPress(event, columnIndex)}
+                        onKeyDown={(event) => handleKeyPress(event, listIndex)}
                         autoFocus
                     />
                     <span className='cursor-pointer p-3'><TbDots /></span>
@@ -48,11 +52,11 @@ const ListHeader = ({
                     <h5
                         className="card-title"
                         onClick={() => {
-                            setEditedColumnName(column.name);
-                            setEditColumnIndex(columnIndex);
+                            setEditedListName(list.name);
+                            setEditListIndex(listIndex);
                         }}
                     >
-                        {column.name}
+                        {list.name}
                     </h5>
                     <span className='cursor-pointer' data-kt-menu-trigger='click'
                         data-kt-menu-placement='bottom-start'><TbDots />

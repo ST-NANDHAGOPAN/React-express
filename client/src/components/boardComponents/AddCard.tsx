@@ -1,53 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import { GoPlus } from 'react-icons/go';
 import { ImCross } from 'react-icons/im';
-import { Add } from '../../types/types';
+import { Addlabels } from '../../types/types';
 
 const AddCard = ({
-    columns,
-    columnIndex,
-    setColumns,
+    lists,
+    listIndex,
+    setLists,
 }) => {
-    const [taskNameInputs, setTaskNameInputs] = useState<string[]>(['']);
-    const [showTaskInputs, setShowTaskInputs] = useState<boolean[]>([]);
+    const [cardNameInputs, setCardNameInputs] = useState<string[]>(['']);
+    const [showCardInputs, setShowCardInputs] = useState<boolean[]>([]);
 
     useEffect(() => {
-        setTaskNameInputs(new Array(columns.length).fill(''));
-        setShowTaskInputs(new Array(columns.length).fill(false));
-    }, [columns]);
+        setCardNameInputs(new Array(lists.length).fill(''));
+        setShowCardInputs(new Array(lists.length).fill(false));
+    }, [lists]);
 
-    const handleTaskNameChange = (event: React.ChangeEvent<HTMLInputElement>, columnIndex: number) => {
-        const newInputs = [...taskNameInputs];
-        newInputs[columnIndex] = event.target.value;
-        setTaskNameInputs(newInputs);
+    const handleCardNameChange = (event: React.ChangeEvent<HTMLInputElement>, listIndex: number) => {
+        const newInputs = [...cardNameInputs];
+        newInputs[listIndex] = event.target.value;
+        setCardNameInputs(newInputs);
     };
 
-    const toggleTaskInputs = (columnIndex: number) => {
-        const newShowTaskInputs = [...showTaskInputs];
-        newShowTaskInputs[columnIndex] = true;
-        setShowTaskInputs(newShowTaskInputs);
+    const toggleCardInputs = (listIndex: number) => {
+        const newShowTaskInputs = [...showCardInputs];
+        newShowTaskInputs[listIndex] = true;
+        setShowCardInputs(newShowTaskInputs);
     };
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, columnIndex: number) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, listIndex: number) => {
         if (event.key === 'Enter') {
-            handleAddTask(columnIndex);
+            handleAddCard(listIndex);
         }
     };
 
-    const handleAddTask = (columnIndex: number) => {
-        const newTaskName = taskNameInputs[columnIndex].trim();
+    const handleAddCard = (listIndex: number) => {
+        const newTaskName = cardNameInputs[listIndex].trim();
         if (newTaskName !== '') {
-            const updatedColumns = [...columns];
-            updatedColumns[columnIndex].tasks.push({ name: newTaskName });
-            setColumns(updatedColumns);
-            setTaskNameInputs([...taskNameInputs.slice(0, columnIndex), '', ...taskNameInputs.slice(columnIndex + 1)]);
-            setShowTaskInputs([...showTaskInputs.slice(0, columnIndex), false, ...showTaskInputs.slice(columnIndex + 1)]);
+            setLists(prevLists => 
+                prevLists.map((list, index) => 
+                    index === listIndex ? { ...list, cards: [...list.cards, { name: newTaskName }] } : list
+                )
+            );
+            setCardNameInputs([...cardNameInputs.slice(0, listIndex), '', ...cardNameInputs.slice(listIndex + 1)]);
+            setShowCardInputs([...showCardInputs.slice(0, listIndex), false, ...showCardInputs.slice(listIndex + 1)]);
         }
     };
 
     return (
         <>
-            {showTaskInputs[columnIndex] ? (
+            {showCardInputs[listIndex] ? (
                 <div>
                     <div className="mb-3">
                         <input
@@ -56,15 +58,15 @@ const AddCard = ({
                             className="form-control"
                             title="card name"
                             placeholder="Card Name"
-                            value={taskNameInputs[columnIndex]}
-                            onChange={(event) => handleTaskNameChange(event, columnIndex)}
-                            onKeyDown={(event) => handleKeyDown(event, columnIndex)}
+                            value={cardNameInputs[listIndex]}
+                            onChange={(event) => handleCardNameChange(event, listIndex)}
+                            onKeyDown={(event) => handleKeyDown(event, listIndex)}
                         />
                     </div>
-                    <button className="btn btn-primary" onClick={() => handleAddTask(columnIndex)}> {Add.ADDCARD}</button>
-                    <span onClick={() => setShowTaskInputs(prevState => {
+                    <button className="btn btn-primary" onClick={() => handleAddCard(listIndex)}> {Addlabels.ADDCARD}</button>
+                    <span onClick={() => setShowCardInputs(prevState => {
                         const newState = [...prevState];
-                        newState[columnIndex] = false;
+                        newState[listIndex] = false;
                         return newState;
                     })} className='icon-red p-3' >
                         <ImCross />
@@ -72,8 +74,8 @@ const AddCard = ({
                 </div>
             ) :
                 (
-                    <button className="add-list rounded p-5" onClick={() => toggleTaskInputs(columnIndex)}>
-                        <GoPlus className='me-1' />{Add.ADDACARD}
+                    <button className="add-list rounded p-5" onClick={() => toggleCardInputs(listIndex)}>
+                        <GoPlus className='me-1' />{Addlabels.ADDACARD}
                     </button>
                 )}
         </>
