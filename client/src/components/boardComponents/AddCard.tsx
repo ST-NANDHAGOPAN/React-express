@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { GoPlus } from 'react-icons/go';
 import { ImCross } from 'react-icons/im';
 import { Addlabels } from '../../types/types';
+import { useThemeMode } from '../../partials';
 
 const AddCard = ({
     lists,
     listIndex,
     setLists,
 }) => {
+    const { mode } = useThemeMode();
     const [cardNameInputs, setCardNameInputs] = useState<string[]>(['']);
     const [showCardInputs, setShowCardInputs] = useState<boolean[]>([]);
 
@@ -74,7 +76,9 @@ const AddCard = ({
                 </div>
             ) :
                 (
-                    <button className="add-list rounded p-5" onClick={() => toggleCardInputs(listIndex)}>
+                    <button 
+                    className={`${mode === 'dark' ? 'dark-add-list ' : 'light-add-list'}  p-5 rounded`}
+                    onClick={() => toggleCardInputs(listIndex)}>
                         <GoPlus className='me-1' />{Addlabels.ADDACARD}
                     </button>
                 )}

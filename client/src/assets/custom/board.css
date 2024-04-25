@@ -17,8 +17,6 @@
 #  Board Css
 
 ----------------------------------------------------------------------------- */
-
-
 .main {
   width: 100%;
   overflow-x: auto;
@@ -30,15 +28,18 @@
   margin-right: 10px;
   overflow-y: auto;
 }
-
-.card-container{
+.dark-card-container{
+  position: relative;
+  border:  3px solid #4b4646;
+}
+.light-card-container{
   position: relative;
   border:  3px solid white;
 }
 
-.card-container:hover {
+.dark-card-container:hover ,.light-card-container:hover{
   border: 3px solid rgb(96, 188, 245);
-  .imagewithedit{
+  .dark-imagewithedit,.light-imagewithedit{
     display: block;
   }
 }
@@ -48,15 +49,14 @@
   height: 150px;
 }
 
-.imagewithedit {
+.dark-imagewithedit,.light-imagewithedit {
   display: none;
   position: absolute;
   top: 15px;
   right: 10px;
 }
 
-.titlewithedit ,.imagewithedit{
-  background-color: #ffffff;
+.titlewithedit ,.dark-imagewithedit ,.light-imagewithedit{
   text-align: center;
   font-size: medium;
   height: 30px;
@@ -65,13 +65,18 @@
   padding-top: 1.5px;
   padding-left: 1px;
 }
-
-.titlewithedit:hover ,.imagewithedit:hover{
-  background-color: #e9e2e2;
-  
+.light-imagewithedit{
+  background-color: #ffffff;
+}
+.dark-imagewithedit{
+  background-color: black;
 }
 
-.add-list {
+.titlewithedit:hover ,.light-imagewithedit:hover{
+  background-color: #e9e2e2;
+}
+
+.dark-add-list ,.light-add-list{
   display: flex;
   width: 100%;
   justify-content: flex-start; 
@@ -83,7 +88,10 @@
   height: 2rem;
 }
 
-.add-list:hover {
+.dark-add-list:hover,.dark-imagewithedit:hover  {
+  background-color: #4b4646;
+}
+.light-add-list:hover {
   background-color: #e0e0e0;
 }
 

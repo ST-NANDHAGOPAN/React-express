@@ -20,6 +20,7 @@ const themeModeSwitchHelper = (_mode: ThemeModeType) => {
   const mode = _mode !== 'system' ? _mode : systemMode
   const imageUrl = '/media/patterns/header-bg' + (mode === 'light' ? '.jpg' : '-dark.png')
   document.body.style.backgroundImage = `url("${toAbsoluteUrl(imageUrl)}")`
+  return mode;
 }
 
 const getThemeModeFromLocalStorage = (lsKey: string): ThemeModeType => {
@@ -63,8 +64,7 @@ const ThemeModeProvider = ({children}: {children: React.ReactNode}) => {
   const [menuMode, setMenuMode] = useState<ThemeModeType>(defaultThemeMode.menuMode)
 
   const updateMode = (_mode: ThemeModeType, saveInLocalStorage: boolean = true) => {
-    setMode(_mode)
-    // themeModeSwitchHelper(updatedMode)
+    setMode(themeModeSwitchHelper(_mode))
     if (saveInLocalStorage && localStorage) {
       localStorage.setItem(themeModelSKey, _mode)
     }

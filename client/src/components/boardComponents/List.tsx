@@ -2,6 +2,7 @@ import React from 'react'
 import Card from './Card';
 import AddCard from './AddCard';
 import ListHeader from './ListHeader';
+import { useThemeMode } from '../../partials';
 
 const List = ({
     lists,
@@ -9,11 +10,12 @@ const List = ({
     listIndex,
     setLists
 }) => {
-  
+    const { mode } = useThemeMode();
     return (
         <div>
             <div className="list-container card me-5 ">
-                <div className="card-body p-4 grey-color rounded ">
+                <div className={`card-body p-4 rounded 
+                ${mode === 'dark' ? 'bg-secondary border-secondary  ' : 'grey-color'} `}>
                     {/* List Header  */}
                     <ListHeader
                         list={list}

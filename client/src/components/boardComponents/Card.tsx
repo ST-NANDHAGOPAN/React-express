@@ -6,20 +6,23 @@ import { RiAttachment2 } from 'react-icons/ri'
 import { toAbsoluteUrl } from '../../helpers'
 import { Modal } from 'react-bootstrap'
 import { Dropdown2 } from '../../partials/layout/sections/Dropdown2'
+import { useThemeMode } from '../../partials'
 
 const Card = ({ card }) => {
+    const { mode } = useThemeMode();
     const [showCreateCardModal, setShowCreateCardModal] = useState<boolean>(false)
-
     return (
         <div
-            className={`card card-container mb-2 `}
+            className={`card mb-4 ${mode === 'dark' ? 'dark-card-container' : 'light-card-container'}`}
         >
             <div>
                 <img
-                    className='card-image border border-2  rounded-top  '
+                    className='card-image border border-1  rounded-top  '
                     src={`${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}`}
                     alt="qwe" />
-                <span className='cursor-pointer imagewithedit '
+                <span
+                 className={`cursor-pointer ${mode === 'dark' ? 'dark-imagewithedit' : 'light-imagewithedit'}`} 
+                // className=' imagewithedit '
                     onClick={() => setShowCreateCardModal(true)}><MdEdit />
                 </span>
 
