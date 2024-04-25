@@ -169,7 +169,7 @@ const Dropdown2 = ({ show, handleClose }: Props) => {
                                 <div className="activity-container">
                                     <div className="d-flex">
                                         <button className="btn p-0 me-2 ">
-                                            <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c371033753894a11c8801/8308706128695d36c8af601394eafe73/170.png"
+                                            <img height="30" width="30" src="https://trello-members.s3.amazonaws.com/657c371033753894a11c8801/7fb7ca3ac954a91e26c51129c3d29f08/170.png"
                                                 alt="NANDHA"
                                                 title="NANDHA"
                                             />
