@@ -22,7 +22,7 @@ const Card = ({ card }) => {
                     alt="qwe" />
                 <span
                  className={`cursor-pointer ${mode === 'dark' ? 'dark-imagewithedit' : 'light-imagewithedit'}`} 
-                // className=' imagewithedit '
+              
                     onClick={() => setShowCreateCardModal(true)}><MdEdit />
                 </span>
 
