@@ -200,10 +200,10 @@ const Dropdown2 = ({ handleClose }: Dropdown1) => {
                                                 title="vcb">
                                                 <p>
                                                     <img
-                                                        className="mt-4 ms-4"
+                                                        className="mt-4 ms-4 rounded"
                                                         height="100"
                                                         width="100"
-                                                        src="https://trello.com/1/cards/661e3aa2f165ddead3a1b452/attachments/661e3abad09bb95209afd781/download/trello.png" alt="trello.png" />
+                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyy85nkkzm_w_Gjv7qtJGW7az_kiBjbqzFt8Ei0Tbl1g&s" alt="trello.png" />
                                                 </p>
                                                 <p className="px-2">Task Completed. Kindly check this PR
                                                     <a href="/" className="cursor-pointer text-decoration-underline ms-4">https://github.com/ </a></p>

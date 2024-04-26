@@ -1,16 +1,16 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
-import {useLayout} from '../../core'
-import {MutableRefObject, useEffect, useRef} from 'react'
-import {ToggleComponent} from '../../../assets/ts/components'
+import { KTIcon } from '../../../helpers'
+import { useLayout } from '../../core'
+import { MutableRefObject, useEffect, useRef } from 'react'
+import { ToggleComponent } from '../../../assets/ts/components'
 
 type PropsType = {
   sidebarRef: MutableRefObject<HTMLDivElement | null>
 }
 
 const SidebarLogo = (props: PropsType) => {
-  const {config} = useLayout()
+  const { config } = useLayout()
   const toggleRef = useRef<HTMLDivElement>(null)
 
   const appSidebarDefaultMinimizeDesktopEnabled =
@@ -20,8 +20,8 @@ const SidebarLogo = (props: PropsType) => {
   const toggleType = appSidebarDefaultCollapseDesktopEnabled
     ? 'collapse'
     : appSidebarDefaultMinimizeDesktopEnabled
-    ? 'minimize'
-    : ''
+      ? 'minimize'
+      : ''
   const toggleState = appSidebarDefaultMinimizeDesktopEnabled ? 'active' : ''
   const appSidebarDefaultMinimizeDefault = config.app?.sidebar?.default?.minimize?.desktop?.default
 
@@ -49,32 +49,23 @@ const SidebarLogo = (props: PropsType) => {
 
   return (
     <div className='app-sidebar-logo px-6' id='kt_app_sidebar_logo'>
-      <Link to='/dashboard'>
-        {config.layoutType === 'dark-sidebar' ? (
+      <Link to='/board'>
+        <div className='d-flex'>
           <img
             alt='Logo'
-            src={toAbsoluteUrl('/media/logos/default-dark.svg')}
-            className='h-25px app-sidebar-logo-default'
+            src="https://portal.arkinfotec.com/assets/images/logo-icon.png"
+            className='h-45px w-50px app-sidebar-logo-default me-3'
           />
-        ) : (
-          <>
-            <img
-              alt='Logo'
-              src={toAbsoluteUrl('/media/logos/default.svg')}
-              className='h-25px app-sidebar-logo-default theme-light-show'
-            />
-            <img
-              alt='Logo'
-              src={toAbsoluteUrl('/media/logos/default-dark.svg')}
-              className='h-25px app-sidebar-logo-default theme-dark-show'
-            />
-          </>
-        )}
-
+          <img
+            alt='Logo'
+            src="	https://portal.arkinfotec.com/assets/images/logo-text.png"
+            className='h-45px w-100px app-sidebar-logo-default'
+          />
+        </div>
         <img
           alt='Logo'
-          src={toAbsoluteUrl('/media/logos/default-small.svg')}
-          className='h-20px app-sidebar-logo-minimize'
+          src="https://portal.arkinfotec.com/assets/images/logo-icon.png"
+          className='h-30px app-sidebar-logo-minimize'
         />
       </Link>
 
@@ -84,7 +75,7 @@ const SidebarLogo = (props: PropsType) => {
           id='kt_app_sidebar_toggle'
           className={clsx(
             'app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary h-30px w-30px position-absolute top-50 start-100 translate-middle rotate',
-            {active: appSidebarDefaultMinimizeDefault}
+            { active: appSidebarDefaultMinimizeDefault }
           )}
           data-kt-toggle='true'
           data-kt-toggle-state={toggleState}
@@ -98,4 +89,4 @@ const SidebarLogo = (props: PropsType) => {
   )
 }
 
-export {SidebarLogo}
+export { SidebarLogo }
