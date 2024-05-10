@@ -1,9 +1,9 @@
-import {createRoot} from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 // Axios
 import axios from 'axios'
-import {Chart, registerables} from 'chart.js'
-import {QueryClient, QueryClientProvider} from 'react-query'
-import {ReactQueryDevtools} from 'react-query/devtools'
+import { Chart, registerables } from 'chart.js'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 // Apps
 import './assets/fonticon/fonticon.css'
 import './assets/keenicons/duotone/style.css'
@@ -17,8 +17,8 @@ import './assets/keenicons/solid/style.css'
 import './assets/sass/style.scss'
 import './assets/sass/plugins.scss'
 import './assets/sass/style.react.scss'
-import {AppRoutes} from './routes/AppRoutes'
-import {AuthProvider, setupAxios} from './auth'
+import { AppRoutes } from './routes/AppRoutes'
+import { AuthProvider, setupAxios } from './auth'
 
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
@@ -39,10 +39,10 @@ const container = document.getElementById('root')
 if (container) {
   createRoot(container).render(
     <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left'/>
     </QueryClientProvider>
   )
 }

@@ -11,7 +11,7 @@ const SidebarMenuMain = () => {
     
       <SidebarMenuItem
         to='/board'
-        icon='abstract-28'
+        icon='abstract-4'
         title='NYC Seating'
         fontIcon='bi-layers'
       />  <SidebarMenuItem
