@@ -1,7 +1,7 @@
 # Ignore node_modules directory for Node.js/React
 /client/node_modules
 /server/node_modules
-
+.env
 # Ignore build artifacts for React
 /client/build/
 /client/dist/
