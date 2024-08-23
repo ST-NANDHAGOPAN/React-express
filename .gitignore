@@ -22,7 +22,7 @@
 /*.swo
 
 
-# Ignore npm/yarn lock files
-/client/yarn.lock
+# Ignore npm lock files
+
 /client/package-lock.json
 /server/package-lock.json
