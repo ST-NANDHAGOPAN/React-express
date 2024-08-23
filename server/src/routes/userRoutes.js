@@ -36,6 +36,7 @@ router.get("/address/:id", userController.getUserAddressById);
 
 // Create a new userAddress
 router.post("/address", userController.createUserAddress);
+
 // Update userAddress by ID
 router.put("/address/:id", userController.updateUserAddressById);
 

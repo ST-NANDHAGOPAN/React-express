@@ -19,6 +19,12 @@ const userAddressSchema = new mongoose.Schema({
 });
 const UserAddressModel = mongoose.model('UserAddress', userAddressSchema);
 
+const SeedFlagSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true }
+});
 
-module.exports = {UserModel ,UserAddressModel};
+const SeedFlagModel = mongoose.model('SeedFlag', SeedFlagSchema);
+
+
+module.exports = {UserModel, UserAddressModel, SeedFlagModel};
 

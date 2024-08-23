@@ -2,28 +2,65 @@ const {UserModel, UserAddressModel} = require('../models/userModel');
 const fs = require("fs")
 const path = require("path")
 const jwt = require("jsonwebtoken");
-const { UserRegisterModel, AdminRegisterModel } = require('../models/authModel');
+const { AdminRegisterModel } = require('../models/authModel');
+const client = require('../elasticsearch/elasticsearchClient');
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const limit = parseInt(req.query.items_per_page) || 10; 
-    const pageIndex = parseInt(req.query.page) || 1; 
-    const skip = limit * (pageIndex - 1); 
+    const { search: query, items_per_page, page, sort, order } = req.query;
 
-    let sort = {};
-    const sortBy = req.query.sort || 'createdAt'; // Default sorting by createdAt
-    const sortOrder = req.query.order === 'desc' ? -1 : 1; // Default order is ascending
+    // If there's a query parameter, perform search using Elasticsearch
+    if (query) {
+      try {
+        const body = await client.search({
+          index: 'users',
+          body: {
+            query: {
+              wildcard: {
+                name: `*${query.toLowerCase()}*`
+              }
+            }
+          }
+        });
+     
+        // Check if 'body' and 'body.hits' exist before trying to access them
+        if (body && body.hits) {
+          return res.json({
+            total: body.hits.total.value,
+            data: body.hits.hits.map(hit => hit._source),
+            message: "Search successful"
+          });
+        } else {
+          console.error('Unexpected Elasticsearch response structure:', body);
+          return res.status(500).json({ message: "Unexpected Elasticsearch response format" });
+        }
+      } catch (error) {
+        console.error('Error searching Elasticsearch:', error);
+        return res.status(500).json({ message: "Error searching Elasticsearch: " + error.message });
+      }
+    }
 
-    sort[sortBy] = sortOrder;
+    // Otherwise, fetch all users from the MongoDB database
+    const limit = parseInt(items_per_page) || 10;
+    const pageIndex = parseInt(page) || 1;
+    const skip = limit * (pageIndex - 1);
+
+    let sortOptions = {};
+    const sortBy = sort || 'createdAt'; 
+    const sortOrder = order === 'desc' ? -1 : 1;
+
+    sortOptions[sortBy] = sortOrder;
+
     const pipeline = [
-      { $sort: sort },
+      { $sort: sortOptions },
       { $skip: skip },
       { $limit: limit }
     ];
+
     const data = await UserModel.aggregate(pipeline);
     const totalData = await UserModel.countDocuments();
-    const totalDataReceived = data.length
-    const totalPages = Math.ceil(totalData / limit); 
+    const totalDataReceived = data.length;
+    const totalPages = Math.ceil(totalData / limit);
 
     const pagination = {
       page: pageIndex,
@@ -35,11 +72,11 @@ exports.getAllUsers = async (req, res) => {
       items_per_page: limit.toString(),
       prev_page_url: pageIndex > 1 ? `/?page=${pageIndex - 1}` : null,
       to: skip + data.length,
-      totalData: totalData ,
+      totalData: totalData,
       totalDataReceived: totalDataReceived
     };
 
-    // Generating links for pagination
+    // Generate links for pagination
     if (pageIndex > 1) {
       pagination.links.push({
         url: `/?page=${pageIndex - 1}`,
@@ -69,9 +106,11 @@ exports.getAllUsers = async (req, res) => {
 
     res.json({ pagination: pagination, data: data, message: "Data GET Success" });
   } catch (error) {
-    res.status(500).json({ message: "Internal error: " + error });
+    console.error('Internal error:', error);
+    res.status(500).json({ message: "Internal error: " + error.message });
   }
 };
+
 
 
 exports.getUserById = async (req, res) => {
@@ -106,6 +145,19 @@ exports.createUser = async (req, res) => {
       image :filename,
     });
     await postData.save();
+
+    await client.index({
+      index: 'users',
+      id: postData._id.toString(),
+      body: {
+        name: postData.name,
+        age: postData.age,
+        email: postData.email,
+        address: postData.address,
+        image: postData.image,
+      }
+    });
+
     const responseData = {
       receivedData: postData,
       message: "Data Received Successfully",
@@ -125,17 +177,16 @@ exports.updateUserById = async (req, res) => {
     if (req.file) {
       const filename = req.file.originalname;
       const fileData = req.file.buffer;
-      const uploadDir = path.join(__dirname , ".." , ".." , "public" , "uploads");
+      const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
       
-      // Save the new image file to the server
       if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
       fs.writeFileSync(path.join(uploadDir, filename), fileData);
 
-      // Add the image filename to the update data
       updateData.image = filename;
     }
+
     const putData = await UserModel.findByIdAndUpdate(
       id,
       updateData,
@@ -144,6 +195,16 @@ exports.updateUserById = async (req, res) => {
     if (!putData) {
       return res.status(404).json({ message: "Data not found" });
     }
+
+    // Update the user data in Elasticsearch
+    await client.update({
+      index: 'users',
+      id: id,
+      body: {
+        doc: updateData
+      }
+    });
+
     const responseData = {
       receivedData: putData,
       message: "Data Updated Successfully",
@@ -154,6 +215,7 @@ exports.updateUserById = async (req, res) => {
   }
 };
 
+
 exports.deleteUserById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -161,12 +223,20 @@ exports.deleteUserById = async (req, res) => {
     if (!deleteData) {
       return res.status(404).json({ message: "Data not found" });
     }
+
+    // Delete the user data from Elasticsearch
+    await client.delete({
+      index: 'users',
+      id: id
+    });
+
     const responseData = { message: "Data Deleted Successfully" };
     res.json(responseData);
   } catch (error) {
     res.status(500).json({ message: "Internal error: " + error });
   }
 };
+
 
 exports.getuserAddress = async (req,res) => {
   try {
